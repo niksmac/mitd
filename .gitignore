@@ -8,8 +8,7 @@ sites/*/private
 # Drupal core files 
 includes/
 misc/
-modules/
 profiles/
 scripts/
 themes/
-
+modules
