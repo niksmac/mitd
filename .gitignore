@@ -6,10 +6,10 @@ sites/*/files
 sites/*/private
 
 # Drupal core files 
-includes
-misc
-modules
-profiles
-scripts
-themes
+includes/
+misc/
+modules/
+profiles/
+scripts/
+themes/
 
