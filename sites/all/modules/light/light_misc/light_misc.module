@@ -1,3 +1,23 @@
 <?php
 
 
+function mitd_nid($uid, $op_nid) {
+    
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'node')
+	  ->entityCondition('bundle', 'proposals')
+	  ->propertyCondition('status', 1) // published? yes
+	  ->fieldCondition('field_opportunity', 'nid', $op_nid);
+	$result = $query->execute();
+
+	if (isset($result['node'])) {
+	  $items_nids = array_keys($result['node']);
+	  $items = entity_load('node', $items_nids);
+	}
+
+	//print_r($result);
+	return $result;
+
+}
+
+
