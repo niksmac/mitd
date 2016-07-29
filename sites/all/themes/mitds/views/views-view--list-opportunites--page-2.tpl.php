@@ -25,9 +25,7 @@
   <?php 
     global $user;
     $proposal_data = mitd_nid($user->uid, $value['nid']);
-    if($proposal_data){
-   
-  
+    if($proposal_data){     
   ?>
   <a href="<?php echo url("node/".$value['nid']); ?>">View Proposal</a><?php } else{?>
 

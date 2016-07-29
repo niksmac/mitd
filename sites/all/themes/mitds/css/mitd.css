@@ -2,23 +2,15 @@
 	margin-top: 10px;
 }
 .mar-30-h{
- margin: 30px 0;
+ 	margin: 30px 0;
 }
 .mar-top10 {
 	margin: 10px 0;
 }
-.date-combo.panel {
-
-}
-.date-combo.panel .panel-body {
-
-}
-.panel-default{
-/*position: relative;
-    bottom: 25px;*/
+.mar-bot50 {
+	margin-bottom: 50px;
 }
 .air-card{
-	background-color: #fff;
-	padding: 40px; 
-	margin: 40px -40px;
+    background: #fff;
+    padding: 1px 21px;
 }

@@ -20,4 +20,15 @@ function mitd_nid($uid, $op_nid) {
 
 }
 
+function mitd_opportunity_count($uid) {	
+	$query = db_select('node', 'n')
+	  ->fields('n')
+      ->condition('type', 'opportunity')
+     ->condition('uid', $uid)
+      ->countQuery()
+      ->execute()
+       ->fetchAssoc();
+     return $query['expression'];
+}
+
 
