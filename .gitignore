@@ -9,6 +9,6 @@ sites/*/private
 misc/
 profiles/
 scripts/
-themes/
+/themes/
 /modules
 /includes

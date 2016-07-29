@@ -1,0 +1,44 @@
+name = MakeItDeals Subtheme
+description = MakeitDeals Subtheme.
+core = 7.x
+base theme = bootstrap
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[navigation]     = 'Navigation'
+regions[header]         = 'Top Bar'
+regions[highlighted]    = 'Highlighted'
+regions[help]           = 'Help'
+regions[content]        = 'Content'
+regions[sidebar_first]  = 'Primary'
+regions[sidebar_second] = 'Secondary'
+regions[footer]         = 'Footer'
+regions[page_top]       = 'Page top'
+regions[page_bottom]    = 'Page bottom'
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+
+stylesheets[all][] = css/owl.carousal.css
+stylesheets[all][] = css/main-style.css
+stylesheets[all][] = css/style.css
+stylesheets[all][] = css/mitd.css
+
+
+
+scripts[] = js/plugins/superfish.min.js
+scripts[] = js/plugins/rangeslider.min.js
+scripts[] = js/plugins/jquery.flexslider-min.js
+scripts[] = js/uou-accordions.js
+scripts[] = js/uou-tabs.js
+scripts[] = js/plugins/select2.min.js
+scripts[] = js/owl.carousel.min.js
+scripts[] = js/mitds.js
+
+
