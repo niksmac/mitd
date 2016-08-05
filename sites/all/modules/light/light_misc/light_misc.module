@@ -2,7 +2,7 @@
 
 
 function mitd_nid($uid, $op_nid) {
-    
+
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'node')
 	  ->entityCondition('bundle', 'proposals')
@@ -20,7 +20,7 @@ function mitd_nid($uid, $op_nid) {
 
 }
 
-function mitd_opportunity_count($uid) {	
+function mitd_opportunity_count($uid) {
 	$query = db_select('node', 'n')
 	  ->fields('n')
       ->condition('type', 'opportunity')
@@ -30,5 +30,4 @@ function mitd_opportunity_count($uid) {
        ->fetchAssoc();
      return $query['expression'];
 }
-
 

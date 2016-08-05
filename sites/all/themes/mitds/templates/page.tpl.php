@@ -24,14 +24,14 @@
   </div>
   <!-- end toolbar -->
 
-    <div class="box-shadow-for-ui">
+  <div class="box-shadow-for-ui">
     <div class="uou-block-2b">
       <div class="container">
-      <?php if ($logo): ?>
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
+        <?php if ($logo): ?>
+          <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
           <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
-        </a>
-        <?php endif; ?> 
+          </a>
+        <?php endif; ?>
         <!-- <a href="index.html#" class="logo"><img src="<?php //print $theme_path;?>/logo.png" alt=""></a> <a href="index.html#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a> -->
         <nav class="nav">
         <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('sf-menu')), 'heading' => t(''))); ?>
@@ -41,25 +41,32 @@
     <!-- end .uou-block-2b -->
   </div>
 
-  <div class="profile-bnr sub-bnr user-profile-bnr">
-    <div class="position-center-center">
-      <div class="container">
-        <?php print render($title_prefix); ?>
-          <?php if ($title): ?><h2 class="title" id="page-title"><?php print $title; ?></h2><?php endif; ?>
-        <?php print render($title_suffix); ?>
+  <div class="profile-bnr user-profile-bnr">
+    <div class="container">
+     <div class="row">
+      <div class="col-md-12">
+        <div class="pull-left">
+          <?php print render($title_prefix); ?>
+            <?php if ($title): ?><h2 class="title" id="page-title"><?php print $title; ?></h2><?php endif; ?>
+          <?php print render($title_suffix); ?>
+        </div>
+        <div class="right-top-bnr">
+            <div class="connect">
+              <div class="bt-ns"> <a href="#"><i class="fa fa-exclamation"></i> </a> </div>
+            </div>
+        </div>
       </div>
-
+     </div>
+     <div class="row">
+       <div class="col-md-12 tab-wrapper">
+          <?php if ($tabs): ?><?php print render($tabs); ?><?php endif ?>
+      </div>
+    </div>
     </div>
   </div>
 
   <div class="container content-wrapper">
-   <div class="row">
-      <div class="col-md-12 mar-30-h">
-          <?php if ($tabs): ?><?php print render($tabs); ?><?php endif; ?>
-      </div>
-   </div>
-
-   <div class="row">
+  <div class="row">
     <?php if ($page['sidebar_first']): ?>
       <div id="sidebar-first" class="col-md-3">
         <?php print render($page['sidebar_first']); ?>
@@ -78,8 +85,8 @@
     <?php endif; ?>
   </div>
 
-   </div>
   </div>
+</div>
 
 </div>
 
@@ -136,7 +143,7 @@
       <li><a href="#">Privacy Policy</a></li>
       <li><a href="#">Terms &amp; Conditions</a></li>
     </ul>
-    <p>Copyright &copy; 2016 </p>  
+    <p>Copyright &copy; 2016 </p>
   </div>
 </div>
 <!-- end .uou-block-4a -->

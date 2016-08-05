@@ -2269,12 +2269,12 @@ iframe {
 .network h4 {
 	margin-top: 0px;
 }
-.profile-company-content .nav-tabs li {
+.user-profile-bnr .nav-tabs li {
 	margin-right: 3px;
 	display: inline-block;
 	box-shadow: -1px -1px 2px rgba(206, 206, 206, 0.5);
 }
-.profile-company-content .nav-tabs li a {
+.user-profile-bnr .nav-tabs li a {
 	padding: 9px 10px;
 	display: inline-block;
 	text-align: center;
@@ -2944,22 +2944,19 @@ CANVAS PAGE STYLE
 .profile-company-content .sidebar .sidebar-information .single-category .title {
 	margin-top: 0px;
 }
-.profile-company-content.main-user .nav-tabs {
-	position: absolute;
-	top: -104px;
-}
-.profile-company-content.main-user .nav-tabs li a {
+
+.user-profile-bnr .nav-tabs li a {
 	text-transform: none;
 	font-size: 16px;
 	color: #a2a2a2;
 	padding: 10px 20px;
 	background: #eeeeee;
 }
-.profile-company-content.main-user .nav-tabs li a:hover {
+.user-profile-bnr .nav-tabs li a:hover {
 	background: #f8f8f8;
 	color: #333333;
 }
-.profile-company-content.main-user .nav-tabs li.active a {
+.user-profile-bnr .nav-tabs li.active a {
 	background: #f8f8f8;
 	color: #333333;
 }
@@ -3175,7 +3172,7 @@ CANVAS PAGE STYLE
 	font-size:26px;
 }
 .profile-company-content .network .nav-tabs li a{
-    padding: 10px 10px;	
+    padding: 10px 10px;
 	font-size:12px;
 }
 .pro-mem .col-sm-3{

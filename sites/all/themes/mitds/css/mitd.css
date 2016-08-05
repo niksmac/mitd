@@ -1,5 +1,5 @@
 .content-wrapper{
-	margin-top: 10px;
+	margin-top: 40px;
 }
 .mar-30-h{
  	margin: 30px 0;
@@ -13,4 +13,22 @@
 .air-card{
     background: #fff;
     padding: 1px 21px;
+}
+.user-profile-bnr{min-height: 200px;}
+.tabs--primary{margin-bottom: 0px !important}
+.tab-wrapper{margin-top: 25px;}
+.user-profile-bnr .nav-tabs{
+	border : 0px;
+}
+.profile-main h3 {
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 0px;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 30px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.about-me{
+    margin-bottom: 20px
 }

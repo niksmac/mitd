@@ -48,7 +48,7 @@
 
       <div class="air-card mar-bot50">
         <h2 class="m-0-top">Proposal</h2>
-        <?php print views_embed_view('proposals','block'); ?>
+        <?php //print views_embed_view('proposals','block'); ?>
       </div>
 
     </div>
