@@ -96,7 +96,7 @@
                 </div>
         </div>
         <div class="sidebar">
-            <h5 class="main-title">Prposed Opportunities</h5>                                            
+            <h5 class="main-title">Proposed Opportunities</h5>                                            
                 <?php print views_embed_view('proposals','block_1'); ?>
         </div>
   	</div>
