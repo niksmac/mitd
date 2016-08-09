@@ -41,11 +41,11 @@
       <div class="listing-tabs">
         <ul>
           <li class="col-md-4"><a href="#">
-              <i class="fa fa-envelope"></i><?php echo $value['field_contact_email']; ?></a>  
+              <i class="fa fa-envelope"></i>   <?php echo $value['field_contact_email']; ?></a>  
           </li>
-          <li class="col-md-4"><a href="#"><i class="fa fa-phone"></i><?php echo $value['field_contact_phone']; ?></a>
+          <li class="col-md-4"><a href="#"><i class="fa fa-phone"></i>   <?php echo $value['field_contact_phone']; ?></a>
           </li>
-          <li class="col-md-4"><a href="#"><i class="fa fa-globe"></i><?php echo $value['field_contact_phone']; ?></a>
+          <li class="col-md-4"><a href="#"><i class="fa fa-globe"></i>   <?php echo $value['field_contact_phone']; ?></a>
           </li>          
         </ul>
       </div>

@@ -1,3 +1,4 @@
+<?php if ($rows): ?>
 <div class="similar">
     <?php foreach ($view->style_plugin->rendered_fields as $key => $value) { ?>
     <div class="media">                           
@@ -6,14 +7,15 @@
             <p><?php echo $value['field_organization_name']; ?> - <?php echo $value['country']; ?> </p>
             <p><?php echo $value['field_general_requirements']; ?></p>
             <div class="share-w">
-                <a href="#.">
+                <a href="<?php echo url("node/".$value['nid']); ?>">
                     <i class="fa fa-bookmark-o"></i>
                 </a>                 
-                <a href="<?php echo url("node/".$value['nid']); ?>">
+                <a href="<?php echo url("node/".$value['nid_1']); ?>">
                     <i class="fa fa-eye"></i>
                 </a>
             </div>
         </div>        
     </div>
     <?php }?>
-</div>                                                                               
+</div>
+<?php endif;?>                                                                             
