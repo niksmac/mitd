@@ -2257,7 +2257,7 @@ iframe {
 .profile-company-content {
 	position: relative;
 	padding: 60px 0 70px 0;
-	background: #fff;
+	/*background: #fff;*/
 }
 .profile-company-content .nav-tabs {
 	position: relative;
