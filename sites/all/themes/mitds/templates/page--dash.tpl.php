@@ -1,4 +1,5 @@
 <?php global $base_url; $theme_path = $base_url.'/'.drupal_get_path('theme', 'mitds');?>
+<?php drupal_set_title($full_name); ?> 
 <div id="main-wrapper">
 
   <!-- Top Toolbar -->
@@ -78,8 +79,7 @@
     <?php endif; ?>
 
     <div class="profile-main pages <?php echo $page_class; ?>">
-      <h3><?php print $title; ?></h3>
-      <div class="profile-company-content profile-in">
+      <div class="profile-company-content profile-in mar-top20">
         <?php print render($page['content']); ?>
       </div>
     </div>

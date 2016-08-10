@@ -1,33 +1,28 @@
 <?php if ($rows): ?>
+<div class="air-card mar-bot50">
 <div class="similar">
-    <?php 
+
+  <?php 
   if ( empty($title) ): 
     $title = $view->get_title(); 
     endif; 
     if ($title): ?>
-      <div class="main-title"><b><?php print t($title)?></b></div>
+      <h3 class="sub-title"><b><?php print t($title)?></b></h3>
     <?php endif; ?>
     <?php foreach ($view->style_plugin->rendered_fields as $key => $value) { ?>
     <div class="media">                           
         <div class="media-body">
             <h5><?php echo $value['title']; ?></h5>
-            <p><?php echo $value['field_organization_name']; ?> - <?php echo $value['country']; ?> </p>
-            <p><?php echo $value['field_general_requirements']; ?></p>
+            <h5>Proposal Description</h5>             
+            <p><?php echo $value['field_proposal_description']; ?></p>           
             <div class="share-w">
                 <a href="<?php echo url("node/".$value['nid']); ?>">
                     <i class="fa fa-bookmark-o"></i>
-                </a>                 
-                <a href="<?php echo url("node/".$value['nid_1']); ?>">
-                    <i class="fa fa-eye"></i>
-                </a>
+                </a>                                 
             </div>
         </div>        
     </div>
     <?php }?>
 </div>
-<?php elseif ($empty): ?>
-    <div class="view-empty">
-      <?php print $empty; ?>
-    </div>
-  <?php// endif; ?>
+</div>
 <?php endif;?>                                                                             

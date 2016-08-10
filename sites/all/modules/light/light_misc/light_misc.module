@@ -7,6 +7,7 @@ function mitd_nid($uid, $op_nid) {
 	$query->entityCondition('entity_type', 'node')
 	  ->entityCondition('bundle', 'proposals')
 	  ->propertyCondition('status', 1) // published? yes
+	  ->propertyCondition('uid', $uid)
 	  ->fieldCondition('field_opportunity', 'nid', $op_nid);
 	$result = $query->execute();
 

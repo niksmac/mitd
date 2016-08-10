@@ -15,7 +15,7 @@
     <div class="col-md-12">                
 
       <div class="air-card mar-bot50">
-        <h2 class="m-0-top">General Requirements</h2>
+        <h3 class="m-0-top sub-title">General Requirements</h3>
         <p class="break" data-ng-non-bindable>
           <?php print render($node->field_general_requirements['und']['0']['value']);?>
         </p>
@@ -30,8 +30,8 @@
 
       <div class="air-card mar-bot50">
         <div class="row">
-          <div class="col-md-6">
-            <p class="m-md-bottom"><strong><h2>Important Dates </h2></strong></p>
+          <div class="col-md-12">
+            <p class="m-md-bottom"><strong><h3 class="sub-title">Important Dates </h3></strong></p>
 
             <ul class="list-group"> 
               <li class="list-group-item"><?php print render($content['field_rfp_issue_date']); ?></li>
@@ -45,11 +45,9 @@
           </div>
         </div>
       </div>
-
-      <div class="air-card mar-bot50">
-        <h2 class="m-0-top">Proposal</h2>
-        <?php print views_embed_view('proposals','block'); ?>
-      </div>
+        
+        <?php print views_embed_view('proposals','block'); ?>       
+        <?php print views_embed_view('proposals','block_2'); ?>
 
     </div>
   </div>

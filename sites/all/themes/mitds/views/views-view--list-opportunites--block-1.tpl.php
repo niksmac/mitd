@@ -16,13 +16,13 @@
 	$opportunity_count = mitd_opportunity_count($value['uid']);	
 	?>
 	<!-- <p>18 Jobs Posted </p> -->
-	<p><?php echo $opportunity_count; ?> Jobs Posted </p>
+	<p><?php echo $opportunity_count; ?> Opportunities Posted </p>
 	<!-- <p>Member Since Feb 25, 2016</p> -->
 	<p>Member Since <?php echo $value['created']; ?></p>
 </div>
 <hr>
 <div class="row">
-	<a class="btn btn-primary btn-block">Default</a>
+	<a href="<?php echo url("node/add/proposals")?>" class="btn btn-primary btn-block">Submit Proposal</a>
 	<a class="btn btn-warning btn-block">Primary</a>
 </div>
 <?php } ?>

@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div class="container content-wrapper">
+  <div class="container content-wrapper compny-profile">
   <div class="row">
     <?php if ($page['sidebar_first']): ?>
       <div id="sidebar-first" class="col-md-3">

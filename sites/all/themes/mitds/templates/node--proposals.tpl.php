@@ -8,13 +8,16 @@
       <div class="sidebar-information"> 
         <div class="single-category">
           <p><?php print render($content['field_proposal_description']); ?></p>
+          <h5 class="main-title">Milestones</h5>
+          <p><?php print render($content['field_milestones']); ?></p>
           <h5 class="main-title">Key Deliverables</h5>
           <p><?php print render($content['field_key_deliverables']); ?></p>
           <h5 class="main-title">Remarks</h5>
           <p><?php print render($content['field_remarks']); ?></p>
         </div>
       </div>
-    </div>                 
+    </div>
+    <?php print render($content['comments']); ?>                 
   </div>
   <div class="col-md-4"> 
 <!-- Professional Details -->
@@ -34,10 +37,10 @@
             <h6 class="title col-xs-6">Pricing</h6>
             <span class="subtitle col-xs-6"><?php print render($content['field_pricing']); ?></span>
           </li>
-          <li class="row">
+          <!-- <li class="row">
             <h6 class="title col-xs-6">Milestones</h6>
-            <span class="subtitle col-xs-6"><?php print render($content['field_milestones']); ?></span>
-          </li>
+            <span class="subtitle col-xs-6"><?php //print render($content['field_milestones']); ?></span>
+          </li> -->
           <li class="row">
             <h6 class="title col-xs-6">Cost(USD)</h6>
             <span class="subtitle col-xs-6"><?php print render($content['field_cost_usd_fixed']); ?></span>
@@ -46,6 +49,7 @@
       </div>
     </div>
   </div>
+
 </div>
 </div>
 <?php endif; ?>
