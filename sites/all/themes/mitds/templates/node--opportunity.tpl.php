@@ -1,5 +1,5 @@
-<?php if($view_mode == "full") : ?>  
-
+<?php if($view_mode == "full") : //print $uid; ?>  
+<?php global $user;?>
   <div class="row">
     <div class="mar-bot50">
       <div class="col-md-6">
@@ -46,8 +46,9 @@
         </div>
       </div>
         
-        <?php print views_embed_view('proposals','block'); ?>       
-        <?php print views_embed_view('proposals','block_2'); ?>
+        <?php print views_embed_view('proposals','block'); ?>
+        <?php if($user->uid == $uid) { ?>
+        <?php print views_embed_view('proposals','block_2'); } ?>
 
     </div>
   </div>

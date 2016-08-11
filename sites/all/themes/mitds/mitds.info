@@ -25,7 +25,6 @@ regions[page_bottom]    = 'Page bottom'
 ;;;;;;;;;;;;;;;;;;;;;
 
 
-stylesheets[all][] = css/owl.carousal.css
 stylesheets[all][] = css/main-style.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/mitd.css

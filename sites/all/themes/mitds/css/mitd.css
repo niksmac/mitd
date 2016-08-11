@@ -56,3 +56,14 @@
 .client-description{
     margin-left: -66px;
 }
+.page-user #user-login .form-submit, #user-pass .form-submit{
+    background-color: #bfbaba;
+}
+.views-exposed-form .views-exposed-widget{
+    padding: 0;
+    padding-right:10px;
+}
+.views-exposed-widgets{
+    padding-left: 10px;
+    padding-top: 15px;
+}

@@ -1,4 +1,5 @@
-<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { ;?>
+<?php if ($rows): ?>
+<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { ?>
 <div class="row">
 
 	<?php 
@@ -22,7 +23,12 @@
 </div>
 <hr>
 <div class="row">
-	<a href="<?php echo url("node/add/proposals")?>" class="btn btn-primary btn-block">Submit Proposal</a>
-	<a class="btn btn-warning btn-block">Primary</a>
+	<a href="<?php echo url("node/add/proposals/".$value['nid'])?>" class="btn btn-primary btn-block">Submit Proposal</a>
+	
 </div>
 <?php } ?>
+<?php elseif ($empty): ?>
+    <div class="view-empty">
+      <?php print $empty; ?>
+    </div>
+  <?php endif; ?>

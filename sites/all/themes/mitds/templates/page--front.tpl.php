@@ -10,19 +10,15 @@
           <li><a href="//twitter.com/makeitdeals" class="fa fa-twitter"></a></li>
           <li><a href="//plus.google.com" class="fa fa-google-plus"></a></li>
         </ul>
-        <ul class="authentication">
+        
           
           <?php if (user_is_logged_in()) : ?>
-
-          <li><a href="<?php print url("user"); ?>"><span>My Account</span></a></li>
-          <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
-
-          <?php else: ?>
-
-          <li><a href="<?php print url("user/register"); ?>">Register</a></li>
-
+          <ul class="authentication">
+            <li><a href="<?php print url("user"); ?>"><span>My Account</span></a></li>
+            <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
+          </ul>
           <?php endif; ?>
-        </ul>
+        
       </div>
     </div>
     <!-- end .uou-block-1a -->
@@ -226,7 +222,7 @@
                 <div class="media-left"> <a href="index.html#."> <img src="<?php print $theme_path;?>/images/clients-avatar-1.jpg" alt=""> </a> </div>
                 <div class="media-body">
                   <h6>John Kevin Mara</h6>
-                  <span>smashingmagazine.com</span> </div>
+                  <span>loremipsum.com</span> </div>
               </div>
             </div>
 
@@ -239,7 +235,7 @@
                 <div class="media-left"> <a href="index.html#."> <img src="<?php print $theme_path;?>/images/clients-avatar-1.jpg" alt=""> </a> </div>
                 <div class="media-body">
                   <h6>John Kevin Mara</h6>
-                  <span>smashingmagazine.com</span> </div>
+                  <span>loremipsum.com</span> </div>
               </div>
             </div>
 

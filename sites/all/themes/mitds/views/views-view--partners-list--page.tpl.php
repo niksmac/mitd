@@ -1,3 +1,4 @@
+<?php if ($rows): ?>
 <div class="profile"<?php print $attributes; ?>>
   <div class="row">  
     <div class="col-md-12">
@@ -57,3 +58,8 @@
 </div> 
 </div>
 </div>
+<?php elseif ($empty): ?>
+    <div class="view-empty">
+      <?php print $empty; ?>
+    </div>
+  <?php endif; ?>

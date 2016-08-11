@@ -1,10 +1,5 @@
-(function ($) {
-
-  $('.sponsors-slider').owlCarousel({
-    items: 6
-  });
-
-  $('.texti-slide').owlCarousel({
+jQuery( document ).ready(function() {
+jQuery('.texti-slide').owlCarousel({
     loop:true,
     nav:true,
     items: 2,
@@ -21,9 +16,8 @@
               items:2
           },
   }});
-
-
-  $('.uou-tabs').uouTabs();
-
-
-}(jQuery));
+jQuery('.sponsors-slider').owlCarousel({
+    items: 6
+  });
+jQuery('.uou-tabs').uouTabs();
+});

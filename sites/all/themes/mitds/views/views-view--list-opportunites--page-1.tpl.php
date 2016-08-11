@@ -10,7 +10,7 @@
     </div>    
   </div>  
 
-<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { ?>
+<?php foreach ($view->style_plugin->rendered_fields as $key => $value) {//print_r($value); ?>
   <div class="listing listing-1 listing-new-style">
     <div class="listing-section">
       <div class="listing-ver-3">
@@ -22,7 +22,7 @@
       <div class="listing-inner">
         <div class="listing-content">
           <h6 class="title-company"><?php echo $value['field_organization_name']; ?></h6>
-          <span class="location"> <i class="fa fa-map-marker"></i><?php echo $value['city'];?> ,<?php echo $value['country']; ?></span> 
+          <span class="location"> <i class="fa fa-map-marker"></i><?php echo $value['city'];?> <?php echo $value['country']; ?></span> 
           <!-- <span class="type-work full-time"> Full Time </span> -->
           <p><?php echo $value['field_general_requirements']; ?><a href="<?php echo url("node/".$value['nid']); ?>">read more</a></p>
           <h6 class="title-tags">Software Technology Required:</h6>
@@ -41,13 +41,16 @@
       </div>
       <div class="listing-tabs">
         <ul>
+          <?php if($value['field_contact_email'] != ''){?>
           <li class="col-md-4"><a href="#">
               <i class="fa fa-envelope"></i>   <?php echo $value['field_contact_email']; ?></a>  
-          </li>
+          </li><?php } ?>
+          <?php if($value['field_contact_phone'] != ''){?>
           <li class="col-md-4"><a href="#"><i class="fa fa-phone"></i>   <?php echo $value['field_contact_phone']; ?></a>
-          </li>
-          <li class="col-md-4"><a href="#"><i class="fa fa-globe"></i>   <?php echo $value['field_contact_phone']; ?></a>
-          </li>          
+          </li><?php } ?>
+          <?php if($value['field_organization_url'] != ''){?>
+          <li class="col-md-4"><a href="#"><i class="fa fa-globe"></i>   <?php echo $value['field_organization_url']; ?></a>
+          </li><?php } ?>          
         </ul>
       </div>
      
