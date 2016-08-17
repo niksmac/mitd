@@ -7,8 +7,8 @@ configure = admin/config/content/hierarchical_select
 files[] = tests/internals.test
 
 ; Information added by Drupal.org packaging script on 2016-06-03
-version = "7.x-3.0-beta6+5-dev"
+version = "7.x-3.0-beta7"
 core = "7.x"
 project = "hierarchical_select"
-datestamp = "1464980960"
+datestamp = "1464981541"
 

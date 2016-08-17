@@ -53,29 +53,25 @@ function field_permissions_list($field_label = '') {
  *   An array of permission information, suitable for use in hook_permission().
  */
 function field_permissions_list_field_permissions($field, $label = NULL) {
-  $description = '';
-
-  // If there is no preferred label, construct one from all the instance
-  // labels.
   if (!isset($label)) {
-    $labels = array();
-    foreach ($field['bundles'] as $entity_type => $bundles) {
-      foreach ($bundles as $bundle_name) {
-        $instance = field_info_instance($entity_type, $field['field_name'], $bundle_name);
-        $labels[] = $instance['label'];
+    $label = $field['field_name'];
+  }
+  $instances = array();
+  foreach ($field['bundles'] as $entity_type => $bundles) {
+    foreach ($bundles as $bundle_name) {
+      $instance = field_info_instance($entity_type, $field['field_name'], $bundle_name);
+      $entity = entity_get_info($entity_type);
+      if (!isset($entity['bundles'][$bundle_name])) {
+        continue;
       }
+      $instance_desc_tokens = array(
+        $entity['label'],
+        $entity['bundles'][$bundle_name]['label'],
+        $instance['label'],
+      );
+      $instances[] = '"' . implode(':', $instance_desc_tokens) . '"';
     }
-    // If all the instances have the same label, just use that. Otherwise, use
-    // the field name (with the full list of instance labels as the permission
-    // description).
-    $labels = array_unique($labels);
-    if (count($labels) == 1) {
-      $label = array_shift($labels);
-    }
-    else {
-      $label = $field['field_name'];
-      $description = t('This field appears as: %instances', array('%instances' => implode(', ', $labels)));
-    }
+    $description = t('This field appears as: %instances.', array('%instances' => implode(', ', $instances)));
   }
 
   $permissions = array();
@@ -335,26 +331,30 @@ function field_permissions_overview() {
   }
   $destination = drupal_get_destination();
 
-  // Load list of field instances, types and bundles in the system.
-  $instances = field_info_instances();
+  // Load list of fields, field types and bundles in the system.
   $field_types = field_info_field_types();
-  $bundles = field_info_bundles();
+  $bundles_info = field_info_bundles();
 
   // Retrieve the permissions for each role.
   $role_permissions = user_role_permissions(user_roles());
 
   // Based on field_ui_fields_list() in field_ui.admin.inc.
   $rows = array();
-  foreach ($instances as $obj_type => $type_bundles) {
-    foreach ($type_bundles as $bundle => $bundle_instances) {
-      foreach ($bundle_instances as $field_name => $instance) {
+  foreach (field_info_fields() as $field_name => $field) {
+    foreach ($field['bundles'] as $entity_type => $bundles) {
+      foreach ($bundles as $bundle) {
+        // Some fields might belong to bundles that are disabled (which are not
+        // returned by field_info_bundles()).
+        // @see https://www.drupal.org/node/1351506
+        if (!isset($bundles_info[$entity_type][$bundle])) {
+          continue;
+        }
         // Each field will have a row in the table.
-        $field = field_info_field($field_name);
-        $admin_path = _field_ui_bundle_admin_path($obj_type, $bundle);
+        $admin_path = _field_ui_bundle_admin_path($entity_type, $bundle);
         $rows[$field_name]['data'][0] = $field['locked'] ? t('@field_name (Locked)', array('@field_name' => $field_name)) : $field_name;
         $rows[$field_name]['data'][1] = t($field_types[$field['type']]['label']);
-        $rows[$field_name]['data'][2] = $obj_type;
-        $rows[$field_name]['data'][3][] = l($bundles[$obj_type][$bundle]['label'], $admin_path . '/fields/'. $field_name, array(
+        $rows[$field_name]['data'][2] = $entity_type;
+        $rows[$field_name]['data'][3][] = l($bundles_info[$entity_type][$bundle]['label'], $admin_path . '/fields/'. $field_name, array(
           'query' => $destination,
           'fragment' => 'edit-field-field-permissions-type',
         ));

@@ -162,11 +162,11 @@ class FieldPermissionsTestCase extends DrupalWebTestCase {
     // See if we have that exposed on the permissions UI as well now.
     $this->drupalGet('admin/people/permissions');
     $this->assertText(t('Field Permissions'));
-    $this->assertRaw(t('Create own value for field %field', array('%field' => $field_info['name'])));
-    $this->assertRaw(t('Edit own value for field %field', array('%field' => $field_info['name'])));
-    $this->assertRaw(t("Edit anyone's value for field %field", array('%field' => $field_info['name'])));
-    $this->assertRaw(t('View own value for field %field', array('%field' => $field_info['name'])));
-    $this->assertRaw(t("View anyone's value for field %field", array('%field' => $field_info['name'])));
+    $this->assertRaw(t('Create own value for field %field', array('%field' => $field_info['machine_name'])));
+    $this->assertRaw(t('Edit own value for field %field', array('%field' => $field_info['machine_name'])));
+    $this->assertRaw(t("Edit anyone's value for field %field", array('%field' => $field_info['machine_name'])));
+    $this->assertRaw(t('View own value for field %field', array('%field' => $field_info['machine_name'])));
+    $this->assertRaw(t("View anyone's value for field %field", array('%field' => $field_info['machine_name'])));
 
     // == CREATE ===============================================================
 
