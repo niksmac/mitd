@@ -41,7 +41,7 @@
       </div>
       <div class="listing-tabs">
         <ul>
-          <?php if($value['field_contact_email'] != ''){?>
+          <?php if(!empty($value['field_contact_email'])){?>
           <li class="col-md-4"><a href="#">
               <i class="fa fa-envelope"></i>   <?php echo $value['field_contact_email']; ?></a>  
           </li><?php } ?>

@@ -39,12 +39,12 @@
             global $user;
             //print_r($user->uid);
             $proposal_data = mitd_nid($user->uid, $value['nid']);
-            if($proposal_data){     
+            if(!empty($proposal_data)){     
           ?>
-          <li class="col-md-4"><a href="<?php echo url("node/".$value['nid']); ?>"></i>View Proposal</a><?php }
+          <li class="col-md-4"><a href="<?php echo url("node/".$proposal_data[0]); ?>"></i>View Proposal</a><?php }
           else{?>
           </li>
-          <li class="col-md-4"><a href="/makeitdeals/?q=node/add/proposals"></i>Submit Proposal</a>
+          <li class="col-md-4"><a href="<?php echo url("node/add/proposals/".$value['nid'])?>"></i>Submit Proposal</a>
           <?php } ?>          
         </ul>
       </div>

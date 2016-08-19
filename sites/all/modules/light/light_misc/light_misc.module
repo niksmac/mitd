@@ -4,6 +4,7 @@
 function mitd_nid($uid, $op_nid) {
 
 	$query = new EntityFieldQuery();
+	$items_nids = array();
 	$query->entityCondition('entity_type', 'node')
 	  ->entityCondition('bundle', 'proposals')
 	  ->propertyCondition('status', 1) // published? yes
@@ -13,11 +14,10 @@ function mitd_nid($uid, $op_nid) {
 
 	if (isset($result['node'])) {
 	  $items_nids = array_keys($result['node']);
-	  $items = entity_load('node', $items_nids);
+	  //$items = entity_load('node', $items_nids);
 	}
 
-	//print_r($result);
-	return $result;
+	return $items_nids;
 
 }
 
@@ -30,6 +30,15 @@ function mitd_opportunity_count($uid) {
       ->execute()
        ->fetchAssoc();
      return $query['expression'];
+}
+
+function mitd_proposals_count($nid) {
+
+  $result = array();
+  if (module_exists('views'))
+    $result = views_get_view_result('proposals', 'block_2', $nid);
+
+  return count($result);
 }
 
 function light_misc_form_alter(&$form, &$form_state, $form_id) {

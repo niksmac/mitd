@@ -9,7 +9,7 @@
     if ($title): ?>
       <h3 class="sub-title"><b><?php print t($title)?></b></h3>
     <?php endif; ?>
-    <?php foreach ($view->style_plugin->rendered_fields as $key => $value) { ?>
+    <?php foreach ($view->style_plugin->rendered_fields as $key => $value) {?>
     <div class="media">                           
         <div class="media-body">
             <h5><?php echo $value['title']; ?></h5>
