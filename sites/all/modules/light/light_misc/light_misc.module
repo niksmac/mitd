@@ -32,3 +32,15 @@ function mitd_opportunity_count($uid) {
      return $query['expression'];
 }
 
+function light_misc_form_alter(&$form, &$form_state, $form_id) {
+	global $user;
+	switch ($form_id) {
+		case "user_login":
+		$options = array('attributes' => array('class' => 'on-right'));
+		$form['resetlink'] = array(
+			'#type' => 'item',
+			'#markup' => l('Forgot Password?', 'user/password', $options)
+			);
+		break;
+	}
+}

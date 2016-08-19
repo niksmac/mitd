@@ -62,4 +62,5 @@
     <div class="view-empty">
       <?php print $empty; ?>
     </div>
+    <?php print $exposed; ?>
   <?php endif; ?>
