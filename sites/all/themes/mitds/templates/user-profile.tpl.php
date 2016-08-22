@@ -57,6 +57,7 @@
                     <?php print render($user_profile['field_industry']); ?>
                     <?php print render($user_profile['field_hardware_technology']); ?>
                     <?php print render($user_profile['field_differentiator']); ?>
+                    <?php print render($user_profile['field_industry_sector']); ?>
                 </div>
             </div>                
         </div>
