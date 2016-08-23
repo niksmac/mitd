@@ -62,3 +62,31 @@ function mitds_menu_link_alter(&$link) {
     $link['options']['alter'] = TRUE;
   }
 }
+
+function mitds_form_comment_form_alter(&$form, &$form_state) {
+  //print_r($form_state);
+  $form['author']['#type'] = 'fieldset';
+  $form['author']['#title'] = 'Your Information';
+  $form['author']['#collapsible'] = FALSE;
+
+  $form['your_comment'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Your Comment'),
+    '#collapsible' => FALSE,
+    '#weight' => 2,
+  );
+
+  //Subject
+  $form['your_comment']['subject'] = $form['subject'];
+  unset($form['subject']);
+  $form['your_comment']['subject']['#weight'] = -10;
+
+  //Comment
+  $form['your_comment']['comment_body'] = $form['comment_body'];
+  unset($form['comment_body']);
+
+  $form['author']['homepage']['#access'] = FALSE;
+
+  $form['author']['mail']['#required'] = TRUE;
+
+}

@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <?php print render($content['comments']); ?>                 
+                    
   </div>
   <div class="col-md-4"> 
 <!-- Professional Details -->
@@ -52,4 +52,5 @@
 
 </div>
 </div>
+<?php print render($content['comments']); ?> 
 <?php endif; ?>

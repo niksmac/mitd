@@ -53,3 +53,9 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 		break;
 	}
 }
+
+// function light_misc_node_view_alter(&$build){
+// 	//print_r($build);exit;
+// 	if ( in_array($build['#node']->type, array('page')) )
+//     $build['links']['comment']['#links']['comment-add']['title'] = print t('Newwww Label', 'comment/reply/'. $build['#node']->nid);
+// }

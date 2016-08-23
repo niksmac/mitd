@@ -67,3 +67,6 @@
     padding-left: 10px;
     padding-top: 15px;
 }
+.message-other .picture-wrapper{
+    float:right;
+}
