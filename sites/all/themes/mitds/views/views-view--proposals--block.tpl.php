@@ -18,8 +18,12 @@
             <div class="share-w">
                 <a href="<?php echo url("node/".$value['nid']); ?>">
                     <i class="fa fa-bookmark-o"></i>
+                </a>
+                <a href="<?php echo url("proposal/".$value['nid']); ?>">
+                    <i class="fa fa-list"></i>
                 </a>                                 
             </div>
+
         </div>        
     </div>
     <?php }?>

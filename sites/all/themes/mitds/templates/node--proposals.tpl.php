@@ -46,10 +46,18 @@
             <span class="subtitle col-xs-6"><?php print render($content['field_cost_usd_fixed']); ?></span>
           </li>
         </ul>
+        <!-- <a href="<?php //echo url("proposal/".$nid); ?>">
+          <i class="fa fa-list"></i>
+        </a>   --> 
       </div>
+
     </div>
+    <a href="<?php echo url("proposal/".$nid)?>" class="btn btn-primary btn-block">Short List</a>
   </div>
 
+  
+
+</div>
 </div>
 </div>
 <?php print render($content['comments']); ?> 
