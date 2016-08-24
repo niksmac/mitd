@@ -9,19 +9,27 @@
     if ($title): ?>
       <h3 class="sub-title"><b><?php print t($title)?></b></h3>
     <?php endif; ?>
-    <?php foreach ($view->style_plugin->rendered_fields as $key => $value) {?>
+    <?php foreach ($view->style_plugin->rendered_fields as $key => $value) {//print_r($value);exit;?>
     <div class="media">                           
-        <div class="media-body">
-            <h5><?php echo $value['title']; ?></h5>
-            <h5>Proposal Description</h5>             
-            <p><?php echo $value['field_proposal_description']; ?></p>           
+        <div class="media-body list-title">
+            <h5><?php echo $value['title']; ?></h5>            
+            <p><?php echo $value['field_proposal_description']; ?></p>
+            <p class="text-success"><?php echo $value['field_first_name'].' '.$value['field_last_name']; ?></p>           
             <div class="share-w">
-                <a href="<?php echo url("node/".$value['nid']); ?>">
+                <a href="<?php echo url("node/".$value['nid']); ?>" data-toggle="tooltip" data-placement="top" title="View">
                     <i class="fa fa-bookmark-o"></i>
                 </a>
-                <a href="<?php echo url("proposal/".$value['nid']); ?>">
-                    <i class="fa fa-list"></i>
-                </a>                                 
+                
+                
+                <?php if($value['field_short_list'] == 1) { ?>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Shortlisted">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a> 
+                <?php } else { ?>
+                <a href="<?php echo url("proposal/".$value['nid'], array('query' => array('destination' => $_GET['q'])))?>" data-toggle="tooltip" data-placement="top" title="Shortlist">
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                </a>
+                <?php } ?>                                
             </div>
 
         </div>        

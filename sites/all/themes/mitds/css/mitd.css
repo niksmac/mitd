@@ -70,3 +70,6 @@
 .message-other .picture-wrapper{
     float:right;
 }
+.list-title h5 {
+    margin-bottom: 10px;
+}

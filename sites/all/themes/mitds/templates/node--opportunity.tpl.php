@@ -48,7 +48,9 @@
         
         <?php print views_embed_view('proposals','block'); ?>
         <?php if($user->uid == $uid) { ?>
-        <?php print views_embed_view('proposals','block_2'); } ?>
+          <?php print views_embed_view('proposals','block_2'); ?>
+          <?php print views_embed_view('proposals','block_4'); ?>
+        <?php } ?>
 
     </div>
   </div>

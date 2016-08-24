@@ -1,7 +1,7 @@
 <?php if($view_mode == "full") : ?>
 <div class="profile-company-content">
 <div class="row">
-  
+  <?php //print_r($node->field_short_list['und']['0']['value']);exit;?>
   <div class="col-md-8"> 
     <div class="sidebar">
       <h5 class="main-title">Proposal Description</h5>
@@ -45,18 +45,16 @@
             <h6 class="title col-xs-6">Cost(USD)</h6>
             <span class="subtitle col-xs-6"><?php print render($content['field_cost_usd_fixed']); ?></span>
           </li>
-        </ul>
-        <!-- <a href="<?php //echo url("proposal/".$nid); ?>">
-          <i class="fa fa-list"></i>
-        </a>   --> 
+        </ul>        
       </div>
-
-    </div>
-    <a href="<?php echo url("proposal/".$nid)?>" class="btn btn-primary btn-block">Short List</a>
-  </div>
-
-  
-
+    </div> 
+         
+    <?php if($node->field_short_list['und']['0']['value'] == 1) { ?>
+      <a href="#" class="btn btn-primary btn-block">Short Listed</a> 
+    <?php } else { ?>
+    <a href="<?php echo url("proposal/".$nid, array('query' => array('destination' => $_GET['q'])))?>" class="btn btn-primary btn-block">Short List</a>
+    <?php } ?>
+  </div>  
 </div>
 </div>
 </div>

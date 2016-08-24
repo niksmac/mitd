@@ -69,9 +69,14 @@ function light_misc_menu() {
 }
 
 function light_misc_proposal_shortlisting() {
-	$nid = arg(1);
-	
-	url($path, array('query' => $query, 'destination' => $_GET['q']));
-	
 
+	global $path;
+	$nid = arg(1);
+	$node = node_load($nid);
+	
+	$node->field_short_list['und']['0']['value'] = 1;	
+	field_attach_update('node', $node);	
+	drupal_set_message(t("@title has been shortlisted",array('@title' => $node->title)));
+	drupal_goto();
+	return $node;
 }
