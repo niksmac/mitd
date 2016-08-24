@@ -42,9 +42,9 @@
   </div>
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']); ?>
-  </div> 
+  </div>
   <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-default btn-sm edit-btn">Edit</a>
-                  
+
 </div>
 
   <div class="row">
@@ -59,12 +59,11 @@
                     <?php print render($user_profile['field_differentiator']); ?>
                     <?php print render($user_profile['field_industry_sector']); ?>
                 </div>
-            </div>                
+            </div>
         </div>
-        <div class="sidebar">
-            <!-- <h5 class="main-title">Proposed Opportunities</h5> -->                                            
-                <?php print views_embed_view('proposals','block_1'); ?>
-        </div>
+
+        <?php print views_embed_view('proposals','block_1'); ?>
+
   	</div>
 
     <div class="col-md-4">
@@ -106,34 +105,10 @@
 
                     <?php print render($user_profile['field_it_budget']);?>
 
-                </div>                
+                </div>
             </div>
         </div>
+      </div>
 
-                    <!-- Rating -->
-                    <!-- <div class="sidebar">
-                      <h5 class="main-title">Rating</h5>
-                      <div class="sidebar-information">
-                        <ul class="single-category com-rate">
-                          <li class="row">
-                            <h6 class="title col-xs-6">Expertise:</h6>
-                            <span class="col-xs-6"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i></span> </li>
-                          <li class="row">
-                            <h6 class="title col-xs-6">Knowledge:</h6>
-                            <span class="col-xs-6"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i></span> </li>
-                          <li class="row">
-                            <h6 class="title col-xs-6">Quality::</h6>
-                            <span class="col-xs-6"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></span> </li>
-                          <li class="row">
-                            <h6 class="title col-xs-6">Price:</h6>
-                            <span class="col-xs-6"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i></span> </li>
-                          <li class="row">
-                            <h6 class="title col-xs-6">Services:</h6>
-                            <span class="col-xs-6"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></span> </li>
-                        </ul>
-                      </div>
-                    </div> -->                    
-        </div>
   </div>
-
 </div>

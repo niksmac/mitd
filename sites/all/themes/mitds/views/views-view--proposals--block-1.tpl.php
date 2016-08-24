@@ -1,3 +1,4 @@
+<div class="sidebar">
 <?php if ($rows): ?>
 <div class="similar">
     <?php
@@ -31,3 +32,4 @@
     </div>
   <?php// endif; ?>
 <?php endif;?>
+</div>
