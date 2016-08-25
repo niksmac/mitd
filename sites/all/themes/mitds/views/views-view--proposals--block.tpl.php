@@ -14,7 +14,8 @@
         <div class="media-body list-title">
             <h5><?php echo $value['title']; ?></h5>            
             <p><?php echo $value['field_proposal_description']; ?></p>
-            <p class="text-success"><?php echo $value['field_first_name'].' '.$value['field_last_name']; ?></p>           
+            <?php if(!empty($value['field_first_name']) ||  !empty($value['field_last_name'])) { ?>
+            <p class="text-success"><?php echo $value['field_first_name'].' '.$value['field_last_name']; ?></p><?php } ?>           
             <div class="share-w">
                 <a href="<?php echo url("node/".$value['nid']); ?>" data-toggle="tooltip" data-placement="top" title="View">
                     <i class="fa fa-bookmark-o"></i>

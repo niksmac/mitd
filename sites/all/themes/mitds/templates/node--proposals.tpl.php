@@ -1,7 +1,7 @@
 <?php if($view_mode == "full") : ?>
 <div class="profile-company-content">
 <div class="row">
-  <?php //print_r($node->field_short_list['und']['0']['value']);exit;?>
+  <?php //print_r($node);exit;?>
   <div class="col-md-8"> 
     <div class="sidebar">
       <h5 class="main-title">Proposal Description</h5>
@@ -48,12 +48,24 @@
         </ul>        
       </div>
     </div> 
-         
+    <?php if($node->uid != $user->uid) {  ?>
     <?php if($node->field_short_list['und']['0']['value'] == 1) { ?>
-      <a href="#" class="btn btn-primary btn-block">Short Listed</a> 
+      <a href="#" class="btn btn-default btn-block">Short Listed</a> 
     <?php } else { ?>
     <a href="<?php echo url("proposal/".$nid, array('query' => array('destination' => $_GET['q'])))?>" class="btn btn-primary btn-block">Short List</a>
     <?php } ?>
+    <?php 
+    $op_id = $node->field_opportunity['und']['0']['nid'];
+    $awarded = _check_awarded_opportunity($op_id);    
+    if($awarded == 1) {
+    ?>
+    
+    <a href="#" class="btn btn-default btn-block">This opportunity is awarded</a> 
+    <?php } else { ?>
+  
+    <a href="<?php echo url("proposal/award/".$nid, array('query' => array('destination' => $_GET['q'])))?>" class="btn btn-primary btn-block">Award Proposal</a>
+    <?php } }?>
+   
   </div>  
 </div>
 </div>
