@@ -36,16 +36,18 @@
           <li class="col-md-4"><a href="#"><?php echo $value['field_project_end_date']; ?></a>
           </li>
           <?php 
-            global $user;
-            //print_r($user->uid);
+            global $user;            
+            $awarded = _check_awarded_opportunity($value['nid']);                       
             $proposal_data = mitd_nid($user->uid, $value['nid']);
+            if($awarded == 0) {
             if(!empty($proposal_data)){     
           ?>
           <li class="col-md-4"><a href="<?php echo url("node/".$proposal_data[0]); ?>"></i>View Proposal</a><?php }
           else{?>
           </li>
           <li class="col-md-4"><a href="<?php echo url("node/add/proposals/".$value['nid'])?>"></i>Submit Proposal</a>
-          <?php } ?>          
+          <?php } } else {?>
+          <li class="col-md-4"><a href="#"></i> Awarded</a><?php } ?>          
         </ul>
       </div>
      

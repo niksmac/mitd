@@ -1,7 +1,9 @@
 <?php if($view_mode == "full") : ?>
 <div class="profile-company-content">
 <div class="row">
-  <?php //print_r($node);exit;?>
+  <?php 
+ // print_r($node);
+  ?>
   <div class="col-md-8"> 
     <div class="sidebar">
       <h5 class="main-title">Proposal Description</h5>

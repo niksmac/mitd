@@ -78,9 +78,9 @@ function light_misc_proposal_shortlisting() {
 	//global $path;
 	$nid = arg(1);
 	$node = node_load($nid);
-	
-	$node->field_short_list['und']['0']['value'] = 1;	
-	field_attach_update('node', $node);	
+
+	$node->field_short_list['und']['0']['value'] = 1;
+	field_attach_update('node', $node);
 	drupal_set_message(t("@title has been shortlisted",array('@title' => $node->title)));
 	drupal_goto();
 	return $node;
@@ -89,34 +89,71 @@ function light_misc_proposal_shortlisting() {
 function light_misc_award_proposal() {
 
 	$nid = arg(2);
-	
-	$node = node_load($nid);	
+
+	$node = node_load($nid);
 	$op_nid = $node->field_opportunity['und']['0']['nid'];
 	$opportunity_node = node_load($op_nid);
-	
+
 	$opportunity_node->field_award['und']['0']['value'] = $node->vid;
-	field_attach_update('node', $opportunity_node);	
-		
+	field_attach_update('node', $opportunity_node);
+
     $result = views_get_view_result('proposals', 'block_5', $op_nid);
-  
+
     foreach ($result as $key => $value) {
     	if($value->nid != $nid) {
     		$proposal_view = node_load($value->nid);
-            $proposal_view->comment = 1;    		
-    	}     	       	    	    	
+            $proposal_view->comment = 1;
+    	}
     }
-		
+
 	drupal_set_message(t("@title is awarded",array('@title' => $node->title)));
-	drupal_goto();	
+	drupal_goto();
 }
 
 function _check_awarded_opportunity($op_nid) {
-	
 	$node = node_load($op_nid);
-	//print_r($node->field_award['und']['0']['value']);
-	if($node->field_award['und']['0']['value'] != '' && $node->field_award['und']['0']['value'] != 0) {
-		return true;     
+	if( isset($node->field_award['und']) && $node->field_award['und']['0']['value'] > 0) {
+		return true;
 	} else {
 		return false;
 	}
 }
+
+/**
+ * Implements hook_comment_insert().
+ */
+function light_misc_comment_insert($comment) {	
+  $account = user_load($comment->uid);
+  $node = node_load($comment->nid);
+
+  if($node->type == "proposals"){
+      $message = message_create('comments_log', array(), $account);
+      $wrapper = entity_metadata_wrapper('message', $message);
+      $wrapper->field_comment_ref->set($node);
+      $wrapper->save();
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+// function light_misc_node_insert($node) {	
+
+//     $node = node_load($node->nid);  
+//     if(isset($node->field_opportunity['und'])) {
+// 	$op = $node->field_opportunity['und']['0']['nid'];
+// 	//print_r($op);exit;
+// 	$op_node = node_load($op);
+// 	$account = $op_node->uid;
+// 	}
+	
+//   if($node->type == "proposals"){
+//   	if(isset($account))
+//       $message = message_create('notify_author_when_proposal_submit', array(), $account);
+//       //print_r($message);exit;
+//       $wrapper = entity_metadata_wrapper('message', $message);
+//       $wrapper->field_proposal_ref->set($node);
+//       $wrapper->field_opportunity_ref->set($op_node);
+//       $wrapper->save();
+//   }
+// }

@@ -22,7 +22,7 @@
                 </a>
                 
                 
-                <?php if($value['field_short_list'] == 1) { ?>
+                <?php if(isset($value['field_short_list']) && $value['field_short_list'] == 1) { ?>
                 <a href="#" data-toggle="tooltip" data-placement="top" title="Shortlisted">
                     <i class="fa fa-star" aria-hidden="true"></i>
                 </a> 

@@ -50,7 +50,13 @@
           </li><?php } ?>
           <?php if($value['field_organization_url'] != ''){?>
           <li class="col-md-4"><a href="#"><i class="fa fa-globe"></i>   <?php echo $value['field_organization_url']; ?></a>
-          </li><?php } ?>          
+          </li><?php } ?>
+          <?php          
+          $awarded = _check_awarded_opportunity($value['nid']);
+          if($awarded == 1) {
+          ?>
+          <li class="col-md-4"><a href="#"><i class="fa fa-list-alt"></i> Awarded</a>
+          </li><?php } ?>         
         </ul>
       </div>
      

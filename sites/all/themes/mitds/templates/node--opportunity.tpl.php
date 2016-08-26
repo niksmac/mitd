@@ -1,5 +1,6 @@
 <?php if($view_mode == "full") : //print $uid; ?>  
 <?php global $user;?>
+<?php //print_r($node->nid);exit;?>
   <div class="row">
     <div class="mar-bot50">
       <div class="col-md-6">
@@ -12,7 +13,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">                
+    <div class="col-md-8">                
 
       <div class="air-card mar-bot50">
         <h3 class="m-0-top sub-title">General Requirements</h3>
@@ -53,6 +54,23 @@
         <?php } ?>
 
     </div>
+    <div class="col-md-4 profile-company-content">
+      <div class="sidebar">
+      <?php if($user->uid == $uid) { ?>
+      <?php print views_embed_view('proposals','block_3'); ?>
+      <?php } else { ?>
+      <?php print views_embed_view('list_opportunites','block_1'); ?>
+      <?php } ?>
+    </div>
+    <?php
+    global $user;  
+    $proposal_submit = mitd_nid($user->uid, $node->nid);
+    if($node->uid != $user->uid) {
+    if(!empty($proposal_submit)) { ?>  
+      <a href="<?php echo url("node/".$proposal_submit[0])?>" class="btn btn-primary btn-block">View Proposal</a>          
+    <?php } else { ?>    
+    <a href="<?php echo url("node/add/proposals/".$node->nid)?>" class="btn btn-primary btn-block">Submit Proposal</a>  
+    <?php } } ?>
+    </div>        
   </div>
-
 <?php endif; ?>

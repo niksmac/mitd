@@ -22,22 +22,7 @@
 	<p><?php echo $opportunity_count; ?> Opportunities Posted </p>
 	<p>Member Since <?php echo $value['created']; ?></p>
 </div>
-<hr>
-	<?php
-	$nid = node_load($value['nid']);
-	if($nid->uid != $user->uid) {
-	if(!empty($proposal_submit)) { ?>
-<div class="row">
-	<a href="<?php echo url("node/".$proposal_submit[0])?>" class="btn btn-primary btn-block">View Proposal</a>
-
-</div>
-<?php } else { ?>
-
-<div class="row">
-	<a href="<?php echo url("node/add/proposals/".$value['nid'])?>" class="btn btn-primary btn-block">Submit Proposal</a>
-
-</div>
-<?php }}}?>
+<?php } ?>
 <?php elseif ($empty): ?>
     <div class="view-empty">
       <?php print $empty; ?>
