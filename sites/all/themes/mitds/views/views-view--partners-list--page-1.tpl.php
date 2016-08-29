@@ -66,5 +66,10 @@
     <?php print $pager; ?>
     <?php endif; ?>
 </div>
-</div> 
+</div>
+<?php elseif ($empty): ?>
+    <div class="view-empty">
+      <?php print $empty; ?>
+    </div>
+    <?php print $exposed; ?> 
 <?php endif; ?>
