@@ -38,7 +38,7 @@
  <div class="row about-me">
   <div class="col-md-2">
     <?php //print_r($user_profile);exit;?>
-    <?php print render($user_profile['user_picture']); ?>
+    <?php print render($user_profile['field_picture']); ?>
   </div>
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']); ?>
