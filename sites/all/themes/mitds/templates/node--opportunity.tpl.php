@@ -1,6 +1,6 @@
 <?php if($view_mode == "full") : //print $uid; ?>  
 <?php global $user;?>
-<?php //print_r($node->nid);exit;?>
+<?php //print_r($node);exit;?>
   <div class="row">
     <div class="mar-bot50">
       <div class="col-md-6">

@@ -17485,10 +17485,10 @@ a:hover, a:focus, a:active, a.active {
 	font-size: 11px;
 	color: #555555;
 }
-.checkbox input[type="checkbox"], .checkbox input[type="radio"] {
+/*.checkbox input[type="checkbox"], .checkbox input[type="radio"] {
 	opacity: 0;
 	z-index: 1;
-}
+}*/
 .checkbox input[type="checkbox"]:focus + label::before, .checkbox input[type="radio"]:focus + label::before {
 	outline: thin dotted;
 	outline: 5px auto -webkit-focus-ring-color;

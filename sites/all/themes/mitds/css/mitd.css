@@ -73,3 +73,13 @@
 .list-title h5 {
     margin-bottom: 10px;
 }
+.checkbox input[type="checkbox"], .checkbox input[type="radio"] {
+    z-index: 1;
+    zoom: 1.49;
+    /*zoom: 2;*/
+    transform: scale(1.48);
+    margin-left: -16px;
+   /* margin-left: -21px;*/
+    /*top: -4px;*/
+    top: -2px
+}

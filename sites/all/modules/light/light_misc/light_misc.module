@@ -51,6 +51,9 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 			'#markup' => l('Forgot Password?', 'user/password', $options)
 			);
 		break;
+		case "user_profile_form":
+		//print_r($form_state);exit;
+		break;
 	}
 }
 
@@ -91,15 +94,14 @@ function light_misc_award_proposal() {
 	$nid = arg(2);
 
 	$node = node_load($nid);
+
 	$op_nid = $node->field_opportunity['und']['0']['nid'];
-	$opportunity_node = node_load($op_nid);
-
+	$opportunity_node = node_load($op_nid);	
 	$opportunity_node->field_award['und']['0']['value'] = $node->vid;
+	$opportunity_node->field_contract_award_date['und']['0']['value'] = date('Y-m-d');		
 	field_attach_update('node', $opportunity_node);
-
     $result = views_get_view_result('proposals', 'block_5', $op_nid);
-
-    foreach ($result as $key => $value) {
+    foreach ($result as $key => $value) {    	
     	if($value->nid != $nid) {
     		$proposal_view = node_load($value->nid);
             $proposal_view->comment = 1;
