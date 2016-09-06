@@ -32,13 +32,12 @@ global $user;
 if (arg(0) == "user" && is_numeric(arg(1)) && arg(1) == $user->uid){
   $variables['theme_hook_suggestions'][] =  'page__dash';
 }
-
 $variables['full_name'] = "";
 $variables['designation'] =  "";
 if (isset($variables['user'])) {
   $user_data = $variables['user'];
   $user_data = user_load($user_data->uid);
-  
+
   $variables['full_name'] =  !empty($user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value']." ".$user_data->field_last_name['und'][0]['value'] : "";
 
   $variables['designation'] = !empty($user_data->field_designation) ? $user_data->field_designation['und'][0]['value'] : "";

@@ -1,26 +1,35 @@
+<?php if($view_mode == "teaser") : ?>
+  <div class="span8 blog-image">
+    <?php print render($content['field_cover_image']); ?>
+  </div>
+
+  <h1><a href="<?php print url(drupal_get_path_alias('node/'.$node->nid));?>"><?php print  $node->title;?></a></h1>
+
+  <p><?php print render($content['body']); ?></p>
+
+
+<?php endif; ?>
+
+
 <?php if($view_mode == "full") : ?>
-<div class="profile-company-content">
-    <div class="container">
-      <div class="row">
-      
-        <div class="col-md-12">
+  <div class="profile-company-content">
           <article class="uou-block-7f blog-post-content">
             <div class="span8 blog-image">
-            <?php print render($content['field_cover_image']); ?>
+              <?php print render($content['field_cover_image']); ?>
             </div>
 
-             <?php 
-              $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago'); 
-             ?>
+            <?php
+            $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago');
+            ?>
             <div class="meta">
               <span class="time-ago"><?php echo $timeago;?></span>
-              <span class="category">Category: <?php echo $node->field_blog_category['und']['0']['taxonomy_term']->name;?></span>             
+              <span class="category">Category: <?php echo $node->field_blog_category['und']['0']['taxonomy_term']->name;?></span>
             </div>
 
-            <h1><a href="blog-post.html#"><?php print print $content['body']['#object']->title;?></a></h1>
+            <h1><a href="<?php print  drupal_get_path_alias('node/'.$node->nid);?>"><?php print  $content['body']['#object']->title;?></a></h1>
 
             <p><?php print render($content['body']); ?></p>
-                        
+
             <div class="uou-share-story clearfix">
               <div class="row">
                 <div class="col-sm-3">
@@ -44,18 +53,8 @@
                 </div>
               </div>
             </div>
-
-
-            <a class="btn btn-primary " href="blog-post.html#">Back To Blog List</a>
-
           </article> <!-- end .uou-block-7f -->
 
-        </div> <!-- end grid layout -->
-
-
-      </div> <!-- end row -->
-
-    </div> <!-- edn cotainer -->
 
   </div> <!-- end blog-content -->
-  <?php endif; ?>
+<?php endif; ?>
