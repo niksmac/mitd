@@ -85,3 +85,10 @@
 }
 .span8 { width: 100%;}
 
+.toolbar .container{
+  min-height: 40px
+}
+.pagination > li > a,
+.pagination > li.active > span {
+  height: auto !important
+}
