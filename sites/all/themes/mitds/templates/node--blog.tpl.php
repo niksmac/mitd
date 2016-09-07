@@ -1,26 +1,32 @@
 <?php if($view_mode == "teaser") : ?>
-  <div class="span8 blog-image">
-    <?php print render($content['field_cover_image']); ?>
+  <?php
+    $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago');
+  ?>
+<article class="uou-block-7f"> 
+  <?php print render($content['field_cover_image']); ?>
+
+  <div class="meta"> <span class="time-ago"><?php echo $timeago;?></span> <span class="category">Category: <a href="blog.html#">Design</a></span> <a href="blog.html#" class="comments">12 Comments</a> 
   </div>
-
-  <h1><a href="<?php print url(drupal_get_path_alias('node/'.$node->nid));?>"><?php print  $node->title;?></a></h1>
-
+  <h1><?php print  $content['body']['#object']->title;?></h1> 
   <p><?php print render($content['body']); ?></p>
+  <a href="<?php echo url("node/".$nid); ?>" class="btn btn-small btn-primary">Read More</a> 
+  </article>
 
 
 <?php endif; ?>
 
 
 <?php if($view_mode == "full") : ?>
+  <?php
+    $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago');
+  ?>
   <div class="profile-company-content">
           <article class="uou-block-7f blog-post-content">
             <div class="span8 blog-image">
               <?php print render($content['field_cover_image']); ?>
             </div>
 
-            <?php
-            $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago');
-            ?>
+            
             <div class="meta">
               <span class="time-ago"><?php echo $timeago;?></span>
               <span class="category">Category: <?php echo $node->field_blog_category['und']['0']['taxonomy_term']->name;?></span>

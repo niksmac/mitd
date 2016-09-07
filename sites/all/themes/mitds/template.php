@@ -89,3 +89,28 @@ function mitds_form_comment_form_alter(&$form, &$form_state) {
   $form['author']['mail']['#required'] = TRUE;
 
 }
+
+
+function mitds_image_style($variables) {
+  if ($variables['style_name'] == 'blog_teaser' ) {
+     $variables['attributes'] = array(
+        'class' => 'thumb',
+      );
+  }
+
+  $dimensions = array(
+    'width' => $variables['width'], 
+    'height' => $variables['height'],
+  );
+
+  image_style_transform_dimensions($variables['style_name'], $dimensions);
+
+  $variables['width'] = $dimensions['width'];
+  $variables['height'] = $dimensions['height'];
+
+
+  // Determine the url for the styled image.
+  $variables['path'] = image_style_url($variables['style_name'], $variables['path']);
+
+  return theme('image', $variables);
+}
