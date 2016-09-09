@@ -9,7 +9,7 @@
     if ($title): ?>
       <h3 class="sub-title"><b><?php print t($title)?></b></h3>
     <?php endif; ?>
-    <?php foreach ($view->style_plugin->rendered_fields as $key => $value) {//print_r($value);exit;?>
+    <?php foreach ($view->style_plugin->rendered_fields as $key => $value) {//print_r($user->uid);exit;?>
     <div class="media">                           
         <div class="media-body list-title">
             <h5><?php echo $value['title']; ?></h5>            
@@ -21,7 +21,7 @@
                     <i class="fa fa-bookmark-o"></i>
                 </a>
                 
-                
+                <?php if(!(isset($value['uid']))) { ?>
                 <?php if(isset($value['field_short_list']) && $value['field_short_list'] == 1) { ?>
                 <a href="#" data-toggle="tooltip" data-placement="top" title="Shortlisted">
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
                 <a href="<?php echo url("proposal/".$value['nid'], array('query' => array('destination' => $_GET['q'])))?>" data-toggle="tooltip" data-placement="top" title="Shortlist">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                 </a>
-                <?php } ?>                                
+                <?php } }?>                                
             </div>
 
         </div>        
