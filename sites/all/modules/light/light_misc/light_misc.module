@@ -50,10 +50,7 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 			'#type' => 'item',
 			'#markup' => l('Forgot Password?', 'user/password', $options)
 			);
-		break;
-		case "user_profile_form":
-		//print_r($form_state);exit;
-		break;
+		break;		
 	}
 }
 
@@ -136,26 +133,3 @@ function light_misc_comment_insert($comment) {
   }
 }
 
-/**
- * Implements hook_node_insert().
- */
-// function light_misc_node_insert($node) {	
-
-//     $node = node_load($node->nid);  
-//     if(isset($node->field_opportunity['und'])) {
-// 	$op = $node->field_opportunity['und']['0']['nid'];
-// 	//print_r($op);exit;
-// 	$op_node = node_load($op);
-// 	$account = $op_node->uid;
-// 	}
-	
-//   if($node->type == "proposals"){
-//   	if(isset($account))
-//       $message = message_create('notify_author_when_proposal_submit', array(), $account);
-//       //print_r($message);exit;
-//       $wrapper = entity_metadata_wrapper('message', $message);
-//       $wrapper->field_proposal_ref->set($node);
-//       $wrapper->field_opportunity_ref->set($op_node);
-//       $wrapper->save();
-//   }
-// }

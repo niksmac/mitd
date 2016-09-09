@@ -1,11 +1,14 @@
-<?php if($view_mode == "teaser") : ?>
-  <?php
+<?php
     $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago');
-  ?>
+?>
+<?php if($view_mode == "teaser") : ?>
+  
 <article class="uou-block-7f"> 
   <?php print render($content['field_cover_image']); ?>
 
-  <div class="meta"> <span class="time-ago"><?php echo $timeago;?></span> <span class="category">Category: <a href="blog.html#">Design</a></span> <a href="blog.html#" class="comments">12 Comments</a> 
+  <div class="meta"> <span class="time-ago"><?php echo $timeago;?></span> 
+    <!-- <span class="category">Category: <a href="blog.html#">Design</a></span> 
+    <a href="blog.html#" class="comments">12 Comments</a> --> 
   </div>
   <h1><?php print  $content['body']['#object']->title;?></h1> 
   <p><?php print render($content['body']); ?></p>
@@ -15,11 +18,7 @@
 
 <?php endif; ?>
 
-
-<?php if($view_mode == "full") : ?>
-  <?php
-    $timeago = format_interval(time() - $node->created, 1) . ' ' . t('ago');
-  ?>
+<?php if($view_mode == "full") : ?>  
   <div class="profile-company-content">
           <article class="uou-block-7f blog-post-content">
             <div class="span8 blog-image">
