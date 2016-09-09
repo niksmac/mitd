@@ -1,0 +1,7 @@
+name = Make IT Deals Message Notifications
+description =  Make IT Deals custom message Implementation.
+core = 7.x
+package = Make IT Deals
+
+
+
