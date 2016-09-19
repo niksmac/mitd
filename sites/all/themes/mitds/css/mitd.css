@@ -95,3 +95,18 @@
 .help-block {
     display : none;
 }
+.notifi {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.notifi li {
+    margin: 0 0 10px 0;
+    padding: 0 0 0 15px;
+}
+li.notifyauthorproposal {
+    border-left: 3px solid blue;
+}
+li.commentslog {
+    border-left: 3px solid red;
+}
