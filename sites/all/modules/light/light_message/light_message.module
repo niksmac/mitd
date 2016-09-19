@@ -3,8 +3,6 @@
  * Implements hook_form_alter().
  */
 function light_message_form_alter(&$form, &$form_state, $form_id) {
-	//print_r($form_id);
-	//print_r($form);exit;
 
   if ($form_id == 'proposals_node_form') {
 
@@ -13,13 +11,13 @@ function light_message_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Additional handler for user_login form submit.
+ * Additional handler for proposals_node form submit.
  */
 function light_message_proposals_node_form($form, &$form_state) {	
 	$op_nid = $form_state['values']['field_opportunity']['und']['0']['nid'];
-	$node = node_load($op_nid);
-	
-	$usr = user_load($node->uid);
-	
-    //message_create('notify_author_when_proposal_submit', array('uid' => $usr->uid)); 
+	$node = node_load($op_nid);		
+    $message = message_create('notify_author_when_proposal_submit', array('uid' => $node->uid));
+    $wrapper = entity_metadata_wrapper('message', $message);
+    $wrapper->field_opportunity_ref->set($node);
+	$wrapper->save(); 
  }
