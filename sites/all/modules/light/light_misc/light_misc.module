@@ -74,8 +74,7 @@ function light_misc_menu() {
 }
 
 function light_misc_proposal_shortlisting() {
-
-	//global $path;
+	
 	$nid = arg(1);
 	$node = node_load($nid);
 
@@ -93,7 +92,7 @@ function light_misc_award_proposal() {
 	$node = node_load($nid);
 
 	$op_nid = $node->field_opportunity['und']['0']['nid'];
-	$opportunity_node = node_load($op_nid);	
+	$opportunity_node = node_load($op_nid);		
 	$opportunity_node->field_award['und']['0']['value'] = $node->vid;
 	$opportunity_node->field_contract_award_date['und']['0']['value'] = date('Y-m-d');		
 	field_attach_update('node', $opportunity_node);
@@ -104,8 +103,12 @@ function light_misc_award_proposal() {
             $proposal_view->comment = 1;
     	}
     }
-
+	$message = message_create('notify_user_when_opportunity_awarded', array('uid' => $node->uid));
+    $wrapper = entity_metadata_wrapper('message', $message);
+    $wrapper->field_opportunity_ref->set($opportunity_node);    
+	$wrapper->save(); 
 	drupal_set_message(t("@title is awarded",array('@title' => $node->title)));
+
 	drupal_goto();
 }
 
@@ -122,22 +125,29 @@ function _check_awarded_opportunity($op_nid) {
  * Implements hook_comment_insert().
  */
 function light_misc_comment_insert($comment) {	
-  $account = user_load($comment->uid);
+  
+  $comment_uid = $comment->uid;
   $node = node_load($comment->nid);
-
-  if($node->type == "proposals"){
-      $message = message_create('comments_log', array(), $account);
-      $wrapper = entity_metadata_wrapper('message', $message);
-      $wrapper->field_comment_ref->set($node);
-      $wrapper->save();
+  $prop_uid = $node->uid;
+  $op_uid = $node->field_opportunity['und']['0']['node']->uid;  
+  if($comment_uid == $prop_uid){
+  	$account = $op_uid;
+  	
+  } else { 
+  	$account = $prop_uid;
   }
+    $message = message_create('comments_log', array('uid' => $account));
+    $wrapper = entity_metadata_wrapper('message', $message);
+    $wrapper->field_comment_ref->set($comment);
+    $wrapper->field_proposal_ref->set($node);
+    $wrapper->save();  
 }
 
 /**
  * Implements hook_node_insert().
  */
 // function light_misc_node_insert($node) {	
-	
+// 	print_r($node);exit;
 //     $node = node_load($node->nid);     
 // 	$op = $node->field_opportunity['und']['0']['nid'];	
 // 	$op_node = node_load($op);

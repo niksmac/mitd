@@ -110,3 +110,6 @@ li.notifyauthorproposal {
 li.commentslog {
     border-left: 3px solid red;
 }
+li.notifyuserwhenopportunityawarded {
+    border-left: 3px solid green;
+}
