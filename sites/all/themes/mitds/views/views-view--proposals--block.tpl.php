@@ -39,7 +39,9 @@
 </div>
 </div>
 <?php elseif ($empty): ?>
+    <div class="air-card mar-bot50">
     <div class="view-empty">
       <?php print $empty; ?>
     </div>
+</div>
 <?php endif;?>                                                                             

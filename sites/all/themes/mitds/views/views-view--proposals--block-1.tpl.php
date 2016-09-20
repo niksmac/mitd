@@ -27,9 +27,10 @@
     <?php }?>
 </div>
 <?php elseif ($empty): ?>
+<div class="similar">
     <div class="view-empty">
       <?php print $empty; ?>
     </div>
-  <?php// endif; ?>
+</div>
 <?php endif;?>
 </div>

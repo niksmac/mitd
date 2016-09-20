@@ -24,7 +24,9 @@
 </div>
 <?php } ?>
 <?php elseif ($empty): ?>
+<div class="row">
     <div class="view-empty">
       <?php print $empty; ?>
     </div>
+</div>
 <?php endif; ?>

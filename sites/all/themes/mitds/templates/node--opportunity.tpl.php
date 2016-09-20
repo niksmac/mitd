@@ -1,4 +1,4 @@
-<?php if($view_mode == "full") : //print $uid; ?>  
+<?php if($view_mode == "full") :  ?>  
 <?php global $user;?>
 <?php //print_r($node);exit;?>
   <div class="row">
@@ -46,9 +46,10 @@
           </div>
         </div>
       </div>
-        
+        <?php if($user->uid != $node->uid) { ?>
         <?php print views_embed_view('proposals','block'); ?>
-        <?php if($user->uid == $uid) { ?>
+        <?php } ?>
+        <?php if($user->uid == $node->uid) { ?>
         <?php //print views_embed_view('proposals','block'); ?>
           <?php print views_embed_view('proposals','block_2'); ?>
           <?php print views_embed_view('proposals','block_4'); ?>
@@ -57,7 +58,7 @@
     </div>
     <div class="col-md-4 profile-company-content">
       <div class="sidebar">
-      <?php if($user->uid == $uid) { ?>
+      <?php if($user->uid == $node->uid) { ?>
       <?php print views_embed_view('proposals','block_3'); ?>
       <?php } else { ?>
       <?php print views_embed_view('list_opportunites','block_1'); ?>
