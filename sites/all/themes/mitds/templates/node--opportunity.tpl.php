@@ -49,6 +49,7 @@
         
         <?php print views_embed_view('proposals','block'); ?>
         <?php if($user->uid == $uid) { ?>
+        <?php //print views_embed_view('proposals','block'); ?>
           <?php print views_embed_view('proposals','block_2'); ?>
           <?php print views_embed_view('proposals','block_4'); ?>
         <?php } ?>
@@ -62,15 +63,10 @@
       <?php print views_embed_view('list_opportunites','block_1'); ?>
       <?php } ?>
     </div>
-    <?php
-    global $user;  
-    $proposal_submit = mitd_nid($user->uid, $node->nid);
-    if($node->uid != $user->uid) {
-    if(!empty($proposal_submit)) { ?>  
-      <a href="<?php echo url("node/".$proposal_submit[0])?>" class="btn btn-primary btn-block">View Proposal</a>          
-    <?php } else { ?>    
-    <a href="<?php echo url("node/add/proposals/".$node->nid)?>" class="btn btn-primary btn-block">Submit Proposal</a>  
-    <?php } } ?>
+
+    <?php print light_misc_opp_action($node); ?>
+  
+
     </div>        
   </div>
 <?php endif; ?>

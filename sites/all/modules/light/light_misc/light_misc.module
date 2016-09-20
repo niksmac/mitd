@@ -163,3 +163,23 @@ function light_misc_comment_insert($comment) {
 //   }
 // }
 
+function light_misc_opp_action($node){
+global $user;  
+$link = "";
+$proposal_submit = mitd_nid($user->uid, $node->nid);
+//print_r($proposal_submit);
+
+	if(_check_awarded_opportunity($node->nid)) {
+		$link = '<a href="#" class="btn btn-info btn-block">Awarded</a>';
+	}
+	else 
+	{
+	if($node->uid != $user->uid) {
+	  if(!empty($proposal_submit))
+	    $link = '<a href="'.url("node/".$proposal_submit[0]) .'" class="btn btn-primary btn-block">View Proposal</a>'; 
+	  else   
+	    $link = '<a href="'.url("node/add/proposals/".$node->nid) .'" class="btn btn-primary btn-block">Submit Proposal</a>';
+	  } 
+	}
+return $link;
+}
