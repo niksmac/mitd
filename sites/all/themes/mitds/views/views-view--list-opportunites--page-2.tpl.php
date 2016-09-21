@@ -63,5 +63,5 @@
 <?php elseif ($empty): ?>
     <div class="view-empty">
       <?php print $empty; ?>
-    </div>
+    </div>    
   <?php endif; ?>

@@ -10,15 +10,15 @@
           <li><a href="//twitter.com/makeitdeals" class="fa fa-twitter"></a></li>
           <li><a href="//plus.google.com" class="fa fa-google-plus"></a></li>
         </ul>
-        
-          
+
+
           <?php if (user_is_logged_in()) : ?>
           <ul class="authentication">
             <li><a href="<?php print url("user"); ?>"><span>My Account</span></a></li>
             <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
           </ul>
           <?php endif; ?>
-        
+
       </div>
     </div>
     <!-- end .uou-block-1a -->
@@ -27,7 +27,7 @@
 
   <div class="box-shadow-for-ui">
     <div class="uou-block-2b">
-      <div class="container"> 
+      <div class="container">
         <?php if ($logo): ?>
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
           <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
@@ -72,13 +72,13 @@
                   <li class="active"><a href="#log-in">Member Login</a></li>
                 </ul>
 
-                
-                <div class="content">                 
+
+                <div class="content">
                   <!-- LOGIN -->
                   <div id="log-in" class="active">
                    <div class="col-md-12"><?php print $messages; ?></div>
-                   <?php 
-                    $elements = drupal_get_form("user_login"); 
+                   <?php
+                    $elements = drupal_get_form("user_login");
                     $form = drupal_render($elements);
                     echo $form;
                     ?>
@@ -121,8 +121,7 @@
         <li class="col-md-4">
           <div class="ser-inn">
             <i class="fa fa-book"></i>
-            <h4>Get the latest news
-              in your industry</h4>
+            <h4>Get the latest industry news</h4>
             <i class="fa fa-book big"></i>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue conseqaut nibbhi ellit ipsum consectetur.</p>
           </div>
@@ -339,7 +338,7 @@
       <li><a href="#">Privacy Policy</a></li>
       <li><a href="#">Terms &amp; Conditions</a></li>
     </ul>
-    <p>Copyright &copy; 2016 </p>  
+    <p>Copyright &copy; 2016 </p>
   </div>
 </div>
 <!-- end .uou-block-4a -->

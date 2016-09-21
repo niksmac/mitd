@@ -1,5 +1,6 @@
 .content-wrapper{
 	margin-top: 40px;
+    margin-bottom: 40px;
 }
 .mar-30-h{
  	margin: 30px 0;
@@ -103,13 +104,25 @@
 .notifi li {
     margin: 0 0 10px 0;
     padding: 0 0 0 15px;
+    font-size: 15px;
+}
+.notifi li p {
+    margin: 0;
+}
+.notifi li span {
+    font-size: 12px;
+    font-style: italic;
 }
 li.notifyauthorproposal {
     border-left: 3px solid blue;
+    background-color: rgba(0, 0, 255, 0.08);
 }
 li.commentslog {
     border-left: 3px solid red;
+    background-color: rgba(255, 0, 0, 0.08);
 }
 li.notifyuserwhenopportunityawarded {
     border-left: 3px solid green;
+    background-color: rgba(139, 195, 74, 0.08);
 }
+
