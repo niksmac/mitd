@@ -1,0 +1,66 @@
+<?php
+
+function light_invite_schema(){
+  $schema['mitd_invite'] = array(
+    'description' => t('Make IT Deals Invite'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('The primary identifier for the mitd invite.'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => t('Opportunity nid.'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'description' => t('User uid.'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+     
+      'created' => array(
+        'description' => t('Created Time'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+
+      'modified' => array(
+        'description' => t('Modified Time'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+
+      'reason' => array(
+        'description' => t('Reason'),
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE
+      ),       
+      'status' => array( 
+       'description' => t('0-sent,1-accept,2-reject'),      
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+
+?>

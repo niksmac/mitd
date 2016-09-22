@@ -1,0 +1,148 @@
+<?php 
+
+function light_invite_views_data() {
+  $data['mitd_invite']['table']['group'] = t('Make IT Deals Invite Table');
+
+  $data['mitd_invite']['table']['base'] = array(
+    'field' => 'nid',
+    'title' => t('Opportunity node id'), 
+    'help' => t('Content related to nodes.'), 
+    'weight' => -10,
+  );
+
+  $data['mitd_invite']['table']['join'] = array(
+    'node' => array(
+      'left_field' => 'nid', 
+      'field' => 'nid',
+    ),
+  );
+
+  $data['mitd_invite']['nid'] = array(
+    'title' => t('Content related to a node'), 
+    'help' => t('Content that references a node.'),
+    'relationship' => array(
+      'base' => 'node',
+      'base field' => 'nid', // The name of the field on the joined table.
+      // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+      'handler' => 'views_handler_relationship', 
+      'label' => t('Node id'),
+    ),
+  );
+
+  $data['mitd_invite']['uid'] = array(
+    'title' => t('User uid'), 
+    'help' => t('Uid of user'), 
+    'field' => array(
+      'handler' => 'views_handler_field_numeric', 
+      'click sortable' => TRUE,
+    ), 
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ), 
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  $data['mitd_invite']['created'] = array(
+    'title' => t('Created Timestamp field'), 
+    'help' => t('Created Time.'), 
+    'field' => array(
+      'handler' => 'views_handler_field_date', 
+      'click sortable' => TRUE,
+    ), 
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ), 
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+
+  $data['mitd_invite']['modified'] = array(
+    'title' => t('Modified Timestamp field'), 
+    'help' => t('Modified Time.'), 
+    'field' => array(
+      'handler' => 'views_handler_field_date', 
+      'click sortable' => TRUE,
+    ), 
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ), 
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+
+  $data['mitd_invite']['reason'] = array(
+    'title' => t('Reason text field'), 
+    'help' => t('Reason text field.'), 
+    'field' => array(
+      'handler' => 'views_handler_field', 
+      'click sortable' => TRUE,
+    ), 
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ), 
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ), 
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  
+  $data['mitd_invite']['status'] = array(
+    'title' => t('Status field'), 
+    'help' => t('Status field.'), 
+    'field' => array(
+      'handler' => 'views_handler_field_boolean', 
+      'click sortable' => TRUE,
+    ), 
+    'filter' => array(
+      'handler' => 'views_handler_filter_boolean_operator',
+      'label' => t('Status'),
+      'type' => '0-1-2',
+      'use equal' => TRUE,
+    ), 
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+  
+  return $data;
+}
+
+/**
+* Implements hook_menu().
+*/
+function light_invite_menu() {
+
+	$items['invite/%/%'] = array(
+    'page callback' => 'light_invite_opportunity_inviting',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  	);
+  	
+  return $items;
+}
+
+function light_invite_opportunity_inviting() {
+
+	global $user;	
+	$nid = arg(1);	
+	$uid = arg(2);
+	print_r($uid);
+	//exit;
+	$data = array(
+	  'nid' => $nid,
+	  'uid' => $uid,
+	  'created' => time(),
+	  'modified' => time(),
+	  'status' => 0,
+	  'reason' => "",
+
+);
+drupal_write_record('mitd_invite', $data);
+
+}
