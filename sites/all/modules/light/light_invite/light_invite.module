@@ -129,11 +129,10 @@ function light_invite_menu() {
 
 function light_invite_opportunity_inviting() {
 
-	global $user;	
-	$nid = arg(1);	
-	$uid = arg(2);
-	print_r($uid);
-	//exit;
+	$nid = arg(1);
+  $node = node_load($nid);
+  //print_r($node);exit;	
+	$uid = arg(2);	
 	$data = array(
 	  'nid' => $nid,
 	  'uid' => $uid,
@@ -143,6 +142,10 @@ function light_invite_opportunity_inviting() {
 	  'reason' => "",
 
 );
-drupal_write_record('mitd_invite', $data);
-
+  drupal_write_record('mitd_invite', $data);  
+  $message = message_create('notify_user_when_invited', array('uid' => $uid));
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->field_opportunity_ref->set($node);    
+  $wrapper->save();
+  drupal_goto();
 }

@@ -36,15 +36,15 @@
 ?>
 <div class="profile"<?php print $attributes; ?>>
  <div class="row about-me">
-  <div class="col-md-2">
-    <?php //print_r($user_profile);exit;?>
+  <div class="col-md-2">        
     <?php print render($user_profile['field_picture']); ?>
   </div>
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']); ?>
   </div>
+  <?php //if($user_profile['uid'] == $user->uid) { ?>
   <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-default btn-sm edit-btn">Edit</a>
-
+  <?php //} ?>
 </div>
 
   <div class="row">

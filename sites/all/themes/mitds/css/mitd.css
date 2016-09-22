@@ -125,4 +125,13 @@ li.notifyuserwhenopportunityawarded {
     border-left: 3px solid green;
     background-color: rgba(139, 195, 74, 0.08);
 }
+li.notifyuserwheninvited{
+    border-left: 3px solid #C3A632;
+    background-color: #FFF8DC;
+}
 
+.invite-button { 
+    width: 100px;
+    margin-left: 29px;    
+    margin-bottom: 17px;
+}

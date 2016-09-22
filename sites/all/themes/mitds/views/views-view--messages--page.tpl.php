@@ -22,6 +22,9 @@
 				case 'notifyuserwhenopportunityawarded':
 				$msg = 'Opportunity Awarded';
 				break;
+				case 'notifyuserwheninvited':
+				$msg = 'You are invited';
+				break;
 				default:
 				# code...
 				break;
