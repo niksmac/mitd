@@ -141,15 +141,28 @@ function _field_permissions_field_settings_form_alter(&$form, $form_state, $form
     '#type' => 'container',
     '#states' => array(
       'visible' => array(
-        // We must cast this to a string until http://drupal.org/node/879580 is
-        // fixed.
-        ':input[name="field[field_permissions][type]"]' => array('value' => (string) FIELD_PERMISSIONS_CUSTOM),
+        ':input[name="field[field_permissions][type]"]' => array('value' => FIELD_PERMISSIONS_CUSTOM),
       ),
     ),
     // Custom styling for the permissions matrix on the field settings page.
     '#attached' => array(
       'css' => array(drupal_get_path('module', 'field_permissions') . '/field_permissions.admin.css'),
     ),
+  );
+
+
+  $form['field']['field_permissions']['permission_warning'] = array(
+    '#type' => 'item',
+    '#markup' => '<div class="messages error"><b>'
+      . t('Field permissions error')
+      . '</b><br />'
+      . t('If you are seeing this message and are not seeing a table of permissions, something is wrong! See !link for more information.', array('!link' => l('the Field Permission documentation', 'https://www.drupal.org/node/2802067#known-issues', array('attributes' => array('target' => '_blank'))))) . '</div>',
+    '#states' => array(
+      'visible' => array(
+        ':input[name="field[field_permissions][type]"]' => array('value' => FIELD_PERMISSIONS_CUSTOM)
+      )
+    ),
+    ''
   );
 
   // Add the field permissions matrix itself. Wait until the #pre_render stage
@@ -350,14 +363,20 @@ function field_permissions_overview() {
           continue;
         }
         // Each field will have a row in the table.
-        $admin_path = _field_ui_bundle_admin_path($entity_type, $bundle);
+        if (module_exists('field_ui')) {
+          $admin_path = _field_ui_bundle_admin_path($entity_type, $bundle);
+          $field_admin_path = l($bundles_info[$entity_type][$bundle]['label'], $admin_path . '/fields/' . $field_name, array(
+            'query' => $destination,
+            'fragment' => 'edit-field-field-permissions-type',
+          ));
+        }
+        else {
+            $field_admin_path = $bundles_info[$entity_type][$bundle]['label'];
+        }
         $rows[$field_name]['data'][0] = $field['locked'] ? t('@field_name (Locked)', array('@field_name' => $field_name)) : $field_name;
         $rows[$field_name]['data'][1] = t($field_types[$field['type']]['label']);
         $rows[$field_name]['data'][2] = $entity_type;
-        $rows[$field_name]['data'][3][] = l($bundles_info[$entity_type][$bundle]['label'], $admin_path . '/fields/'. $field_name, array(
-          'query' => $destination,
-          'fragment' => 'edit-field-field-permissions-type',
-        ));
+        $rows[$field_name]['data'][3][] = $field_admin_path;
         $rows[$field_name]['class'] = $field['locked'] ? array('menu-disabled') : array('');
 
         // Append field permissions information to the report.

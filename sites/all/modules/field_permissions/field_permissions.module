@@ -296,3 +296,31 @@ function field_permissions_features_pipe_field_base_alter(&$pipe, $data, $export
     }
   }
 }
+
+/**
+ * Implements hook_field_attach_form().
+ */
+function field_permissions_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+  // Some fields are validated if they are #required even if field's #access
+  // property is set to false. For example: file/image fields, options fields.
+  foreach (element_children($form) as $key) {
+    if (isset($form[$key]['#access']) && !$form[$key]['#access']) {
+      _field_permissions_make_elements_non_required($form[$key]);
+    }
+  }
+}
+
+/**
+ * Sets the #required property to FALSE recursively on form elements.
+ */
+function _field_permissions_make_elements_non_required(&$elements) {
+  if (!is_array($elements)) {
+    return;
+  }
+  if (!empty($elements['#required'])) {
+    $elements['#required'] = FALSE;
+  }
+  foreach (element_children($elements) as $key) {
+    _field_permissions_make_elements_non_required($elements[$key]);
+  }
+}

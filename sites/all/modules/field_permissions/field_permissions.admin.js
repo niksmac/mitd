@@ -21,6 +21,13 @@ Drupal.behaviors.fieldPermissionsSettings = {
         new Drupal.fieldPermissions.HideCreatePermission($user_register_form_checkbox, $required_field_checkbox, $create_permission_row);
       }
     }
+
+    // Show a warning if there's no available permissions matrix.
+    $('#edit-field-field-permissions-permission-warning').toggle(!$('#permissions').length);
+
+    $('[name="field[field_permissions][type]"]').bind('change', function(option) {
+      $('#edit-field-field-permissions-permission-warning').toggle(!$('#permissions').length);
+    });
   }
 };
 
