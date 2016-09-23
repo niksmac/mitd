@@ -16,6 +16,7 @@
           <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
           <?php else: ?>
           <li><a href="<?php print url("user/register"); ?>">Register</a></li>
+          <li><a href="<?php print url("user/login"); ?>">Login</a></li>
           <?php endif; ?>
         </ul>
       </div>

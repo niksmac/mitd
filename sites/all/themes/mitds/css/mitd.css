@@ -44,8 +44,7 @@
 .listing-new-style{
     padding-bottom: 30px;
 }
-.edit-btn{
-    margin-left: 15px;
+.edit-btn{    
     margin-top: 16px;
 }
 /*.btn-text{
@@ -130,8 +129,14 @@ li.notifyuserwheninvited{
     background-color: #FFF8DC;
 }
 
-.invite-button { 
+.invite-button {
     width: 100px;
-    margin-left: 29px;    
+    margin-left: 29px;
     margin-bottom: 17px;
+}
+.view-partners-list.pro-mem{
+    background: none;
+}
+.log-in {
+    padding:16px;
 }

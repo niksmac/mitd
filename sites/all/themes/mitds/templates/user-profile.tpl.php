@@ -34,17 +34,18 @@
  * @ingroup themeable
  */
 ?>
-<div class="profile"<?php print $attributes; ?>>
- <div class="row about-me">
+<div class="profile"<?php print $attributes; ?>>    
+ <div class="row about-me">  
   <div class="col-md-2">        
-    <?php print render($user_profile['field_picture']); ?>
+    <?php print render($user_profile['field_company_logo']); ?>
   </div>
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']); ?>
+    <?php if(arg(1) == $user->uid) { ?>
+      <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-default btn-sm edit-btn">Edit</a>
+    <?php } ?>
   </div>
-  <?php //if($user_profile['uid'] == $user->uid) { ?>
-  <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-default btn-sm edit-btn">Edit</a>
-  <?php //} ?>
+
 </div>
 
   <div class="row">
@@ -61,6 +62,29 @@
                 </div>
             </div>
         </div>
+        <div class="sidebar">
+            <h5 class="main-title">Details</h5>
+            <div class="sidebar-information">
+                <div class="single-category">
+                    <div class="row about-me">
+                     <div class="col-md-2">
+                            <?php print render($user_profile['field_picture']); ?>
+                        </div>                        
+                        <div class="col-md-10">
+                          <h6 class="title col-xs-4">Name</h6>
+                          <span class="subtitle col-xs-6">
+                            <?php echo $user_profile['field_first_name']['#object']->field_first_name['und'][0]['value']." ".$user_profile['field_last_name']['#object']->field_last_name['und'][0]['value'] ;?>
+                            
+                          </span>                           
+                            <span class="subtitle col-xs-10">
+                              <?php print render($user_profile['field_designation']); ?></span>
+
+                        </div> 
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <?php print views_embed_view('proposals','block_1'); ?>
 
@@ -73,11 +97,13 @@
 
                 <div class="single-category">
                     <div class="row">
-                        <h6 class="title col-xs-6">Name</h6>
-                           <span class="subtitle col-xs-6"><?php echo $user_profile['field_first_name']['#object']->field_first_name['und'][0]['value']." ".$user_profile['field_last_name']['#object']->field_last_name['und'][0]['value'] ;?></span>
+                        <!-- <h6 class="title col-xs-6">Name</h6> -->
+                           <!-- <span class="subtitle col-xs-6">
+                            <?php //echo $user_profile['field_first_name']['#object']->field_first_name['und'][0]['value']." ".$user_profile['field_last_name']['#object']->field_last_name['und'][0]['value'] ;?>
+                          </span> -->
                     </div>
 
-                    <?php print render($user_profile['field_designation']); ?>
+                    <?php //print render($user_profile['field_designation']); ?>
 
                     <?php print render($user_profile['field_organization_name']); ?>
 

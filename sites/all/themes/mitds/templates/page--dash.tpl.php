@@ -1,5 +1,5 @@
 <?php global $base_url; $theme_path = $base_url.'/'.drupal_get_path('theme', 'mitds');?>
-<?php drupal_set_title($full_name); ?> 
+<?php drupal_set_title($full_name); ?>
 <div id="main-wrapper">
 
   <!-- Top Toolbar -->
@@ -55,9 +55,9 @@
               <?php endif; ?>
           </div>
           <div class="right-top-bnr">
-            <div class="connect"> <a href="user-profile(layout-1).html#." data-toggle="modal" data-target="#myModal"><i class="fa fa-user-plus"></i> Connect</a> <a href="user-profile(layout-1).html#."><i class="fa fa-share-alt"></i> Share</a>
+<!--             <div class="connect"> <a href="user-profile(layout-1).html#." data-toggle="modal" data-target="#myModal"><i class="fa fa-user-plus"></i> Connect</a> <a href="user-profile(layout-1).html#."><i class="fa fa-share-alt"></i> Share</a>
               <div class="bt-ns"> <a href="user-profile(layout-1).html#."><i class="fa fa-bookmark-o"></i> </a> <a href="user-profile(layout-1).html#."><i class="fa fa-envelope-o"></i> </a> <a href="user-profile(layout-1).html#."><i class="fa fa-exclamation"></i> </a> </div>
-            </div>
+            </div> -->
           </div>
           </div>
           <div class="col-md-12 tab-wrapper">

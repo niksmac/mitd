@@ -69,7 +69,7 @@
               <div class="uou-tabs">
                 <ul class="tabs">
                   <li><a href="<?php print url("user/register"); ?>">Register Now</a></li>
-                  <li class="active"><a href="#log-in">Member Login</a></li>
+                  <li class="active log-in">Member Login</li>
                 </ul>
 
 

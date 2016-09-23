@@ -26,22 +26,18 @@ function mitds_process_page(&$variables) {
  */
 function mitds_preprocess_page(&$variables) {
 
-
 global $user;
 
-if (arg(0) == "user" && is_numeric(arg(1)) && arg(1) == $user->uid){
-  $variables['theme_hook_suggestions'][] =  'page__dash';
-}
-$variables['full_name'] = "";
-$variables['designation'] =  "";
-if (isset($variables['user'])) {
-  $user_data = $variables['user'];
-  $user_data = user_load($user_data->uid);
+  if (arg(0) == "user" && is_numeric(arg(1))){
+    $variables['theme_hook_suggestions'][] =  'page__dash';
+    if ($user->uid != arg(1)){
+      $variables['tabs'] = array();
+    }
+    $user_data = user_load(arg(1));
+    $variables['full_name'] =  !empty($user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value']." ".$user_data->field_last_name['und'][0]['value'] : "";
+    $variables['designation'] = !empty($user_data->field_designation) ? $user_data->field_designation['und'][0]['value'] : "";
+  }
 
-  $variables['full_name'] =  !empty($user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value']." ".$user_data->field_last_name['und'][0]['value'] : "";
-
-  $variables['designation'] = !empty($user_data->field_designation) ? $user_data->field_designation['und'][0]['value'] : "";
-}
 }
 
 /**
@@ -99,7 +95,7 @@ function mitds_image_style($variables) {
   }
 
   $dimensions = array(
-    'width' => $variables['width'], 
+    'width' => $variables['width'],
     'height' => $variables['height'],
   );
 

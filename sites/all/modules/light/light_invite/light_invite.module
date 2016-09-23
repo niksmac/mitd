@@ -96,14 +96,11 @@ function light_invite_views_data() {
     'title' => t('Status field'), 
     'help' => t('Status field.'), 
     'field' => array(
-      'handler' => 'views_handler_field_boolean', 
+      'handler' => 'views_handler_field_numeric', 
       'click sortable' => TRUE,
     ), 
     'filter' => array(
-      'handler' => 'views_handler_filter_boolean_operator',
-      'label' => t('Status'),
-      'type' => '0-1-2',
-      'use equal' => TRUE,
+      'handler' => 'views_handler_filter_numeric',
     ), 
     'sort' => array(
       'handler' => 'views_handler_sort',
@@ -140,12 +137,12 @@ function light_invite_opportunity_inviting() {
 	  'modified' => time(),
 	  'status' => 0,
 	  'reason' => "",
-
-);
+  );
   drupal_write_record('mitd_invite', $data);  
   $message = message_create('notify_user_when_invited', array('uid' => $uid));
   $wrapper = entity_metadata_wrapper('message', $message);
   $wrapper->field_opportunity_ref->set($node);    
   $wrapper->save();
   drupal_goto();
+
 }
