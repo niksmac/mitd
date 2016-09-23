@@ -42,7 +42,7 @@
 
             ?>
             <li>
-              <a href="#"><?php echo $val; ?></a>
+              <?php echo $val; ?>
             </li>
             <?php } ?></ul> 
 
