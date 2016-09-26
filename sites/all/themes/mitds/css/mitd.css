@@ -140,3 +140,6 @@ li.notifyuserwheninvited{
 .log-in {
     padding:16px;
 }
+.intl-tel-input{
+    display:block !important;
+}
