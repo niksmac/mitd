@@ -15,10 +15,11 @@ function light_message_form_alter(&$form, &$form_state, $form_id) {
 function light_message_proposals_node_form($form, &$form_state) {
   
 	$op_nid = $form_state['values']['field_opportunity']['und']['0']['nid'];
+
 	$uid = $form_state['values']['uid'];
 	$node = node_load($op_nid);		
-    $message = message_create('notify_author_when_proposal_submit', array('uid' => $node->uid));
+    $message = message_create('notify_author_when_proposal_submit', array('uid' => $node->uid));   
     $wrapper = entity_metadata_wrapper('message', $message);
-    $wrapper->field_opportunity_ref->set($node);  
+    $wrapper->field_opp_ref->set($node);  
 	  $wrapper->save(); 
  }
