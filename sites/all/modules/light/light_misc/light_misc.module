@@ -1,5 +1,8 @@
 <?php
 
+function light_misc_init() {
+    drupal_add_js(drupal_get_path('module', 'light_misc') . '/light_misc.js');
+}
 
 function mitd_nid($uid, $op_nid) {
 
@@ -43,15 +46,51 @@ function mitd_proposals_count($nid) {
 
 function light_misc_form_alter(&$form, &$form_state, $form_id) {
 	global $user;
+	
 	switch ($form_id) {
 		case "user_login":
-		$options = array('attributes' => array('class' => 'on-right'));
-		$form['resetlink'] = array(
-			'#type' => 'item',
-			'#markup' => l('Forgot Password?', 'user/password', $options)
-			);
-		break;		
+			$options = array('attributes' => array('class' => 'on-right'));
+			$form['resetlink'] = array(
+				'#type' => 'item',
+				'#markup' => l('Forgot Password?', 'user/password', $options)
+				);
+		break;
+		case 'user_register_form':
+    		$form['#validate'][] = 'light_misc_registersibmit';
+		break;
+		case 'views_exposed_form':
+	    	$view = $form_state['view'];
+	        if ($view->name == 'bulletin_board' && $view->current_display == 'page') {
+            $result = views_get_view_result('user_listing','block');
+            $result_1 = views_get_view_result('user_listing','block_1');
+
+	     	$options = array("" => "none");
+	     	foreach($result as $key=> $val) {
+	    	  $options[$val->users_name] = $val->field_field_first_name['0']['raw']['value'].' '.$val->field_field_last_name['0']['raw']['value'];
+	    	}
+	    	$form['uid_1']['#type'] = "select";
+	    	$form['uid_1']['#options'] = $options;
+
+	    
+			$options_1 = array("" => "none");
+	     	foreach($result_1 as $key=> $val) { 
+	    	  $options_1[$val->users_name] = $val->field_field_first_name['0']['raw']['value'].' '.$val->field_field_last_name['0']['raw']['value'];
+	    	}
+	    	$form['uid']['#type'] = "select";
+	    	$form['uid']['#options'] = $options_1;
+	        }
+		break;
+
 	}
+}
+
+function light_misc_registersibmit(&$form, &$form_state, $form_id) {
+
+	$mobno = $form_state['values']['field_mobile']['und'][0]['value'];
+
+	if (strlen($mobno) != 13) {
+      form_set_error('field_mobile', t('Invalid phone number'));
+    }
 }
 
 /**
