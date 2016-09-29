@@ -10,13 +10,15 @@
     </div>    
   </div>  
 
-<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { //print_r($value);exit;?>
+<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { //print_r(arg(1));exit;?>
   <div class="listing listing-1 listing-new-style">
     <div class="listing-section">
       <div class="listing-ver-3">
         
         <div class="listing-heading">
           <?php
+            $status = _check_awarded_opportunity(arg(1)); 
+
             $name = $value['field_first_name'].' '.$value['field_last_name']; 
 
           ?>
@@ -47,7 +49,9 @@
             <?php } ?></ul> 
 
         </div>
+        <?php if($status == false) { ?>
          <a href="<?php echo url("invite/".arg(1)."/".$value['uid'],array('query' => array('destination' => $_GET['q'])))?>" class="btn btn-primary btn-block invite-button">Invite</a>
+         <?php } ?>
       </div>          
       </div>
     </div>
