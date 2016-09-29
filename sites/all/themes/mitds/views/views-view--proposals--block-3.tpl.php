@@ -1,5 +1,5 @@
 <?php if ($rows): ?>
-<div class="similar">
+<div class="similar proposal-count">
 
 	<?php 
  	if ( empty($title) ): 

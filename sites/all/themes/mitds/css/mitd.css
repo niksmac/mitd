@@ -143,3 +143,6 @@ li.notifyuserwheninvited{
 .intl-tel-input{
     display:block !important;
 }
+.proposal-count {
+    padding: 10px 30px;
+}
