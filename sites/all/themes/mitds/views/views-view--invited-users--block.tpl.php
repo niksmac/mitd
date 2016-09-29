@@ -2,10 +2,9 @@
 <div class=" <?php print $classes; ?>">
 
   <?php foreach ($view->style_plugin->rendered_fields as $key => $value) { 
-
-    // print_r($value);exit;
-    // $isInvited = _check_opportunity_invited($value['nid'], $value['uid']);
-
+     
+     $name = $value['field_first_name'].''.$value['field_last_name'];
+     
     ?>
 
   <div class="col-md-12 air-card">
@@ -14,8 +13,8 @@
       <!-- <a href="" class="btn btn-warning btn-block" > Invite</a> -->
     </div>
     <div class="col-md-10">
-      <h3>Nikhil Mohan</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis maxime voluptatibus quae? Praesentium aliquid ipsum, at vero accusantium eligendi obcaecati ex sapiente neque adipisci. Fugit laudantium non laborum illum rerum.</p>
+      <h3><?php echo $name; ?></h3>
+      <?php echo $value['field_application_description']; ?>
 
       <div class="tag-cloud">
         <span class="btn btn-primary"><?php print $value['field_geography_of_operation']; ?></span>

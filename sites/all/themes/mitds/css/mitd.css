@@ -14,6 +14,9 @@
 .mar-bot50 {
 	margin-bottom: 50px;
 }
+.mar-bot10 {
+    margin-bottom: 10px;
+}
 .air-card{
     background: #fff;
     padding: 21px;
@@ -150,12 +153,10 @@ li.notifyuserwheninvited{
    display: :block;
     padding-top: 10px;
 }
-.view-invited-users h3 {
+.view-invited-users h3, .view h3 {
     padding: 0;
-    margin: 0;
+    margin: 0 0 10px 0;
 }
-.invited {
-    margin-left: 29px;
-    margin-bottom: 17px;
-    width:150px;
+a.invited:hover {
+    cursor: text;
 }
