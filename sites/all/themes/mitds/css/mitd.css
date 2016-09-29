@@ -146,3 +146,16 @@ li.notifyuserwheninvited{
 .proposal-count {
     padding: 10px 30px;
 }
+.new-row {
+   display: :block;
+    padding-top: 10px;
+}
+.view-invited-users h3 {
+    padding: 0;
+    margin: 0;
+}
+.invited {
+    margin-left: 29px;
+    margin-bottom: 17px;
+    width:150px;
+}

@@ -43,8 +43,8 @@ function light_invite_schema(){
 
       'reason' => array(
         'description' => t('Reason'),
-        'type' => 'text',
-        'size' => 'big',
+        'type' => 'varchar',
+        'size' => '256',
         'not null' => FALSE
       ),       
       'status' => array( 

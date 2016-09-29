@@ -37,8 +37,19 @@ global $user;
     $variables['full_name'] =  !empty($user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value']." ".$user_data->field_last_name['und'][0]['value'] : "";
     $variables['designation'] = !empty($user_data->field_designation) ? $user_data->field_designation['und'][0]['value'] : "";
   }
-
 }
+
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function mitds_preprocess_html(&$variables) {
+  if (arg(0) == "node" && arg(2) == "invite") {
+    $node = node_load(arg(1));
+    $variables['classes_array'][] = "node-".$node->type;
+  }
+}
+
 
 /**
  * Implements hook_menu_alter().
@@ -86,7 +97,6 @@ function mitds_form_comment_form_alter(&$form, &$form_state) {
 
 }
 
-
 function mitds_image_style($variables) {
   if ($variables['style_name'] == 'blog_teaser' ) {
      $variables['attributes'] = array(
@@ -109,4 +119,14 @@ function mitds_image_style($variables) {
   $variables['path'] = image_style_url($variables['style_name'], $variables['path']);
 
   return theme('image', $variables);
+}
+
+
+function _mitds_access_invite(){
+  return TRUE;
+  $node = node_load(arg(1));
+  if($node->type == "opportunity"){
+    return TRUE;
+  }
+  return FALSE;
 }

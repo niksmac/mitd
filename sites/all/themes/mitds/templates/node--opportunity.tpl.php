@@ -50,20 +50,22 @@
         <?php print views_embed_view('proposals','block'); ?>
         <?php } ?>
         <?php if($user->uid == $node->uid) { ?>
-        <?php //print views_embed_view('proposals','block'); ?>
           <?php print views_embed_view('proposals','block_2'); ?>
-          <?php print views_embed_view('proposals','block_4'); ?>
+          
         <?php } ?>
 
     </div>
     <div class="col-md-4 profile-company-content">
       <div class="sidebar">
-      <?php if($user->uid == $node->uid) { ?>
-      <?php print views_embed_view('proposals','block_3'); ?>
-      <?php } else { ?>
-      <?php print views_embed_view('list_opportunites','block_1'); ?>
-      <?php } ?>
-    </div>
+        <?php if($user->uid == $node->uid) { ?>
+        <?php print views_embed_view('proposals','block_3'); ?>
+        <?php } else { ?>
+        <?php print views_embed_view('list_opportunites','block_1'); ?>
+        <?php } ?>
+      </div>
+
+      <?php print views_embed_view('proposals','block_4'); ?>
+    
 
     <?php print light_misc_opp_action($node); ?>
   
