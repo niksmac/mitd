@@ -70,26 +70,26 @@ function mitds_menu_link_alter(&$link) {
 }
 
 function mitds_form_comment_form_alter(&$form, &$form_state) {
-  //print_r($form_state);
-  $form['author']['#type'] = 'fieldset';
-  $form['author']['#title'] = 'Your Information';
-  $form['author']['#collapsible'] = FALSE;
+  // print_r($form); die;
 
-  $form['your_comment'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Your Comment'),
-    '#collapsible' => FALSE,
-    '#weight' => 2,
-  );
+  $form['wrapper']['#type'] = 'fieldset';
+  $form['wrapper']['#title'] = 'Your Message';
+  $form['wrapper']['#collapsible'] = FALSE;
 
-  //Subject
-  $form['your_comment']['subject'] = $form['subject'];
-  unset($form['subject']);
-  $form['your_comment']['subject']['#weight'] = -10;
+  $form['wrapper']['author'] = $form['author'];
+  unset($form['author']);
 
   //Comment
-  $form['your_comment']['comment_body'] = $form['comment_body'];
+  $form['wrapper']['comment_body'] = $form['comment_body'];
   unset($form['comment_body']);
+  
+  $form['field_proposal_files']['#type'] = 'markup';
+
+  $form['wrapper']['field_proposal_files'] = $form['field_proposal_files'];
+  unset($form['field_proposal_files']);
+
+  $form['actions']['submit']['#value'] = 'Send Message';
+  $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
 
   $form['author']['homepage']['#access'] = FALSE;
 
