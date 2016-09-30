@@ -160,3 +160,12 @@ li.notifyuserwheninvited{
 a.invited:hover {
     cursor: text;
 }
+.field-label {
+    min-width: 45%;
+    font-weight: 300;
+}
+.view-empty {
+    font-size: 18px;
+    color: #BBB;
+    font-style: italic;
+}

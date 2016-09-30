@@ -227,10 +227,15 @@ https://github.com/Bluefieldscom/intl-tel-input.git
         // set the initial state of the input value and the selected flag
         _setInitialState: function() {
             var val = this.telInput.val();
+            var dialCode = this._getDialCode(val);
+
             // if there is a number, and it's valid, we can go ahead and set the flag, else fall back to default
-            if (this._getDialCode(val)) {
+            if (dialCode) {
                 this._updateFlagFromNumber(val);
+                if(val.indexOf("-") < 0)
+                val = val.slice(0, dialCode.length) + "-" + val.slice(dialCode.length);
             } else {
+
                 var defaultCountry;
                 // check the defaultCountry option, else fall back to the first in the list
                 if (this.options.defaultCountry) {
@@ -247,6 +252,7 @@ https://github.com/Bluefieldscom/intl-tel-input.git
             // format
             if (val) {
                 // this wont be run after _updateDialCode as that's only called if no val
+
                 this._updateVal(val, false);
             }
         },
@@ -719,11 +725,14 @@ https://github.com/Bluefieldscom/intl-tel-input.git
                 } else {
                     // if the previous number didn't contain a dial code, we should persist it
                     var existingNumber = inputVal.substr(0, 1) != "+" ? $.trim(inputVal) : "";
-                    newNumber = newDialCode + existingNumber;
+                    newNumber = newDialCode + "-" + existingNumber;
                 }
             } else {
                 newNumber = !this.options.autoHideDialCode || focusing ? newDialCode : "";
             }
+            // added light code here
+            if(newNumber.indexOf("-") < 0)
+            newNumber = newNumber.slice(0, newDialCode.length) + "-" + newNumber.slice(newDialCode.length);
             this._updateVal(newNumber, focusing);
         },
         // try and extract a valid international dial code from a full telephone number

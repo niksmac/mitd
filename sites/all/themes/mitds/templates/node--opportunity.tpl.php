@@ -18,7 +18,7 @@
       <div class="air-card mar-bot50">
         <h3 class="m-0-top sub-title">General Requirements</h3>
         <p class="break" data-ng-non-bindable>
-          <?php print render($node->field_general_requirements['und']['0']['value']);?>
+          <?php print nl2br($node->field_general_requirements['und']['0']['value']);?>
         </p>
 
         <ul class="list-group"> 
@@ -32,7 +32,7 @@
       <div class="air-card mar-bot50">
         <div class="row">
           <div class="col-md-12">
-            <p class="m-md-bottom"><strong><h3 class="sub-title">Important Dates </h3></strong></p>
+            <p class="m-md-bottom"><h3 class="sub-title">Important Dates</h3></p>
 
             <ul class="list-group"> 
               <li class="list-group-item"><?php print render($content['field_rfp_issue_date']); ?></li>

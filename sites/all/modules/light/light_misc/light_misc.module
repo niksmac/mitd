@@ -46,7 +46,7 @@ function mitd_proposals_count($nid) {
 
 function light_misc_form_alter(&$form, &$form_state, $form_id) {
 	global $user;
-	
+
 	switch ($form_id) {
 		case "user_login":
 			$options = array('attributes' => array('class' => 'on-right'));
@@ -58,6 +58,9 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 		case 'user_register_form':
     		$form['#validate'][] = 'light_misc_registersibmit';
 		break;
+    case 'user_profile_form':
+        $form['#validate'][] = 'light_misc_registersibmit';
+    break;
 		case 'views_exposed_form':
 	    	$view = $form_state['view'];
 	        if ($view->name == 'bulletin_board' && $view->current_display == 'page') {
@@ -71,9 +74,9 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 	    	$form['uid_1']['#type'] = "select";
 	    	$form['uid_1']['#options'] = $options;
 
-	    
+
 			$options_1 = array("" => "none");
-	     	foreach($result_1 as $key=> $val) { 
+	     	foreach($result_1 as $key=> $val) {
 	    	  $options_1[$val->users_name] = $val->field_field_first_name['0']['raw']['value'].' '.$val->field_field_last_name['0']['raw']['value'];
 	    	}
 	    	$form['uid']['#type'] = "select";
@@ -84,13 +87,24 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 	}
 }
 
-function light_misc_registersibmit(&$form, &$form_state, $form_id) {
+function light_misc_registersibmit(&$form, &$form_state) {
 
-	$mobno = $form_state['values']['field_mobile']['und'][0]['value'];
+  $values = $form_state['values'];
 
-	if (strlen($mobno) != 13) {
+  if( isset($values['field_mobile']) ){
+    $mobno = $values['field_mobile']['und'][0]['value'];
+
+    if (strpos($mobno, "-") <= 0){
+      form_set_error('field_mobile', t('Invalid phone number. hyphen(-) needed after country code'));
+    }
+
+    $mobno_array = explode("-", $mobno);
+    $mobno = trim(end($mobno_array));
+    if (strlen($mobno) != "10") {
       form_set_error('field_mobile', t('Invalid phone number'));
     }
+  }
+
 }
 
 /**
@@ -113,7 +127,7 @@ function light_misc_menu() {
 }
 
 function light_misc_proposal_shortlisting() {
-	
+
 	$nid = arg(1);
 	$node = node_load($nid);
 
@@ -131,12 +145,12 @@ function light_misc_award_proposal() {
 	$node = node_load($nid);
 
 	$op_nid = $node->field_opportunity['und']['0']['nid'];
-	$opportunity_node = node_load($op_nid);		
+	$opportunity_node = node_load($op_nid);
 	$opportunity_node->field_award['und']['0']['value'] = $node->vid;
-	$opportunity_node->field_contract_award_date['und']['0']['value'] = date('Y-m-d');		
+	$opportunity_node->field_contract_award_date['und']['0']['value'] = date('Y-m-d');
 	field_attach_update('node', $opportunity_node);
     $result = views_get_view_result('proposals', 'block_5', $op_nid);
-    foreach ($result as $key => $value) {    	
+    foreach ($result as $key => $value) {
     	if($value->nid != $nid) {
     		$proposal_view = node_load($value->nid);
             $proposal_view->comment = 1;
@@ -144,8 +158,8 @@ function light_misc_award_proposal() {
     }
 	$message = message_create('notify_user_when_opportunity_awarded', array('uid' => $node->uid));
     $wrapper = entity_metadata_wrapper('message', $message);
-    $wrapper->field_opportunity_ref->set($opportunity_node);    
-	$wrapper->save(); 
+    $wrapper->field_opportunity_ref->set($opportunity_node);
+	$wrapper->save();
 	drupal_set_message(t("@title is awarded",array('@title' => $node->title)));
 
 	drupal_goto();
@@ -163,39 +177,39 @@ function _check_awarded_opportunity($op_nid) {
 /**
  * Implements hook_comment_insert().
  */
-function light_misc_comment_insert($comment) {	
-  
+function light_misc_comment_insert($comment) {
+
   $comment_uid = $comment->uid;
   $node = node_load($comment->nid);
   $prop_uid = $node->uid;
-  $op_uid = $node->field_opportunity['und']['0']['node']->uid;  
+  $op_uid = $node->field_opportunity['und']['0']['node']->uid;
   if($comment_uid == $prop_uid){
   	$account = $op_uid;
-  	
-  } else { 
+
+  } else {
   	$account = $prop_uid;
   }
     $message = message_create('comments_log', array('uid' => $account));
     $wrapper = entity_metadata_wrapper('message', $message);
     $wrapper->field_comment_ref->set($comment);
     $wrapper->field_proposal_ref->set($node);
-    $wrapper->save();  
+    $wrapper->save();
 }
 
 /**
  * Implements hook_node_insert().
  */
-// function light_misc_node_insert($node) {	
+// function light_misc_node_insert($node) {
 // 	print_r($node);exit;
-//     $node = node_load($node->nid);     
-// 	$op = $node->field_opportunity['und']['0']['nid'];	
+//     $node = node_load($node->nid);
+// 	$op = $node->field_opportunity['und']['0']['nid'];
 // 	$op_node = node_load($op);
 // 	$account = $op_node->uid;
-	
+
 //   	if($node->type == "proposals"){
 //   	if(isset($account))
-//       $message = message_create('notify_author_when_proposal_submit', array($account));     
-//       $wrapper = entity_metadata_wrapper('message', $message);    
+//       $message = message_create('notify_author_when_proposal_submit', array($account));
+//       $wrapper = entity_metadata_wrapper('message', $message);
 //       //$wrapper->field_proposal_ref->set($node);
 //      // $wrapper->field_opportunity_ref->set($op_node);
 //       $wrapper->save();
@@ -203,20 +217,20 @@ function light_misc_comment_insert($comment) {
 // }
 
 function light_misc_opp_action($node){
-global $user;  
+global $user;
 $link = "";
 $proposal_submit = mitd_nid($user->uid, $node->nid);
 	if(_check_awarded_opportunity($node->nid)) {
 		$link = '<a href="#" class="btn btn-info btn-block">Awarded</a>';
 	}
-	else 
+	else
 	{
 	if($node->uid != $user->uid) {
 	  if(!empty($proposal_submit))
-	    $link = '<a href="'.url("node/".$proposal_submit[0]) .'" class="btn btn-primary btn-block">View Proposal</a>'; 
-	  else   
+	    $link = '<a href="'.url("node/".$proposal_submit[0]) .'" class="btn btn-primary btn-block">View Proposal</a>';
+	  else
 	    $link = '<a href="'.url("node/add/proposals/".$node->nid) .'" class="btn btn-primary btn-block">Submit Proposal</a>';
-	  } 
+	  }
 	}
 return $link;
 }
