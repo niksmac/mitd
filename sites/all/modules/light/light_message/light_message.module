@@ -4,8 +4,24 @@
  */
 function light_message_form_alter(&$form, &$form_state, $form_id) {
 
+  global $user;
+  $usr = user_load($user->uid);  
+  if(isset($usr->field_first_name['und']['0']['value']) || isset($usr->field_last_name['und']['0']['value']))
+  $name = $usr->field_first_name['und']['0']['value'].' '.$usr->field_last_name['und']['0']['value'];
+
   if ($form_id == 'proposals_node_form') {
     $form['#submit'][] = 'light_message_proposals_node_form';
+  }
+
+  if ($form_id == 'opportunity_node_form') {    
+     $form['field_name_of_the_customer']['und']['0']['value']["#default_value"] = $name;
+    $form['field_name']['und']['0']['value']["#default_value"]  = $user->name;
+    $form['field_email']['und']['0']['email']["#default_value"] = $user->mail;
+    $form['field_phone']['und']['0']['value']["#default_value"] = $usr->field_phone_number['und']['0']['value'];
+    $form['field_city']['und']['0']['value']["#default_value"] = $usr->locations['0']['city'];
+    $form['field_state']['und']['0']['value']["#default_value"] = $usr->locations['0']['province_name'];
+    $form['field_country']['und']['0']['value']["#default_value"] = $usr->locations['0']['country_name'];    
+    $form['field_zip_code']['und']['0']['value']["#default_value"] = $usr->locations['0']['postal_code'];       
   }
 }
 
