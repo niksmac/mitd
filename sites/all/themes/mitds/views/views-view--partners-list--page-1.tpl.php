@@ -16,7 +16,7 @@
       <div class="tag-cloud">
         <span class="btn btn-primary"><?php print $value['country']; ?></span>
         <span class="btn btn-primary"><?php print $value['field_organization_name']; ?></span>
-        <span class="btn btn-primary"><?php print $value['field_organization_name']; ?></span>
+        <span class="btn btn-primary"><?php print $value['field_organization_url']; ?></span>
       </div>
 
     </div>

@@ -96,15 +96,7 @@
             <div class="sidebar-information">
 
                 <div class="single-category">
-                    <div class="row">
-                        <!-- <h6 class="title col-xs-6">Name</h6> -->
-                           <!-- <span class="subtitle col-xs-6">
-                            <?php //echo $user_profile['field_first_name']['#object']->field_first_name['und'][0]['value']." ".$user_profile['field_last_name']['#object']->field_last_name['und'][0]['value'] ;?>
-                          </span> -->
-                    </div>
-
-                    <?php //print render($user_profile['field_designation']); ?>
-
+                                        
                     <?php print render($user_profile['field_organization_name']); ?>
 
                     <?php print render($user_profile['field_phone_number']); ?>
