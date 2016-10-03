@@ -131,6 +131,12 @@ function field_permissions_field_access($op, $field, $entity_type, $entity, $acc
   }
   // Otherwise, check access by permission.
   elseif ($field['field_permissions']['type'] == FIELD_PERMISSIONS_CUSTOM) {
+    // Allow other modules to deny access first.
+    $result = module_invoke_all('field_permissions_custom_field_access', $op, $field, $entity_type, $entity, $account);
+    if (in_array(FALSE, $result)) {
+      return FALSE;
+    }
+
     if (!isset($entity)) {
       return field_permissions_empty_entity_access($op, $field['field_name'], $account);
     }

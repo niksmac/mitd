@@ -3271,4 +3271,7 @@ CANVAS PAGE STYLE
   -ms-transform: translate3d(0,0,0);
 }
 
-
+.region-sidebar-first .views-exposed-form .views-exposed-widget{
+	float: none;
+	width: 100%;
+}
