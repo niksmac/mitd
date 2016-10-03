@@ -70,12 +70,10 @@ function mitds_menu_link_alter(&$link) {
 }
 
 function mitds_form_comment_form_alter(&$form, &$form_state) {
-  // print_r($form); die;
 
   $form['wrapper']['#type'] = 'fieldset';
   $form['wrapper']['#title'] = 'Your Message';
   $form['wrapper']['#collapsible'] = FALSE;
-
   $form['wrapper']['author'] = $form['author'];
   unset($form['author']);
 
@@ -84,17 +82,13 @@ function mitds_form_comment_form_alter(&$form, &$form_state) {
   unset($form['comment_body']);
   
   $form['field_proposal_files']['#type'] = 'markup';
-
   $form['wrapper']['field_proposal_files'] = $form['field_proposal_files'];
   unset($form['field_proposal_files']);
 
   $form['actions']['submit']['#value'] = 'Send Message';
   $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
-
   $form['author']['homepage']['#access'] = FALSE;
-
   $form['author']['mail']['#required'] = TRUE;
-
 }
 
 function mitds_image_style($variables) {

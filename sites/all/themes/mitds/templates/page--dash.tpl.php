@@ -55,9 +55,9 @@
               <?php endif; ?>
           </div>
           <div class="right-top-bnr">
-<!--             <div class="connect"> <a href="user-profile(layout-1).html#." data-toggle="modal" data-target="#myModal"><i class="fa fa-user-plus"></i> Connect</a> <a href="user-profile(layout-1).html#."><i class="fa fa-share-alt"></i> Share</a>
-              <div class="bt-ns"> <a href="user-profile(layout-1).html#."><i class="fa fa-bookmark-o"></i> </a> <a href="user-profile(layout-1).html#."><i class="fa fa-envelope-o"></i> </a> <a href="user-profile(layout-1).html#."><i class="fa fa-exclamation"></i> </a> </div>
-            </div> -->
+            <div class="connect">
+              <div class="bt-ns"> <a href="#"><i class="fa fa-exclamation"></i> </a> </div>
+            </div>
           </div>
           </div>
           <div class="col-md-12 tab-wrapper">
