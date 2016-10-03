@@ -118,8 +118,8 @@ class location_handler_filter_location_province extends views_handler_filter {
     if (!empty($this->view->filter)) {
       foreach ($this->view->filter as $k => $v) {
         if ($v->table == 'location' && $v->options['relationship'] == $this->options['relationship']) {
-          if ($v->field == 'country' || $v->field == 'distance') {
-            $country = ($v->field == 'distance') ? $v->value['country'] : $v->value;
+          if ($v->field == 'country' || (strpos($v->field, 'distance') && $v->options['origin'] != 'postal_default')) {
+            $country = (strpos($v->field, 'distance')) ? $v->value['country'] : $v->value;
             if (!empty($v->options['expose']['identifier'])) {
               if (isset($this->view->exposed_input[$v->options['expose']['identifier']])) {
                 $country = $this->view->exposed_input[$v->options['expose']['identifier']];
@@ -131,7 +131,7 @@ class location_handler_filter_location_province extends views_handler_filter {
       }
     }
 
-    if ($country == '' || $country == 'All' || $country == '  ' || $country == 'xx') {
+    if ($country == '' || $country == 'All' || $country == '  ' || $country == 'xx' || empty($country)) {
       // It's set to something nonsensical, reset to the default to prevent malfunctions.
       $country = variable_get('location_default_country', 'us');
     }
