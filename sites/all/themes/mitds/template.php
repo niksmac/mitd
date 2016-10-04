@@ -85,8 +85,15 @@ function mitds_form_comment_form_alter(&$form, &$form_state) {
   $form['wrapper']['field_proposal_files'] = $form['field_proposal_files'];
   unset($form['field_proposal_files']);
 
+
+
   $form['actions']['submit']['#value'] = 'Send Message';
-  $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+  $form['actions']['submit']['#attributes']['class'][] = 'btn-success mar-top10';
+
+  $form['wrapper']['actions'] = $form['actions'];
+  unset($form['actions']);
+
+
   $form['author']['homepage']['#access'] = FALSE;
   $form['author']['mail']['#required'] = TRUE;
 }
@@ -124,3 +131,15 @@ function _mitds_access_invite(){
   }
   return FALSE;
 }
+
+function mitds_preprocess_comment(&$vars) {
+  
+  $comment = $vars['comment'];
+  $uri = entity_uri('comment', $comment);
+  $uri['options'] += array('attributes' => array(
+    'class' => 'permalink',
+    'rel' => 'bookmark',
+  ));
+   $vars['permalink'] = l('#' . $vars['id'], $uri['path'], $uri['options']);
+}
+?>
