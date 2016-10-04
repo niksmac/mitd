@@ -26,4 +26,9 @@
   <?php } ?>
 
 </div>
- <?php endif; ?>
+
+  <?php elseif ($empty): ?>
+    <div class="col-md-10 air-card mar-bot10">
+      <?php print $empty; ?>
+    </div>
+  <?php endif; ?>
