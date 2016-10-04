@@ -10,7 +10,7 @@
       <?php print $value['field_company_logo']; ?>      
     </div>
     <div class="col-md-10">
-      <h3><?php echo $name; ?></h3>
+    <h3><a href="<?php echo url("user/".$value['uid']);?>"><?php echo $name; ?></a></h3>     
       <?php echo $value['field_overview']; ?>
 
       <div class="tag-cloud">
