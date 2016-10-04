@@ -1,28 +1,26 @@
 <?php
 $name = $node->name;
+// print_r($comment);
 ?>
-<div class="<?php print $classes; ?> <?php echo ($name == $comment->name) ? "message-author" : "message-other"; ?> clearfix"<?php print $attributes; ?>>
-  <div class="media">
-    <div class="col-md-2 picture-wrapper">
-      <div class="media-left">
-        <?php print $picture ?>
-      </div>
-    </div>
+<li class="clearfix" >
+  
 
-    <?php if ($new): ?>
-    <span class="new"><?php print $new ?></span>
-    <?php endif; ?>
+<div class="message-data <?php echo ($name == $comment->name) ? ' align-right' : ''; ?>">
+  
+  <?php if($name == $comment->name) { ?> 
+  <span class="message-data-time"><?php echo $created; ?></span> &nbsp; &nbsp;
+  <span class="message-data-name"><?php echo $author; ?></span> <i class="fa fa-circle <?php echo ($name == $comment->name) ? ' me' : ' online'; ?>"></i>
+  <?php } else { ?>
+  <i class="fa fa-circle <?php echo ($name == $comment->name) ? ' me' : ' online'; ?>"></i><span class="message-data-name"><?php echo $author; ?></span>&nbsp; &nbsp; 
+  <span class="message-data-time"><?php echo $created; ?></span>
 
+  <?php } ?>
 
-    <div class="col-md-10 messages">
-      <div class="media-body">
-        <h3 class="media-heading"<?php print $title_attributes; ?>><?php print $title ?></h3>
-        <?php hide($content['links']); ?>
-        <?php print render($content);?>
-
-      </div>
-    </div>
-  </div>
-
+  
 </div>
+<div class="message <?php echo ($name == $comment->name) ? ' other-message float-right' : ' my-message'; ?>">
+  <?php echo $comment->comment_body['und'][0]['safe_value']; ?>
+</div>
+
+</li>
 
