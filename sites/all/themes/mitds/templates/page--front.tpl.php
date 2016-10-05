@@ -55,7 +55,7 @@
             <div class="text-area">
               <div class="position-center-center col-md-10">
                 <h1>MakeITDeals is a global Market Place for Technology Buyers and Sellers.</h1>
-                <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue conseqaut nibbhi ellit ipsum consectetur. </h6>
+                <h6>Perfect search engine with Keyword Research, verified and secured database of Technology partners and deals with the end-to-end business solution procurement process. </h6>
               </div>
             </div>
           </div>
@@ -110,10 +110,9 @@
         <li class="col-md-4">
           <div class="ser-inn">
           <i class="fa fa-globe"></i>
-            <h4>Stay in touch with your
-              colleagues</h4>
+            <h4>Powerful Search Engine</h4>
             <i class="fa fa-globe big"></i>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue conseqaut nibbhi ellit ipsum consectetur.</p>
+            <p>Advanced and user friendly search engine to enable the Buyer to get to a short list of Sellers offering the relevant solution on a global basis with ease and speed.Thus we stay in connect them with.</p>
           </div>
         </li>
 
@@ -121,9 +120,9 @@
         <li class="col-md-4">
           <div class="ser-inn">
             <i class="fa fa-book"></i>
-            <h4>Get the latest industry news</h4>
+            <h4>Security</h4>
             <i class="fa fa-book big"></i>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue conseqaut nibbhi ellit ipsum consectetur.</p>
+            <p>MakeITDeals offers the highest-level encryption and security technology in order to protect client information posted on the platform. Our servers are housed in nondescript buildings and access is strictly controlled.</p>
           </div>
         </li>
 
@@ -131,10 +130,10 @@
         <li class="col-md-4">
           <div class="ser-inn">
           <i class="fa fa-picture-o"></i>
-            <h4>Share what’s up
-              with you</h4>
+            <h4>Deal Teasers</h4>
             <i class="fa fa-picture-o big"></i>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue conseqaut nibbhi ellit ipsum consectetur.</p>
+            <p>MakeITDeals digital teaser technology presents deal content in an elegant and user-friendly format. We've worked with industry experts to incorporate best practices in project marketing. 
+            </p>
           </div>
         </li>
       </ul>
