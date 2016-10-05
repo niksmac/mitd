@@ -19,7 +19,7 @@ jQuery('.texti-slide').owlCarousel({
 jQuery('.sponsors-slider').owlCarousel({
     items: 6
   });
-jQuery('.uou-tabs').uouTabs();
+// jQuery('.uou-tabs').uouTabs();
 
 // Superfish Menus
 // ---------------------------------------------------------

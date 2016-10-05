@@ -346,11 +346,11 @@ $('.mobile-sidebar-close').on('click', function () {
 
 // UOU Tabs
 // ---------------------------------------------------------
-if ($.fn.uouTabs) {
-  $('.uou-tabs').uouTabs();
-} else {
-  console.warn('not loaded -> uou-tabs.js');
-}
+// if ($.fn.uouTabs) {
+//   $('.uou-tabse').uouTabs();
+// } else {
+//   console.warn('not loaded -> uou-tabs.js');
+// }
 
 
 
