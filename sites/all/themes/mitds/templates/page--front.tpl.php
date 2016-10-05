@@ -152,10 +152,7 @@
             <div class="position-center-center col-md-6">
               <h1>Interact with other
                 professionals</h1>
-              <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam,
-                eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                beatae vitae dicta sunt explicabo. </p>
+              <p> Provides an automated platform to manage the procurement process once the buyer has selected a set of vendors with solutions meeting his business needs. Optionally, once the deal is consummated, MakeITDeals can also program manage the engagement to ensure successful delivery.</p>
             </div>
           </div>
         </div>
@@ -169,10 +166,7 @@
             <div class="position-center-center col-md-6">
               <h1>Collaborate on a
                 project</h1>
-              <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam,
-                eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                beatae vitae dicta sunt explicabo. </p>
+              <p>Business Segment and other key selection criteria, enables the buyers to assess what technology solutions are available and then reach the right solution providers meeting their business needs in the area of hardware, business software products and solutions, technology products and solutions and other related services.</p>
             </div>
           </div>
 
