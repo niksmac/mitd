@@ -20,4 +20,15 @@ jQuery('.sponsors-slider').owlCarousel({
     items: 6
   });
 jQuery('.uou-tabs').uouTabs();
+
+// Superfish Menus
+// ---------------------------------------------------------
+if (jQuery.fn.superfish) {
+  jQuery('.sf-menu').superfish();
+} else {
+  console.warn('not loaded -> superfish.min.js and hoverIntent.js');
+}
+
 });
+
+

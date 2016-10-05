@@ -35,7 +35,7 @@
         <?php endif; ?>
         <!-- <a href="index.html#" class="logo"><img src="<?php //print $theme_path;?>/logo.png" alt=""></a> <a href="index.html#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a> -->
         <nav class="nav">
-        <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('sf-menu')), 'heading' => t(''))); ?>
+          <?php print render($page['main_menu_reg']); ?>  
         </nav>
       </div>
     </div>

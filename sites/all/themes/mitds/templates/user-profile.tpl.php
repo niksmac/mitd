@@ -35,14 +35,15 @@
  */
 ?>
 <div class="profile"<?php print $attributes; ?>>    
- <div class="row about-me">  
+ <div class="row about-me mar-top20">  
   <div class="col-md-2">        
     <?php print render($user_profile['field_company_logo']); ?>
+      <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-info btn-sm btn-block edit-btn">Edit</a>
+
   </div>
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']); ?>
     <?php if(arg(1) == $user->uid) { ?>
-      <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-default btn-sm edit-btn">Edit</a>
     <?php } ?>
   </div>
 
