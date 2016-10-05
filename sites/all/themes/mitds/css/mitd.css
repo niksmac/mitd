@@ -47,7 +47,7 @@
 .listing-new-style{
   padding-bottom: 30px;
 }
-.edit-btn{    
+.edit-btn{
   margin-top: 16px;
 }
 /*.btn-text{
@@ -333,4 +333,7 @@
   .commentFiles li {
     list-style: decimal !important;
     margin-left: 20px;
+  }
+  .no-title-footer{
+    padding-top: 55px;
   }

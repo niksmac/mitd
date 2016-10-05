@@ -35,7 +35,7 @@
         <?php endif; ?>
         <!-- <a href="index.html#" class="logo"><img src="<?php //print $theme_path;?>/logo.png" alt=""></a> <a href="index.html#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a> -->
         <nav class="nav">
-        <?php print render($page['main_menu_reg']); ?>       
+        <?php print render($page['main_menu_reg']); ?>
         </nav>
       </div>
     </div>
@@ -132,7 +132,7 @@
           <i class="fa fa-picture-o"></i>
             <h4>Deal Teasers</h4>
             <i class="fa fa-picture-o big"></i>
-            <p>MakeITDeals digital teaser technology presents deal content in an elegant and user-friendly format. We've worked with industry experts to incorporate best practices in project marketing. 
+            <p>MakeITDeals digital teaser technology presents deal content in an elegant and user-friendly format. We've worked with industry experts to incorporate best practices in project marketing.
             </p>
           </div>
         </li>
@@ -179,7 +179,7 @@
     </section>
 
     <!-- APP IMAGE -->
-    <section class="app-images">
+    <section class="app-images hidden">
       <div class="container">
         <div class="row">
 
@@ -200,7 +200,7 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="clients-says">
+    <section class="clients-says hidden">
       <div class="container">
         <h3 class="section-title">what our users say </h3>
         <div class="testi">
@@ -249,8 +249,8 @@
     </section>
 
     <!-- sponsors -->
-    <div class="sponsors" style="background:url(<?php print $theme_path;?>/images/sponser-bg.jpg) no-repeat;">
-      <div class="container">
+    <div class="sponsors hidden" style="background:url(<?php print $theme_path;?>/images/sponser-bg.jpg) no-repeat;">
+      <div class="container ">
         <div class="row">
           <div class="col-md-12">
             <h3 class="section-title">Our Sponsors</h3>
@@ -283,21 +283,30 @@
           <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
         </a>
         <?php endif; ?>
+
+        <h6>INDIA</h6>
         <ul class="contact-info has-bg-image contain" data-bg-image="images/footer-map-bg.png">
           <li> <i class="fa fa-map-marker"></i>
             <address>
-            795 Folsom Ave, Suite 600, San Francisco, CA 94107
+            India14, 6th Cross, Arekere MICO Layout
+              Bannerghatta Road, Bangalore
+              India 560076
             </address>
           </li>
-          <li> <i class="fa fa-phone"></i> <a href="tel:#">(123) 456-7890</a> </li>
-          <li> <i class="fa fa-envelope"></i> <a href="mailto:#">first.last@example.com</a> </li>
+          <li> <i class="fa fa-phone"></i> <a href="tel:#">+91-80-42287607</a> </li>
+          <li> <i class="fa fa-envelope"></i> <a href="mailto:#">info@makeitdeals.com</a> </li>
         </ul>
       </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Twitter Feed</h5>
-        <ul class="twitter-feed">
-          <li> RT <a href="index.html#">@no1son</a>: Now this <a href="index.html#">http://t.co/TSfMW1qMAW</a> is one hell of a stunning site!!! Awesome work guys <a href="index.html#">@AIRNAUTS</a> <a href="index.html#" class="time">May 25</a> </li>
-          <li> Check out the wordpress version of Tucson - <a href="index.html#">http://t.co/sBlU3GbapT</a> <a href="index.html#" class="time">May 22</a> </li>
+      <div class="col-md-3 col-sm-6 no-title-footer">
+        <h6>USA</h6>
+        <ul class="contact-info has-bg-image contain" data-bg-image="images/footer-map-bg.png">
+          <li> <i class="fa fa-map-marker"></i>
+            <address>
+            USA101 Kaula Lane, Bonita Springs, Fl 34134
+            </address>
+          </li>
+          <li> <i class="fa fa-phone"></i> <a href="tel:#">+1(408) 385-2676</a> </li>
+          <li> <i class="fa fa-envelope"></i> <a href="mailto:#">info@makeitdeals.com</a> </li>
         </ul>
       </div>
       <div class="col-md-3 col-sm-6">
@@ -306,6 +315,9 @@
           <li><img src="<?php print $theme_path;?>/images/photostream4.jpg" alt=""></li>
           <li><img src="<?php print $theme_path;?>/images/photostream6.jpg" alt=""></li>
           <li><img src="<?php print $theme_path;?>/images/photostream3.jpg" alt=""></li>
+          <li><img src="<?php print $theme_path;?>/images/photostream2.jpg" alt=""></li>
+          <li><img src="<?php print $theme_path;?>/images/photostream1.jpg" alt=""></li>
+          <li><img src="<?php print $theme_path;?>/images/photostream.jpg" alt=""></li>
           <li><img src="<?php print $theme_path;?>/images/photostream2.jpg" alt=""></li>
           <li><img src="<?php print $theme_path;?>/images/photostream1.jpg" alt=""></li>
           <li><img src="<?php print $theme_path;?>/images/photostream.jpg" alt=""></li>
