@@ -11,14 +11,15 @@
           <li><a href="//plus.google.com" class="fa fa-google-plus"></a></li>
         </ul>
 
-
-          <?php if (user_is_logged_in()) : ?>
           <ul class="authentication">
+            <?php if (user_is_logged_in()) : ?>
             <li><a href="<?php print url("user"); ?>"><span>My Account</span></a></li>
             <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
+            <?php else: ?>
+            <li><a href="<?php print url("user/register"); ?>">Register</a></li>
+            <li><a href="<?php print url("user/login"); ?>">Login</a></li>
+            <?php endif; ?>
           </ul>
-          <?php endif; ?>
-
       </div>
     </div>
     <!-- end .uou-block-1a -->
@@ -297,18 +298,11 @@
           <li> <i class="fa fa-envelope"></i> <a href="mailto:#">info@makeitdeals.com</a> </li>
         </ul>
       </div>
-      <div class="col-md-3 col-sm-6 no-title-footer">
-        <h6>USA</h6>
-        <ul class="contact-info has-bg-image contain" data-bg-image="images/footer-map-bg.png">
-          <li> <i class="fa fa-map-marker"></i>
-            <address>
-            USA101 Kaula Lane, Bonita Springs, Fl 34134
-            </address>
-          </li>
-          <li> <i class="fa fa-phone"></i> <a href="tel:#">+1(408) 385-2676</a> </li>
-          <li> <i class="fa fa-envelope"></i> <a href="mailto:#">info@makeitdeals.com</a> </li>
-        </ul>
+
+      <div class="col-md-3 col-sm-6 no-title-footer">            
+        <?php print render($page['footer']);  ?>                
       </div>
+
       <div class="col-md-3 col-sm-6">
         <h5>Photostream</h5>
         <ul class="photos-list">
@@ -340,8 +334,8 @@
 <div class="uou-block-4a secondary dark">
   <div class="container">
     <ul class="links">
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms &amp; Conditions</a></li>
+      <li><a href="<?php echo url("node/358");?>">Privacy Policy</a></li>
+      <li><a href="<?php echo url("node/348");?>">Terms &amp; Conditions</a></li>
     </ul>
     <p>Copyright &copy; 2016 </p>
   </div>
