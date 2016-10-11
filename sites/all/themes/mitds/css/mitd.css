@@ -337,3 +337,8 @@
   .no-title-footer{
     padding-top: 55px;
   }
+
+  .region-footer ul{
+    margin: 0;
+    padding: 0px 0px 0px 16px;
+  }
