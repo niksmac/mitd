@@ -98,7 +98,7 @@
      <?php print render($page['footer']);  ?>
     </div>
     <div class="row">
-   <div class="col-md-3 pull-right">
+   <div class="col-md-3">
       <?php if ($logo): ?>
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
           <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
