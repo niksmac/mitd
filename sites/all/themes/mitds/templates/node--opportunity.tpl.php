@@ -1,6 +1,7 @@
+<?php// _check_opportunity_invited(arg(1), 31);  ?>  
 <?php if($view_mode == "full") :  ?>  
 <?php global $user;?>
-<?php //print_r($node);exit;?>
+<?php //print_r($user->uid);exit;?>
   <div class="row">
     <div class="mar-bot50">
       <div class="col-md-6">
@@ -66,8 +67,12 @@
 
       <?php print views_embed_view('proposals','block_4'); ?>
     
-
-    <?php print light_misc_opp_action($node); ?>
+      <?php $count = _check_opportunity_invited(arg(1), $user->uid); 
+        if($count > 0) {
+      ?>
+      <p class="bg-info invited">You are invited for this opportunity.</p>
+      <?php } ?>
+      <?php print light_misc_opp_action($node); ?>
   
 
     </div>        

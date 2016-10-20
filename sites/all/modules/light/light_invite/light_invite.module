@@ -191,7 +191,8 @@ function light_invite_opportunity_inviting() {
 
 }
 
-function _check_opportunity_invited($nid, $uid) {
+function _check_opportunity_invited($nid, $uid) {  
   $query = db_query("SELECT nid FROM mitd_invite WHERE nid = :nid and uid = :uid ", array(':nid' => $nid,':uid' => $uid))->rowCount();
+  //print_r($query);exit;
   return $query;
 }
