@@ -72,7 +72,8 @@
           </li>
         </ul>        
       </div>
-    </div>      
+    </div>
+    <?php print views_embed_view('collaboration_listing','block_1'); ?>      
   </div>  
 </div>
 </div>

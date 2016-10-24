@@ -131,6 +131,14 @@
       border-left: 3px solid #C3A632;
       background-color: #FFF8DC;
     }
+    li.notifyuserwheninvitedcollaboration{
+      border-left: 3px solid #ff4dff;
+      background-color: #ffccff;
+    }
+    li.notifyuserswhenaddedtocollaboration{
+      border-left: 3px solid #dd5122;
+      background-color: #f1baa7;
+    }
 
     .invite-button {
       width: 100px;
