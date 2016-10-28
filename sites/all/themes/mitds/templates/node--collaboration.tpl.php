@@ -72,7 +72,7 @@
         </ul>        
       </div>
     </div>
-    <?php if($user->roles['6']) { ?>
+    <?php if(isset($user->roles['6'])) { ?>
     <?php print views_embed_view('collaboration_listing','block_1'); } ?>      
   </div>  
 </div>
