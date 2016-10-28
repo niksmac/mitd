@@ -2,8 +2,7 @@
 <div class="profile-company-content">
 <div class="row">
   <?php 
- // print_r($node);
-  //print_r($content);exit;
+  global $user;  
   ?>
   <div class="col-md-8"> 
     <div class="sidebar">
@@ -73,7 +72,8 @@
         </ul>        
       </div>
     </div>
-    <?php print views_embed_view('collaboration_listing','block_1'); ?>      
+    <?php if($user->roles['6']) { ?>
+    <?php print views_embed_view('collaboration_listing','block_1'); } ?>      
   </div>  
 </div>
 </div>
