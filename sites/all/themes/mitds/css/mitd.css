@@ -356,3 +356,4 @@
   .soft-tech {
     padding: 0px !important;
   }
+.logged-in .comment-wrapper .form-type-item { display: none; }
