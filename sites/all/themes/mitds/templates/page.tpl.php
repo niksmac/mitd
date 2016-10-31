@@ -68,6 +68,11 @@
 
   <div class="container content-wrapper compny-profile">
   <div class="row">
+    <?php if ($breadcrumb): ?>
+      <div class="col-md-12">
+        <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+      </div>
+    <?php endif; ?>
     <?php if ($page['sidebar_first']): ?>
       <div id="sidebar-first" class="col-md-3">
         <?php print render($page['sidebar_first']); ?>
