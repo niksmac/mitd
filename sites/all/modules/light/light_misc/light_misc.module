@@ -238,3 +238,19 @@ $proposal_submit = mitd_nid($user->uid, $node->nid);
 	}
 return $link;
 }
+
+function _og_members($gid){
+	$output = array();
+	$query = db_select("og_membership", "ogm");
+	$query->condition("ogm.gid", $gid, "=");
+	$query->fields("ogm", array("etid"));
+	$result = $query->execute();
+	foreach($result as $value) {
+    $output[] = $value->etid;
+	}
+	return $output;
+}
+
+	
+
+	
