@@ -243,6 +243,7 @@ function _og_members($gid){
 	$output = array();
 	$query = db_select("og_membership", "ogm");
 	$query->condition("ogm.gid", $gid, "=");
+	$query->condition("ogm.state", 1, "=");
 	$query->fields("ogm", array("etid"));
 	$result = $query->execute();
 	foreach($result as $value) {
