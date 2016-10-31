@@ -1,9 +1,6 @@
 <?php if($view_mode == "full") : ?>
 <div class="profile-company-content">
-<div class="row">
-  <?php 
-  global $user;  
-  ?>
+<div class="row"> 
   <div class="col-md-8"> 
     <div class="sidebar">
       <h5 class="main-title">General Requirements</h5>
@@ -19,9 +16,14 @@
         </div>
       </div>
     </div>
-
+    <?php
+    global $user;     
+    $member = _og_members($node->vid);
+    if(in_array($user->uid, $member)) {   
+    ?>
    <?php print render($content['comments']); ?> 
-                    
+   <?php }?> 
+          
   </div>
   <div class="col-md-4"> 
 <!-- Professional Details -->
