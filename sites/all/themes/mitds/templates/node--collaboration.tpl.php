@@ -2,7 +2,7 @@
 <div class="profile-company-content">
 <div class="row"> 
   <div class="col-md-8"> 
-    <div class="sidebar">
+    <div class="sidebar">     
       <h5 class="main-title">General Requirements</h5>
       <div class="sidebar-information"> 
         <div class="single-category">
@@ -41,7 +41,7 @@
           </li>
           <li class="row">
             <h6 class="title col-xs-6">Industry</h6>
-            <span class="subtitle col-xs-6"><?php print render($content['field_industry']); ?></span>
+            <span class="subtitle col-xs-6"><?php print render($content['field_industry']['#object']->field_industry['und']['0']['taxonomy_term']->name); ?></span>
           </li>
           <li class="row">
             <h6 class="title col-xs-6">Software Technology</h6>
