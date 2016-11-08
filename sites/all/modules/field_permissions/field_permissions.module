@@ -272,11 +272,11 @@ function _field_permissions_entity_is_owned_by_account($entity, $account) {
   // a concept of "ownership"), we need to assume that the provided user
   // account does not own it.
   $uid = isset($entity->uid) ? $entity->uid : FALSE;
-  if(method_exists($entity, 'entityType')) {
+  if (method_exists($entity, 'entityType')) {
     drupal_alter('field_permissions_userid_' . $entity->entityType(), $uid, $entity);
   }
 
-  return $uid == $account->uid;
+  return $uid === $account->uid;
 }
 
 /**
@@ -328,5 +328,19 @@ function _field_permissions_make_elements_non_required(&$elements) {
   }
   foreach (element_children($elements) as $key) {
     _field_permissions_make_elements_non_required($elements[$key]);
+  }
+}
+
+/**
+ * Implements hook_field_delete_field().
+ */
+function field_permissions_field_delete_field($field) {
+  // Delete any permissions related to the deleted field.
+  $all_permissions = array_keys(field_permissions_permission());
+  if (!empty($all_permissions)) {
+    db_delete('role_permission')
+      ->condition('module', 'field_permissions')
+      ->condition('permission', $all_permissions, 'NOT IN')
+      ->execute();
   }
 }
