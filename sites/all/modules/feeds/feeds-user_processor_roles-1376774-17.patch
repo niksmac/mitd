@@ -1,0 +1,58 @@
+diff --git a/plugins/FeedsUserProcessor.inc b/plugins/FeedsUserProcessor.inc
+index d01db43..88235ee 100644
+--- a/plugins/FeedsUserProcessor.inc
++++ b/plugins/FeedsUserProcessor.inc
+@@ -63,6 +63,21 @@ class FeedsUserProcessor extends FeedsProcessor {
+     if ($this->config['defuse_mail']) {
+       $account->mail = $account->mail . '_test';
+     }
++    if (!empty($account->roles_list)) {
++      // Assure roles list is an array.
++      $roles_list = (array) $account->roles_list;
++      foreach ($roles_list as $role_name) {
++        $role_name = trim($role_name);
++        if ((!$role = user_role_load_by_name($role_name)) && $this->config['user_roles_create']) {
++          // Create new role if role doesn't exist.
++          $role = new stdClass();
++          $role->name = $role_name;
++          user_role_save($role);
++          $role = user_role_load_by_name($role->name);
++        }
++        $account->roles[$role->rid] = $role->name;
++      }
++    }
+ 
+     $edit = (array) $account;
+ 
+@@ -99,6 +114,7 @@ class FeedsUserProcessor extends FeedsProcessor {
+       'roles' => array(),
+       'status' => 1,
+       'defuse_mail' => FALSE,
++      'user_roles_create' => TRUE,
+     ) + parent::configDefaults();
+   }
+ 
+@@ -132,6 +148,12 @@ class FeedsUserProcessor extends FeedsProcessor {
+       '#description' => t('This appends _test to all imported e-mail addresses to ensure they cannot be used as recipients.'),
+       '#default_value' => $this->config['defuse_mail'],
+     );
++    $form['user_roles_create'] = array(
++      '#type' => 'checkbox',
++      '#title' => t('Create user roles'),
++      '#description' => t('Create new user roles for imported roles that currently do not exist.'),
++      '#default_value' => $this->config['user_roles_create'],
++    );
+     return $form;
+   }
+ 
+@@ -184,6 +206,10 @@ class FeedsUserProcessor extends FeedsProcessor {
+         'name' => t('User language'),
+         'description' => t('Default language for the user.'),
+       ),
++      'roles_list' => array(
++        'name' => t('User roles'),
++        'description' => t('User roles provided as role names in comma separated list.'),
++      ),
+     );
+     if (module_exists('openid')) {
+       $targets['openid'] = array(

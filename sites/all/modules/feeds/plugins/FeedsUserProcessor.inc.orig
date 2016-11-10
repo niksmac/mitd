@@ -74,21 +74,6 @@ class FeedsUserProcessor extends FeedsProcessor {
     if ($this->config['defuse_mail']) {
       $account->mail = $account->mail . '_test';
     }
-    if (!empty($account->roles_list)) {
-      // Assure roles list is an array.
-      $roles_list = (array) $account->roles_list;
-      foreach ($roles_list as $role_name) {
-        $role_name = trim($role_name);
-        if ((!$role = user_role_load_by_name($role_name)) && $this->config['user_roles_create']) {
-          // Create new role if role doesn't exist.
-          $role = new stdClass();
-          $role->name = $role_name;
-          user_role_save($role);
-          $role = user_role_load_by_name($role->name);
-        }
-        $account->roles[$role->rid] = $role->name;
-      }
-    }
 
     $edit = (array) $account;
 
@@ -125,7 +110,6 @@ class FeedsUserProcessor extends FeedsProcessor {
       'roles' => array(),
       'status' => 1,
       'defuse_mail' => FALSE,
-      'user_roles_create' => TRUE,
     ) + parent::configDefaults();
   }
 
@@ -211,10 +195,6 @@ class FeedsUserProcessor extends FeedsProcessor {
       'language' => array(
         'name' => t('User language'),
         'description' => t('Default language for the user.'),
-      ),
-      'roles_list' => array(
-        'name' => t('User roles'),
-        'description' => t('User roles provided as role names in comma separated list.'),
       ),
     );
     if (module_exists('openid')) {

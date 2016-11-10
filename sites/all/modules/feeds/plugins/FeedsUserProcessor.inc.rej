@@ -1,0 +1,15 @@
+--- plugins/FeedsUserProcessor.inc
++++ plugins/FeedsUserProcessor.inc
+@@ -148,6 +164,12 @@
+       '#description' => t('This appends _test to all imported e-mail addresses to ensure they cannot be used as recipients.'),
+       '#default_value' => $this->config['defuse_mail'],
+     );
++    $form['user_roles_create'] = array(
++      '#type' => 'checkbox',
++      '#title' => t('Create user roles'),
++      '#description' => t('Create new user roles for imported roles that currently do not exist.'),
++      '#default_value' => $this->config['user_roles_create'],
++    );
+     return $form;
+   }
+ 
