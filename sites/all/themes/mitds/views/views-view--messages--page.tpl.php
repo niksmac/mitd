@@ -25,6 +25,12 @@
 				case 'notifyuserwheninvited':
 				$msg = 'You are invited';
 				break;
+				case 'notifyuserwheninvitedcollaboration':
+				$msg = 'You are invited for collaboration';
+				break;
+				case 'notifyuserswhenaddedtocollaboration':
+				$msg = 'You are added to the collaboration group';
+				break;
 				default:
 				# code...
 				break;

@@ -30,7 +30,7 @@
                 <a href="<?php echo url("proposal/".$value['nid'], array('query' => array('destination' => $_GET['q'])))?>" data-toggle="tooltip" data-placement="top" title="Shortlist">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                 </a>
-                <?php } }?>                                
+                <?php } }?>                             
             </div>
 
         </div>        

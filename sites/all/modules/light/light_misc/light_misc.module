@@ -182,18 +182,22 @@ function light_misc_comment_insert($comment) {
   $comment_uid = $comment->uid;
   $node = node_load($comment->nid);
   $prop_uid = $node->uid;
-  $op_uid = $node->field_opportunity['und']['0']['node']->uid;
-  if($comment_uid == $prop_uid){
-  	$account = $op_uid;
+  if(isset($node->field_opportunity)) {
+  	$op_uid = $node->field_opportunity['und']['0']['node']->uid;
 
-  } else {
-  	$account = $prop_uid;
-  }
+  	if($comment_uid == $prop_uid){
+  		$account = $op_uid;
+
+  	} else {
+  		$account = $prop_uid;
+  	}
+
     $message = message_create('comments_log', array('uid' => $account));
     $wrapper = entity_metadata_wrapper('message', $message);
     $wrapper->field_comment_ref->set($comment);
     $wrapper->field_proposal_ref->set($node);
     $wrapper->save();
+  }
 }
 
 /**
@@ -234,3 +238,20 @@ $proposal_submit = mitd_nid($user->uid, $node->nid);
 	}
 return $link;
 }
+
+function _og_members($gid){
+	$output = array();
+	$query = db_select("og_membership", "ogm");
+	$query->condition("ogm.gid", $gid, "=");
+	$query->condition("ogm.state", 1, "=");
+	$query->fields("ogm", array("etid"));
+	$result = $query->execute();
+	foreach($result as $value) {
+    $output[] = $value->etid;
+	}
+	return $output;
+}
+
+	
+
+	

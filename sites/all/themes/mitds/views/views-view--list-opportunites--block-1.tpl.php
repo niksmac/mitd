@@ -11,8 +11,9 @@
     <?php endif; ?>
 
 	<h3><?php echo $value['field_organization_name']; ?></h3>
+	<?php if(isset($value['field_application_description'])) { ?>    
 	<p><?php echo $value['field_application_description']; ?></p>
-
+    <?php } ?>
 	<?php
 	global $user;
 	$opportunity_count = mitd_opportunity_count($value['uid']);

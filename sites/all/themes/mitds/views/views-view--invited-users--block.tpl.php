@@ -14,8 +14,9 @@
     </div>
     <div class="col-md-10">
       <h3><?php echo $name; ?></h3>
+      <?php if(isset($value['field_application_description'])) { ?>      
       <?php echo $value['field_application_description']; ?>
-
+      <?php } ?>
       <div class="tag-cloud">
         <span class="btn btn-primary"><?php print $value['field_geography_of_operation']; ?></span>
         <span class="btn btn-primary"><?php print $value['field_organization_name']; ?></span>
