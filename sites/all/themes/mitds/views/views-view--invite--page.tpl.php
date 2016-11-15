@@ -33,9 +33,12 @@
       <?php echo $value['field_application_description']; ?>
       <?php } ?>
       <div class="tag-cloud">
-        <span class="btn btn-primary btn-small"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php print $value['field_geography_of_operation']; ?></span>
-        <span class="btn btn-primary btn-small"><i class="fa fa-university" aria-hidden="true"></i> <?php print $value['field_organization_name']; ?></span>
-        <span class="btn btn-primary btn-small"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <?php print $value['field_year_of_incorporation']; ?></span>
+        <?php if($value['field_geography_of_operation']!='') { ?>
+        <span class="btn btn-primary btn-small"><i class="fa fa-map-marker" aria-hidden="true"></i> <?php print $value['field_geography_of_operation']; ?><?php } ?></span>
+        <?php if($value['field_organization_name']!='') { ?>
+        <span class="btn btn-primary btn-small"><i class="fa fa-university" aria-hidden="true"></i> <?php print $value['field_organization_name']; ?><?php } ?></span>
+        <?php if($value['field_year_of_incorporation']!='') { ?>
+        <span class="btn btn-primary btn-small"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <?php print $value['field_year_of_incorporation']; ?><?php } ?></span>
       </div>
     </div>
     
