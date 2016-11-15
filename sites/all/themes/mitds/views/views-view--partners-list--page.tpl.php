@@ -26,6 +26,10 @@
 
 </div>
 
+  <?php if ($pager): ?>
+    <?php print $pager; ?>
+  <?php endif; ?>
+
    <?php elseif ($empty): ?>
 
    <div class="row">  
