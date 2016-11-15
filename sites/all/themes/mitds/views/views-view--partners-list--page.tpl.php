@@ -14,9 +14,12 @@
       <?php echo $value['field_overview']; ?>
 
       <div class="tag-cloud">
-        <span class="btn btn-primary"><?php print $value['country']; ?></span>
-        <span class="btn btn-primary"><?php print $value['field_organization_name']; ?></span>
-        <span class="btn btn-primary"><?php print $value['field_organization_url']; ?></span>
+        <?php if($value['country']!='') { ?>
+        <span class="btn btn-primary"><?php print $value['country']; ?><?php } ?></span>
+        <?php if($value['field_organization_name']!='') { ?>
+        <span class="btn btn-primary"><?php print $value['field_organization_name']; ?><?php } ?></span>
+        <?php if($value['field_organization_url']!='') { ?>
+        <span class="btn btn-primary"><?php print $value['field_organization_url']; ?><?php } ?></span>
       </div>
 
     </div>
