@@ -357,3 +357,6 @@
     padding: 0px !important;
   }
 .logged-in .comment-wrapper .form-type-item { display: none; }
+.tag-cloud span{
+  margin-bottom: 10px;
+}
