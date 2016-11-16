@@ -38,13 +38,17 @@
  <div class="row about-me mar-top20">  
   <div class="col-md-2">        
     <?php print render($user_profile['field_company_logo']); ?>
+    <?php if(arg(1) == $user->uid) { ?>
       <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-info btn-sm btn-block edit-btn">Edit</a>
+      <?php } ?>
 
   </div>
+  <?php 
+  // print_r(arg(1));
+  // print_r($user->uid);exit;
+  ?>
   <div class="col-md-10">
-    <?php print render($user_profile['field_overview']); ?>
-    <?php if(arg(1) == $user->uid) { ?>
-    <?php } ?>
+    <?php print render($user_profile['field_overview']); ?>        
   </div>
 
 </div>
