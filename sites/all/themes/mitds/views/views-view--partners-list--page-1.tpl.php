@@ -14,7 +14,7 @@
 
   <div class="row air-card mar-bot10">
     <div class="col-md-2">
-      <?php print $value['field_company_logo']; ?>      
+      <?php print $value['field_picture']; ?>      
     </div>
     <div class="col-md-10">
       <h3><a href="<?php echo url("user/".$value['uid']);?>"><?php echo $trimmed_text; ?></a></h3>

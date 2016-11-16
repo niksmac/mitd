@@ -1,7 +1,8 @@
 <?php if ($rows): ?>
 <div class=" <?php print $classes; ?>">
 
-  <?php foreach ($view->style_plugin->rendered_fields as $key => $value) {     
+  <?php foreach ($view->style_plugin->rendered_fields as $key => $value) { 
+  //print_r($value);exit;    
     $name = $value['field_first_name'].' '.$value['field_last_name'];
 
     $alter = array(
@@ -15,7 +16,7 @@
 
   <div class="row air-card mar-bot10">
     <div class="col-md-2">
-      <?php print $value['field_company_logo']; ?>      
+      <?php print $value['field_picture']; ?>      
     </div>
     <div class="col-md-10">
     <h3><a href="<?php echo url("user/".$value['uid']);?>"><?php echo $trimmed_text; ?></a></h3>     
