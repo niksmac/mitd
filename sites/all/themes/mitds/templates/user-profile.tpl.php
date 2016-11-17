@@ -36,7 +36,7 @@
 ?>
 <div class="profile"<?php print $attributes; ?>>    
  <div class="row about-me mar-top20">  
-  <div class="col-md-2">        
+  <div class="col-md-2"> 
     <?php print render($user_profile['field_company_logo']); ?>
     <?php if(arg(1) == $user->uid) { ?>
       <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-info btn-sm btn-block edit-btn">Edit</a>
