@@ -52,7 +52,7 @@
         </ul>        
       </div>
     </div> 
-    <?php if($node->uid != $user->uid) {  ?>
+    <?php if($node->uid != $user->uid && !in_array("admin", $user->roles)) {  ?>
     <?php if($node->field_short_list['und']['0']['value'] == 1) { ?>
       <a href="#" class="btn btn-default btn-block">Short Listed</a> 
     <?php } else { ?>
