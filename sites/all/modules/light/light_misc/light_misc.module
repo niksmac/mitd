@@ -229,12 +229,14 @@ $proposal_submit = mitd_nid($user->uid, $node->nid);
 	}
 	else
 	{
-	if($node->uid != $user->uid) {
-	  if(!empty($proposal_submit))
-	    $link = '<a href="'.url("node/".$proposal_submit[0]) .'" class="btn btn-primary btn-block">View Proposal</a>';
-	  else
-	    $link = '<a href="'.url("node/add/proposals/".$node->nid) .'" class="btn btn-primary btn-block">Submit Proposal</a>';
-	  }
+		if($node->uid != $user->uid) {
+			if(!in_array("admin", $user->roles)) {
+			  if(!empty($proposal_submit))
+			    $link = '<a href="'.url("node/".$proposal_submit[0]) .'" class="btn btn-primary btn-block">View Proposal</a>';
+			  else
+			    $link = '<a href="'.url("node/add/proposals/".$node->nid) .'" class="btn btn-primary btn-block">Submit Proposal</a>';
+			}
+		}
 	}
 return $link;
 }
