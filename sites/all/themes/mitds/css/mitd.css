@@ -360,3 +360,9 @@
 .tag-cloud span{
   margin-bottom: 10px;
 }
+.list-group li a {
+ color: #010101;
+}
+.list-group li.active a{
+  color: #fff;
+}

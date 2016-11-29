@@ -184,4 +184,22 @@ function mitds_menu_link(array $variables) {
 function mitds_menu_tree($variables) {
   return '<ul class="sf-menu">' . $variables['tree'] . '</ul>';
 }
+
+function mitds_menu_tree__menu_admin_blog_management($variables) {
+  return '<ul class="list-group">' . $variables['tree'] . '</ul>';
+}
+
+function mitds_menu_link__menu_admin_blog_management($variables){
+  $element = $variables['element'];
+  $sub_menu = '';
+
+  if ($element['#below']) {
+    $sub_menu = drupal_render($element['#below']);
+  }
+  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+  $element['#attributes']['class'][] = 'list-group-item';
+  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+}
+
+
 ?>
