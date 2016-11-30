@@ -169,7 +169,6 @@
     cursor: text;
   }
   .field-label {
-    min-width: 45%;
     font-weight: 300;
   }
   .view-empty {
@@ -366,3 +365,16 @@
 .list-group li.active a{
   color: #fff;
 }
+.profile-bnr-admin{
+  background: #7cb4d8;
+}
+.profile-bnr-admin .right-top-bnr{
+  margin: 0;
+  margin-top: 40px;
+}
+.profile-bnr-admin h5{
+  margin: 0;
+  text-transform: uppercase;
+  color: #fff
+}
+.profile-bnr-admin h2{color: #fff;}
