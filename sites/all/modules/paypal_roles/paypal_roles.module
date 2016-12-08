@@ -618,7 +618,7 @@ function paypal_roles_payments_load_conditional($conditions = array()) {
 function paypal_roles_payments_save($pmt) {
   // Provides hook_paypal_roles_payments_presave().
   module_invoke_all('paypal_roles_payments_presave', $pmt);
-  
+
   $exists = paypal_roles_payments_load($pmt->txn_id);
   if ($exists && empty($exists->in_code_only)) {
     $ret = drupal_write_record('paypal_roles_payments', $pmt, 'txn_id');
