@@ -36,17 +36,14 @@
 ?>
 <div class="profile"<?php print $attributes; ?>>    
  <div class="row about-me mar-top20">  
-  <div class="col-md-2"> 
+  <div class="col-md-2">     
     <?php print render($user_profile['field_company_logo']); ?>
     <?php if(arg(1) == $user->uid) { ?>
       <a href="<?php echo url("user/".$user->uid."/edit"); ?>" class="btn btn-info btn-sm btn-block edit-btn">Edit</a>
       <?php } ?>
 
   </div>
-  <?php 
-  // print_r(arg(1));
-  // print_r($user->uid);exit;
-  ?>
+  
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']); ?>        
   </div>
@@ -66,7 +63,7 @@
                     <?php print render($user_profile['field_industry_sector']); ?>
                 </div>
             </div>
-        </div>
+        </div>        
         <div class="sidebar">
             <h5 class="main-title">Details</h5>
             <div class="sidebar-information">
@@ -82,7 +79,18 @@
                             
                           </span>                           
                             <span class="subtitle col-xs-10">
-                              <?php print render($user_profile['field_designation']); ?></span>
+                              <?php print render($user_profile['field_designation']); ?>
+                            </span>
+
+                            <?php 
+                              $subscription_type = _display_subscription($user->uid); 
+                              if(isset($user->roles[6])) {
+                            ?>
+                            <h6 class="title col-xs-4">Subscription Type</h6>
+                            <span class="subtitle col-xs-6">
+                              <?php echo $subscription_type;?>
+                            </span>
+                              <?php } ?>
 
                         </div> 
                         

@@ -254,6 +254,19 @@ function _og_members($gid){
 	return $output;
 }
 
-	
+function _check_subscription($uid,$role_name) {	
+	$user_data = user_load($uid);
+    return in_array($role_name, $user_data->roles);
+}
 
+function _display_subscription($uid) {
+  $output = "";
+  if (_check_subscription($uid,"standard") ){
+  	$output .= "Standard";
+  }
+  if (_check_subscription($uid,"premium") ){
+  	$output .= "Premium";
+  }
+  return $output;
+}
 	
