@@ -255,16 +255,22 @@ function _og_members($gid){
 }
 
 function _check_subscription($uid,$role_name) {	
-	$user_data = user_load($uid);
+	$user_data = user_load($uid);	
     return in_array($role_name, $user_data->roles);
 }
 
 function _display_subscription($uid) {
   $output = "";
-  if (_check_subscription($uid,"standard") ){
+  if (_check_subscription($uid,"free") ){
+  	$output .= "Free";
+  }
+  if (_check_subscription($uid,"basic") ){
+  	$output .= "Basic";
+  }
+   if (_check_subscription($uid,"standard") ){
   	$output .= "Standard";
   }
-  if (_check_subscription($uid,"premium") ){
+   if (_check_subscription($uid,"premium") ){
   	$output .= "Premium";
   }
   return $output;

@@ -5,12 +5,11 @@
         <table>
             <tbody>
             	<tr>
-            		<th></th>   
-                	<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { //print_r($value);exit; ?>                 
+            		<th class="plan-header plan-header-standard head">Feature</th>  
+                	<?php foreach ($view->style_plugin->rendered_fields as $key => $value) { //print_r($value);exit; ?>                
                 	<th class="plan-header plan-header-standard">
                 		<div class="header-plan-inner">
-                    <!--<span class="plan-head"> </span>-->
-                    		
+                    <!--<span class="plan-head"> </span>-->                    		
                    			<div class="pricing-plan-name"><?php print $value['name']; ?></div>
                     		<div class="pricing-plan-price">
                         		<sup>$</sup><?php print $value['amount']; ?><span></span>
@@ -27,47 +26,89 @@
                 		<div class="pricing-plan-period">month</div>
                 	</th> -->
                 	
-                </tr>              
+                </tr>                             
                 <tr>
-                    <td>Bids/Month</td>
-                    <td>10</td>
-                    <td>Unlimited</td>                    
+                    <td>Bid for Global Tenders</td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>                     
                 </tr>
                 <tr>
-                    <td>Email Support</td>
+                    <td>Bid for all opportunities</td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                    
                 </tr>
                 <tr>
-                    <td>24*7 Support</td>
+                    <td>Verified by MITD Analyst” flag</td>
                     <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                   
                 </tr>
                 <tr>
-                    <td>Full Opportunity Visible</td>
+                    <td>High search priority</td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                    
                 </tr>
                 <tr>
-                    <td>Campaigns specific to Partner offerings</td>
+                    <td>Email Campaign</td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                   
+                </tr>
+                <tr>
+                    <td>Featured</td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                   
+                </tr>
+                <tr>
+                    <td>Promotion</td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
                     <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                   
                 </tr>
-
+                <tr>
+                    <td>New features/innovations</td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                   
+                </tr>                
                 <tr>
                     
                     <td></td>
                     <td>
                     	<?php 
-                    	$block = module_invoke('paypal_roles', 'block_view', 'premium');
+                    	$block = module_invoke('paypal_roles', 'block_view', 'free');
 						print render($block['content']);
                     	?>
                     </td>
                     <td>
                     	<?php 
-                    	$block = module_invoke('paypal_roles', 'block_view', 'standard');
+                    	$block = module_invoke('paypal_roles', 'block_view', 'basic');
 						print render($block['content']);
                     	?>
+                    </td>
+                    <td>
+                        <?php 
+                        $block = module_invoke('paypal_roles', 'block_view', 'standard');
+                        print render($block['content']);
+                        ?>
+                    </td>
+                    <td>
+                        <?php 
+                        $block = module_invoke('paypal_roles', 'block_view', 'premium');
+                        print render($block['content']);
+                        ?>
                     </td>                      
                 </tr>
                 
