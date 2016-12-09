@@ -30,9 +30,9 @@
                 <tr>
                     <td>Bid for Global Tenders</td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
-                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
-                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>                     
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                     
                 </tr>
                 <tr>
                     <td>Bid for all opportunities</td>
