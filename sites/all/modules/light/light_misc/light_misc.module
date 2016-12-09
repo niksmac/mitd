@@ -105,25 +105,6 @@ function light_misc_registersibmit(&$form, &$form_state) {
     }
   }
  
- $new_user = array(
-    'name' => $values['mail'],
-    'mail' => $values['mail'],    
-    'init' => $values['mail'],
-    'roles'=> array("16" => "16"),
-    'status'=> 1,
-    'field_name' => array(
-      "und" => array(
-        array('value' => $values['field_first_name'])
-        )
-      ),
-    'field_contact_number' => array(
-      "und" => array(
-        array('value' => $values['field_mobile'])
-        )
-      ),
-    );
- $account = user_save(NULL, $new_user);
-
 }
 
 /**
