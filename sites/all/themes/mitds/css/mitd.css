@@ -542,3 +542,45 @@
 .subscription-plan #edit-amounttext--4 {
   display:none;
 }
+.subscription-plan #edit-amounttext--5 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--6 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--7 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--8 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--9 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--10 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--11 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--12 {
+  display:none;
+}
+.subscription-plan #edit-amounttext--13 {
+  display:none;
+}
+.membership-pricing-table td{
+  vertical-align: middle;
+}
+.membership-pricing-table form,.membership-pricing-table .form-group{
+  margin-bottom: 0;
+}
+.month-3-class button, .month-3-class td.area{
+  background-color: #ddd
+}
+.month-6-class button, .month-6-class td.area{
+  background-color: #bbb
+}
+.month-12-class button, .month-12-class td.area{
+  background-color: #888
+}

@@ -90,7 +90,7 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 function light_misc_registersibmit(&$form, &$form_state) {
 
   $values = $form_state['values'];
-
+  
   if( isset($values['field_mobile']) ){
     $mobno = $values['field_mobile']['und'][0]['value'];
 
@@ -104,6 +104,25 @@ function light_misc_registersibmit(&$form, &$form_state) {
       form_set_error('field_mobile', t('Invalid phone number'));
     }
   }
+ 
+ $new_user = array(
+    'name' => $values['mail'],
+    'mail' => $values['mail'],    
+    'init' => $values['mail'],
+    'roles'=> array("16" => "16"),
+    'status'=> 1,
+    'field_name' => array(
+      "und" => array(
+        array('value' => $values['field_first_name'])
+        )
+      ),
+    'field_contact_number' => array(
+      "und" => array(
+        array('value' => $values['field_mobile'])
+        )
+      ),
+    );
+ $account = user_save(NULL, $new_user);
 
 }
 
