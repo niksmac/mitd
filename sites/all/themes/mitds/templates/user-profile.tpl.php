@@ -71,25 +71,34 @@
                     <div class="row about-me">
                      <div class="col-md-2">
                             <?php print render($user_profile['field_picture']); ?>
+                             <?php if(isset($user->roles[17]) || isset($user->roles[18]) || isset($user->roles[19]) ) {?>
+                                <div class="verify" data-toggle="tooltip" data-placement="bottom" title="Verified by MITD Analyst"><p class="text-muted"><i class="fa fa-check" aria-hidden="true"></i> Verified</p></div>
+                            <?php } ?>
+
                         </div>                        
                         <div class="col-md-10">
-                          <h6 class="title col-xs-4">Name</h6>
-                          <span class="subtitle col-xs-6">
-                            <?php echo $user_profile['field_first_name']['#object']->field_first_name['und'][0]['value']." ".$user_profile['field_last_name']['#object']->field_last_name['und'][0]['value'] ;?>
-                            
-                          </span>                           
-                            <span class="subtitle col-xs-10">
-                              <?php print render($user_profile['field_designation']); ?>
-                            </span>
+
+                          <div class="row">              
+                            <h6 class="title col-xs-6">Name</h6>
+                            <span class="subtitle col-xs-6">
+                              <?php echo $user_profile['field_first_name']['#object']->field_first_name['und'][0]['value']." ".$user_profile['field_last_name']['#object']->field_last_name['und'][0]['value'] ;?>
+                            </span> 
+                          </div>
+
+                          <?php print render($user_profile['field_designation']); ?>
+
 
                             <?php 
                               $subscription_type = _display_subscription($user->uid); 
                               if(isset($user->roles[6])) {
                             ?>
-                            <h6 class="title col-xs-4">Subscription Type</h6>
-                            <span class="subtitle col-xs-6">
-                              <?php echo $subscription_type;?>
-                            </span>
+                            <div class="row"> 
+                              <h6 class="title col-xs-6">Subscription Type</h6>
+                              <span class="subtitle col-xs-6">
+                                <?php echo $subscription_type;?>
+                              </span>
+                            </div>
+         
                               <?php } ?>
 
                         </div> 
