@@ -122,6 +122,15 @@ function light_misc_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   	);
+  	$items['admin/config/subscription'] = array(
+    'title' => 'Subscription Types',
+    'description' => 'Subscription Types',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_subscription_settings_form'),
+    'access arguments' => array('administer subscription'),
+    'access arguments' => array('view pay invoices'),
+    'type' => MENU_NORMAL_ITEM,
+    );
 
   return $items;
 }
@@ -274,5 +283,40 @@ function _display_subscription($uid) {
   	$output .= "Premium";
   }
   return $output;
+}
+
+function _subscription_settings_form($form, &$form_state) {
+
+	$form = array();
+	$form['subscriptionsettings'] = array(
+	    '#type' => 'fieldset',
+	    '#title' => 'Subscription Settings'
+	);
+	$form['subscriptionsettings']['bid_free'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Free'),
+	    '#number_type' => 'int',
+	    '#default_value' => variable_get('bid_free', '0'),
+	);
+	$form['subscriptionsettings']['bid_basic'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Basic'),
+	    '#number_type' => 'int',
+	    '#default_value' => variable_get('bid_basic', '5'),
+	);
+	$form['subscriptionsettings']['bid_standard'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Standard'),
+	    '#number_type' => 'int',
+	    '#default_value' => variable_get('bid_standard', '10'),
+	);
+	$form['subscriptionsettings']['bid_premium'] = array(
+	    '#type' => 'textfield',
+	    '#title' => t('Unlimited'),
+	    '#number_type' => 'int',
+	    '#default_value' => variable_get('bid_premium', '-1'),
+	);
+	return system_settings_form($form);
+
 }
 	
