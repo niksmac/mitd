@@ -243,8 +243,12 @@ $proposal_submit = mitd_nid($user->uid, $node->nid);
 			  if(!empty($proposal_submit))
 			    $link = '<a href="'.url("node/".$proposal_submit[0]) .'" class="btn btn-primary btn-block">View Proposal</a>';
 			  else
+			  	if(_check_subscription_count($user->uid)) {
 			    $link = '<a href="'.url("node/add/proposals/".$node->nid) .'" class="btn btn-primary btn-block">Submit Proposal</a>';
-			}
+				} else {
+				$link = '<p>No Bid Left </p>';	
+				}
+			}   
 		}
 	}
 return $link;
@@ -318,5 +322,27 @@ function _subscription_settings_form($form, &$form_state) {
 	);
 	return system_settings_form($form);
 
+}
+
+function _check_subscription_count($uid) {
+
+ 	$link = TRUE;
+ 
+	$user_data = user_load($uid);
+	//print_r($user_data->field_bids_month['und']['0']['value']);exit;
+	if(isset($user_data->roles['16'])) {
+		$link = FALSE;
+	}
+	if(isset($user_data->roles['17'])) {
+		if($user_data->field_bids_month['und']['0']['value'] >= variable_get('bid_basic', '5')) {		
+			$link = FALSE;
+		} 
+	} 
+	elseif(isset($user_data->roles['18'])) {
+		if($user_data->field_bids_month['und']['0']['value'] >= variable_get('bid_standard', '10')) {
+			$link = FALSE;
+		} 
+	}
+	return $link;	
 }
 	

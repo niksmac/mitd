@@ -36,18 +36,39 @@
           <li class="col-md-4"><a href="#"><?php echo $value['field_project_end_date']; ?></a>
           </li>
           <?php 
-            global $user;            
+            global $user; 
+
+            $sub = _check_subscription_count($user->uid);
             $awarded = _check_awarded_opportunity($value['nid']);                       
             $proposal_data = mitd_nid($user->uid, $value['nid']);
-            if($awarded == 0) {
-            if(!empty($proposal_data)){     
-          ?>
-          <li class="col-md-4"><a href="<?php echo url("node/".$proposal_data[0]); ?>"></i>View Proposal</a><?php }
-          else{?>
-          </li>
-          <li class="col-md-4"><a href="<?php echo url("node/add/proposals/".$value['nid'])?>"></i>Submit Proposal</a>
-          <?php } } else {?>
-          <li class="col-md-4"><a href="#"></i> Awarded</a><?php } ?>          
+
+            ?>
+
+          <li class="col-md-4">
+
+          
+
+          <?php if($awarded == 0) { ?>
+            <?php if(!empty($proposal_data)){  ?>
+
+              <a href="<?php echo url("node/".$proposal_data[0]); ?>">View Proposal</a>
+
+            <?php } else { ?>
+
+            <?php if(_check_subscription_count($user->uid)) { ?>
+              <a href="<?php echo url("node/add/proposals/".$value['nid'])?>">Submit Proposal</a>
+            <?php  } else { ?> 
+                <a href="#">No Bid Left</a>
+             <?php }  ?>
+
+            <?php }  ?>
+          <?php } else { ?>
+            <a href="#">Awarded</a>
+          <?php } ?>
+
+          
+
+          </li>   
         </ul>
       </div>
      
