@@ -7,6 +7,7 @@
         ?>                                               
         <div class="col-sm-3">
           <div class="uou-block-6a"> 
+            <?php if(isset($value['field_company_logo']))?>
             <?php print $value['field_company_logo']; ?>  
             <h6><?php print $name; ?> <span><i class="fa fa-map-marker"></i> <?php print $value['country']; ?>, <?php print $value['province']; ?></span></h6>
            
