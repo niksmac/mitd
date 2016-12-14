@@ -35,8 +35,11 @@ function light_message_form_alter(&$form, &$form_state, $form_id) {
 function light_message_proposals_node_form($form, &$form_state) {
   
 	$op_nid = $form_state['values']['field_opportunity']['und']['0']['nid'];
-
 	$uid = $form_state['values']['uid'];
+  $user_data = user_load($uid);  
+  $user_data->field_bids_month['und']['0']['value'] = $user_data->field_bids_month['und']['0']['value']+1;
+  user_save($user_data);
+ 
 	$node = node_load($op_nid);		
   $message = message_create('notify_author_when_proposal_submit', array('uid' => $node->uid));   
     $wrapper = entity_metadata_wrapper('message', $message);
