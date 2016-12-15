@@ -178,9 +178,9 @@
 
 
     </section>
-    <section class="pro-mem">
-     <?php print views_embed_view('featured_partners','block'); ?>   
-    </section>
+    <!-- <section class="pro-mem">
+     <?php //print views_embed_view('featured_partners','block'); ?>   
+    </section> -->
     <!-- APP IMAGE -->
     <section class="app-images hidden">
       <div class="container">
