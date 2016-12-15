@@ -68,13 +68,15 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
             $result_1 = views_get_view_result('user_listing','block_1');
 
 	     	$options = array("" => "none");
-	     	$full_name = array();
+	     	
 	     	foreach($result as $key=> $val) {
+	     		$full_name = array();
 	     	  $full_name[] = isset($val->field_field_first_name['0']) ? $val->field_field_first_name['0']['raw']['value'] : "";
 	     	  $full_name[] = isset($val->field_field_last_name['0']) ? $val->field_field_last_name['0']['raw']['value'] : "";
 	    	  $options[$val->users_name] = implode(" ",$full_name);
 	    	}
 	    	$form['uid_1']['#type'] = "select";
+	    	$form['uid_1']['#description'] = "Select client name from the list";
 	    	$form['uid_1']['#options'] = $options;
 
 
@@ -83,6 +85,7 @@ function light_misc_form_alter(&$form, &$form_state, $form_id) {
 	    	  $options_1[$val->users_name] = $val->field_field_first_name['0']['raw']['value'].' '.$val->field_field_last_name['0']['raw']['value'];
 	    	}
 	    	$form['uid']['#type'] = "select";
+	    	$form['uid']['#description'] = "Select partner name from the list";
 	    	$form['uid']['#options'] = $options_1;
 	        }
 		break;
