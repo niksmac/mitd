@@ -131,6 +131,11 @@ function light_misc_menu() {
     'access arguments' => array('view pay invoices'),
     'type' => MENU_NORMAL_ITEM,
     );
+    $items['testing'] = array(
+    'page callback' => 'light_misc_subscription_cron',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    );
 
   return $items;
 }
@@ -344,5 +349,15 @@ function _check_subscription_count($uid) {
 		} 
 	}
 	return $link;	
+}
+
+function light_misc_subscription_cron() {
+
+	if(date('d') == 1)
+		db_update('field_data_field_bids_month') 
+			->fields(array(
+				'field_bids_month_value' => 0,
+			  ))
+			->execute();	
 }
 	
