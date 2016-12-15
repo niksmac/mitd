@@ -51,10 +51,7 @@
             <?php if ($title): ?><h2 class="title" id="page-title"><?php print $title; ?></h2><?php endif; ?>
           <?php print render($title_suffix); ?>
         </div>
-        <div class="right-top-bnr">
-            <div class="connect">
-              <div class="bt-ns"> <a href="#"><i class="fa fa-exclamation"></i> </a> </div>
-            </div>
+        <div class="right-top-bnr">            
         </div>
       </div>
      </div>
