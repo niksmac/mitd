@@ -379,10 +379,6 @@
 }
 .profile-bnr-admin h2{color: #fff;}
 
-/*Subscription Page Design*/
-.membership-pricing-table {
-    width: 920px
-}
 
 .membership-pricing-table table .icon-no,.membership-pricing-table table .icon-yes {
     font-size: 22px
@@ -584,3 +580,8 @@
 .month-12-class button, .month-12-class td.area{
   background-color: #888
 }
+
+.management-team img{
+  width: 100%
+}
+.management-team{margin-bottom: 30px}
