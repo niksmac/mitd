@@ -333,8 +333,7 @@ function _check_subscription_count($uid) {
 
  	$link = TRUE;
  
-	$user_data = user_load($uid);
-	//print_r($user_data->field_bids_month['und']['0']['value']);exit;
+	$user_data = user_load($uid);	
 	if(isset($user_data->roles['16'])) {
 		$link = FALSE;
 	}
