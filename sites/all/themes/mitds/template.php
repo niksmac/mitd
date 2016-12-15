@@ -30,12 +30,17 @@ global $user;
 
   if (arg(0) == "user" && is_numeric(arg(1))){
     $variables['theme_hook_suggestions'][] =  'page__dash';
+
     if ($user->uid != arg(1)){
       $variables['tabs'] = array();
     }
     $user_data = user_load(arg(1));
     $variables['full_name'] =  !empty($user_data->field_first_name['und'][0]['value']) ? $user_data->field_first_name['und'][0]['value']." ".$user_data->field_last_name['und'][0]['value'] : "";
     $variables['designation'] = !empty($user_data->field_designation) ? $user_data->field_designation['und'][0]['value'] : "";
+  }
+
+  if(in_array("admin", $user->roles) && ((arg(0) == "user" && is_numeric(arg(1))) || arg(0) =="madmin") ){
+    $variables['theme_hook_suggestions'][] =  'page__admin';
   }
 }
 
@@ -184,4 +189,22 @@ function mitds_menu_link(array $variables) {
 function mitds_menu_tree($variables) {
   return '<ul class="sf-menu">' . $variables['tree'] . '</ul>';
 }
+
+function mitds_menu_tree__menu_admin_blog_management($variables) {
+  return '<ul class="list-group">' . $variables['tree'] . '</ul>';
+}
+
+function mitds_menu_link__menu_admin_blog_management($variables){
+  $element = $variables['element'];
+  $sub_menu = '';
+
+  if ($element['#below']) {
+    $sub_menu = drupal_render($element['#below']);
+  }
+  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+  $element['#attributes']['class'][] = 'list-group-item';
+  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+}
+
+
 ?>

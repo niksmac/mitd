@@ -52,9 +52,6 @@
           <?php print render($title_suffix); ?>
         </div>
         <div class="right-top-bnr">
-            <div class="connect">
-              <div class="bt-ns"> <a href="#"><i class="fa fa-exclamation"></i> </a> </div>
-            </div>
         </div>
       </div>
      </div>

@@ -517,10 +517,13 @@ iframe {
 .profile-main {
 	background: #fff;
 	border-radius: 5px;
-	width: 100%;
+/*	width: 100%;*/
 	margin-bottom: 30px;
 	box-shadow: 0 0 5px rgba(206, 206, 206, 1);
 	background: #fff;
+}
+.view-header{
+	margin-bottom: 10px;
 }
 .compny-profile .user-info {
 	background: rgba(0,0,0,0.8);

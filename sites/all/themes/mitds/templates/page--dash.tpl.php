@@ -54,10 +54,7 @@
                 <h5><?php print $designation; ?></h5>
               <?php endif; ?>
           </div>
-          <div class="right-top-bnr">
-            <div class="connect">
-              <div class="bt-ns"> <a href="#"><i class="fa fa-exclamation"></i> </a> </div>
-            </div>
+          <div class="right-top-bnr">            
           </div>
           </div>
           <div class="col-md-12 tab-wrapper">

@@ -148,7 +148,7 @@ function light_invite_access(){
  $access = false;
  $node = node_load(arg(1));
 
- if ($node->type == 'opportunity' || 'collaboration'){
+ if ($node->type == 'opportunity' || $node->type == 'collaboration'){
   if(module_exists('light_misc') && !_check_awarded_opportunity($node->nid) && $user->uid == $node->uid)
   $access = true;
  }
@@ -172,7 +172,7 @@ function light_invite_menu() {
 function light_invite_opportunity_inviting() {
 
 	$nid = arg(1);
-  $node = node_load($nid);  
+  $node = node_load($nid);
 	$uid = arg(2);
 	$data = array(
 	  'nid' => $nid,
@@ -183,12 +183,12 @@ function light_invite_opportunity_inviting() {
 	  'reason' => "",
   );
   drupal_write_record('mitd_invite', $data);
-  if($node->type == "opportunity") { 
+  if($node->type == "opportunity") {
     $message = message_create('notify_user_when_invited', array('uid' => $uid));
     $wrapper = entity_metadata_wrapper('message', $message);
     $wrapper->field_opportunity_ref->set($node);
   }
-  if($node->type == "collaboration") { 
+  if($node->type == "collaboration") {
     $message = message_create('notify_user_when_invited_collaboration', array('uid' => $uid));
     $wrapper = entity_metadata_wrapper('message', $message);
     $wrapper->field_collaboration_ref->set($node);
@@ -199,7 +199,7 @@ function light_invite_opportunity_inviting() {
 
 }
 
-function _check_opportunity_invited($nid, $uid) {  
-  $query = db_query("SELECT nid FROM mitd_invite WHERE nid = :nid and uid = :uid ", array(':nid' => $nid,':uid' => $uid))->rowCount();  
+function _check_opportunity_invited($nid, $uid) {
+  $query = db_query("SELECT nid FROM mitd_invite WHERE nid = :nid and uid = :uid ", array(':nid' => $nid,':uid' => $uid))->rowCount();
   return $query;
 }
