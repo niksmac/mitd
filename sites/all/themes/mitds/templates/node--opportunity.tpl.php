@@ -1,14 +1,13 @@
 <?php// _check_opportunity_invited(arg(1), 31);  ?>  
 <?php if($view_mode == "full") :  ?>  
 <?php global $user;?>
-<?php //print_r($user->uid);exit;?>
   <div class="row">
     <div class="mar-bot50">
       <div class="col-md-6">
         <?php print render($content['field_project_budget']); ?>
-      </div>
+      </div>      
       <div class="col-md-6">
-        <?php print render($content['field_project_start_date']); ?>
+        <?php print render($content['field_project_date']); ?>
       </div> 
     </div>
   </div>
@@ -37,11 +36,9 @@
 
             <ul class="list-group"> 
               <li class="list-group-item"><?php print render($content['field_rfp_issue_date']); ?></li>
-              <li class="list-group-item"><?php print render($content['field_question_answer_start_date']); ?></li>
-              <li class="list-group-item"><?php print render($content['field_question_answer_end_date']); ?></li>
+               <li class="list-group-item"><?php print render($content['field_question_answer_date']); ?></li>              
               <li class="list-group-item"><?php print render($content['field_last_date_for_reveiving_pr']); ?></li>
-              <li class="list-group-item"><?php print render($content['field_contract_award_date']); ?></li>
-              <li class="list-group-item"><?php print render($content['field_project_end_date']); ?></li>    
+              <li class="list-group-item"><?php print render($content['field_contract_award_date']); ?></li>                
             </ul>
 
           </div>
