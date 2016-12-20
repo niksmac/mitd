@@ -62,4 +62,5 @@
 
 
   </div> <!-- end blog-content -->
+  <?php print render($content['comments']); ?>
 <?php endif; ?>
