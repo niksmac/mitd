@@ -33,8 +33,8 @@
           <li class="col-md-4"><a href="#">
             <?php echo $value['field_project_budget']; ?></a>  
           </li>
-          <li class="col-md-4"><a href="#"><?php echo $value['field_project_end_date']; ?></a>
-          </li>
+          <!-- <li class="col-md-4"><a href="#"><?php //echo $value['field_project_end_date']; ?></a>
+          </li> -->
           <?php 
             global $user; 
 
