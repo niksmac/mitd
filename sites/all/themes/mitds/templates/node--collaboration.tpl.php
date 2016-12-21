@@ -37,7 +37,7 @@
             <span class="subtitle col-xs-6"><?php print render($content['group_group']['#object']->title); ?></span>
           </li>
           <li class="row">
-            <h6 class="title col-xs-6">Collbaoration Type</h6>
+            <h6 class="title col-xs-6">Collaboration Type</h6>
             <span class="subtitle col-xs-6"><?php print render($content['field_type_of_collaboration']); ?></span>
           </li>
           <li class="row">
