@@ -589,3 +589,7 @@
       background-color: #818285;
 }
 .breadcrumb{background: #eee}
+
+a.tabledrag-handle .handle {
+    height: 28px !important;
+}
