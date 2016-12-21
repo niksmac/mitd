@@ -593,3 +593,6 @@
 a.tabledrag-handle .handle {
     height: 28px !important;
 }
+table.sticky-header {
+    z-index: 10 !important;
+}
