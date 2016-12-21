@@ -589,3 +589,18 @@
       background-color: #818285;
 }
 .breadcrumb{background: #eee}
+
+a.tabledrag-handle .handle {
+    height: 28px !important;
+}
+table.sticky-header {
+    z-index: 10 !important;
+}
+
+button#edit-submit-og-members-admin {
+    height: 40px;    
+    margin-top: 29px;
+}
+#edit-state{
+  height: 40px;
+}
