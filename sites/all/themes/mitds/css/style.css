@@ -1278,8 +1278,13 @@ iframe {
 .banr-head .uou-tabs .content {
 	border: none;
 }
-.banr-head input[type="email"], input[type="text"], input[type="password"] {
-	color: #999;
+input[type="email"], 
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+	color: #333 !important;
+    font-size: 1.6rem !important
 }
 .home-pro .services ul {
 	margin: 0px;

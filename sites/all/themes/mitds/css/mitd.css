@@ -26,7 +26,7 @@
 
 .user-profile-bnr{min-height: 200px;}
 .tabs--primary{margin-bottom: 0px !important}
-.tab-wrapper{margin-top: 25px;}
+.tab-wrapper{margin-top: 46px;}
 .user-profile-bnr .nav-tabs{
 	border : 0px;
 }
@@ -50,9 +50,7 @@
 .edit-btn{
   margin-top: 16px;
 }
-/*.btn-text{
-    padding: 10px;
-    }*/
+
     .compny-profile .profile-company-content{
       padding: 0;
     }
@@ -598,9 +596,47 @@ table.sticky-header {
 }
 
 button#edit-submit-og-members-admin {
-    height: 40px;    
+    height: 40px;
     margin-top: 29px;
 }
 #edit-state{
   height: 40px;
+}
+.date-combo label.control-label{
+    float: left;
+    padding: 16px;
+}
+.hierarchical-select-wrapper .hierarchical-select .selects {
+  width: 100%;
+}
+
+.hierarchical-select select.form-select {
+  width: 30% !important
+}
+.selects .grippie,
+.end-date-wrapper label,
+.input-group-addon {
+  display: none !important;
+  visibility: hidden !important
+}
+.date-no-float {
+  float: left;
+  width: 28%;
+  clear: initial;
+}
+.views-exposed-form .views-exposed-widget .btn {
+  margin-top: 29px;
+}
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+  height: 34px;
+}
+.group-rfp-schedule .panel-body .panel-body {
+  padding: 5px;
+}
+fieldset.date-combo .container-inline-date > .form-item {
+  margin-bottom: 0;
+}
+.location_dropdown_province,
+.location_auto_country {
+  width: 48%;
 }
