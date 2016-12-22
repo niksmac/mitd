@@ -5,9 +5,3 @@ core = 7.x
 configure = admin/config/people/terms_of_use
 
 files[] = tests/terms_of_use.test
-; Information added by drupal.org packaging script on 2012-07-10
-version = "7.x-1.2"
-core = "7.x"
-project = "terms_of_use"
-datestamp = "1341924142"
-
