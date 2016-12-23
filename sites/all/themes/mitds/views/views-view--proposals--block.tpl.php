@@ -23,7 +23,7 @@
                 
                 <?php if(!(isset($value['uid']))) { ?>
                 <?php if(isset($value['field_short_list']) && $value['field_short_list'] == 1) { ?>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Shortlisted">
+                <a href="<?php echo url("unshortlist/".$value['nid'], array('query' => array('destination' => $_GET['q'])))?>" data-toggle="tooltip" data-placement="top" title="Shortlisted">
                     <i class="fa fa-star" aria-hidden="true"></i>
                 </a> 
                 <?php } else { ?>
