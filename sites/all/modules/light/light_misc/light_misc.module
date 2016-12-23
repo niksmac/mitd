@@ -143,6 +143,11 @@ function light_misc_menu() {
 		'access callback' => TRUE,
 		'type' => MENU_CALLBACK,
 		);
+	$items['unshortlist/%'] = array(
+		'page callback' => 'light_misc_proposal_unshortlist',
+		'access callback' => TRUE,
+		'type' => MENU_CALLBACK,
+		);
 	$items['proposal/award/%'] = array(
 		'page callback' => 'light_misc_award_proposal',
 		'access callback' => TRUE,
@@ -170,23 +175,40 @@ function light_misc_proposal_shortlisting() {
 
 	$nid = arg(1);
 	$node = node_load($nid);
-
+	
 	$node->field_short_list['und']['0']['value'] = 1;
 	field_attach_update('node', $node);
+
+	$message = message_create('notify_user_when_proposal_shortlisted', array('uid' => $node->uid));
+	$wrapper = entity_metadata_wrapper('message', $message);
+	$wrapper->field_proposal_ref->set($node);
+	$wrapper->save();
 	drupal_set_message(t("@title has been shortlisted",array('@title' => $node->title)));
 	drupal_goto();
 	return $node;
+}
+
+function light_misc_proposal_unshortlist() {
+
+	$nid = arg(1);
+
+	$node = node_load($nid);
+	$node->field_short_list['und']['0']['value'] = 0;
+	field_attach_update('node', $node);
+	drupal_set_message(t("@title has been removed from shorlist",array('@title' => $node->title)));
+	drupal_goto();
+	return $node;
+
 }
 
 function light_misc_award_proposal() {
 
 	$nid = arg(2);
 
-	$node = node_load($nid);
-
+	$node = node_load($nid);	
 	$op_nid = $node->field_opportunity['und']['0']['nid'];
 	$opportunity_node = node_load($op_nid);
-	$opportunity_node->field_award['und']['0']['value'] = $node->vid;
+	$opportunity_node->field_award['und']['0']['value'] = $node->nid;
 	$opportunity_node->field_contract_award_date['und']['0']['value'] = date('Y-m-d');
 	field_attach_update('node', $opportunity_node);
 	$result = views_get_view_result('proposals', 'block_5', $op_nid);
@@ -386,3 +408,15 @@ function light_misc_opp_action($node){
 		->execute();
 	}
 
+	function _check_awarded_proposal($nid) {
+		
+		$node = node_load($nid);				
+		$prop_author = user_load($node->uid);		
+		$name = $prop_author->field_first_name['und']['0']['value'].' '.$prop_author->field_last_name['und']['0']['value'];
+
+		return $name;
+		
+	}
+
+	
+    
