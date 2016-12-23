@@ -137,6 +137,10 @@
       border-left: 3px solid #dd5122;
       background-color: #f1baa7;
     }
+    li.notifyuserwhenproposalshortlisted{
+      border-left: 3px solid #FFFF00;
+      background-color: #00FFFF;
+    }
 
     .invite-button {
       width: 100px;
