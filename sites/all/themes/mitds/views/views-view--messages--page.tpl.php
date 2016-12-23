@@ -31,6 +31,9 @@
 				case 'notifyuserswhenaddedtocollaboration':
 				$msg = 'You are added to the collaboration group';
 				break;
+				case 'notifyuserwhenproposalshortlisted':
+				$msg = 'Youre proposal hasbeen shortlisted';
+				break;
 				default:
 				# code...
 				break;
