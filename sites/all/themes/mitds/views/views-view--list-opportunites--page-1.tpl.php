@@ -10,7 +10,7 @@
     </div>    
   </div>  
 
-<?php foreach ($view->style_plugin->rendered_fields as $key => $value) {//print_r($value); ?>
+<?php foreach ($view->style_plugin->rendered_fields as $key => $value) {//print_r($value['field_award']);exit; ?>
   <div class="listing listing-1 listing-new-style">
     <div class="listing-section">
       <div class="listing-ver-3">
@@ -33,7 +33,7 @@
 
             ?>
             <li>
-              <a href="#"><?php echo $val; ?></a>
+              <span class="label label-default"><?php echo $val; ?></span>
             </li>
             <?php } ?>            
           </ul>
@@ -51,12 +51,18 @@
           <?php if($value['field_organization_url'] != ''){?>
           <li class="col-md-4"><a href="#"><i class="fa fa-globe"></i>   <?php echo $value['field_organization_url']; ?></a>
           </li><?php } ?>
-          <?php          
+          <?php      
           $awarded = _check_awarded_opportunity($value['nid']);
-          if($awarded == 1) {
+          if($awarded == 1 && $value['field_award'] > 0) {
+            $name = _check_awarded_proposal($value['field_award']);
           ?>
-          <li class="col-md-4"><a href="#"><i class="fa fa-list-alt"></i> Awarded</a>
-          </li><?php } ?>         
+          <li class="col-md-4"><a href="#"><i class="fa fa-list-alt"></i> Awarded to <?php echo $name;?></a>
+          </li><?php } ?> 
+         <!--  <?php 
+          //if($value['field_award'] > 0) {
+           // $name = _check_awarded_proposal($value['field_award']);
+          
+          ?> -->                 
         </ul>
       </div>
      
