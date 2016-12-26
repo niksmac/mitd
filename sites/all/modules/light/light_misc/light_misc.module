@@ -46,13 +46,13 @@ function mitd_nid($uid, $op_nid) {
 
 	function light_misc_form_alter(&$form, &$form_state, $form_id) {
 		global $user;
-
-	
-
-
+		// echo  $form_id;
 		switch ($form_id) {
 			case "contact_site_form":
-			$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
+			case "simplenews_block_form_612":
+				$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
+
+				$form['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
 			case "user_login":			
 			$options = array('attributes' => array('class' => 'on-right'));
 			$form['resetlink'] = array(
