@@ -48,13 +48,14 @@ function mitd_nid($uid, $op_nid) {
 		global $user;
 
 		switch ($form_id) {
-			case "user_login":
+			case "user_login":			
 			$options = array('attributes' => array('class' => 'on-right'));
 			$form['resetlink'] = array(
 				'#type' => 'item',
 				'#markup' => l('Forgot Password?', 'user/password', $options)
 				);
 			break;
+
 			case 'opportunity_node_form':
 			$form['#validate'] = array('light_misc_opportunity_validation');
 			break;
