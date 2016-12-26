@@ -651,3 +651,6 @@ fieldset.date-combo .container-inline-date > .form-item {
   border: 0 none !important;
   background: transparent !important;
 }
+thead a {
+  color: #FFF !important
+}
