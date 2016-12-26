@@ -57,9 +57,6 @@
     .client-description{
       margin-left: -66px;
     }
-    .page-user #user-login .form-submit, #user-pass .form-submit{
-      background-color: #bfbaba;
-    }
     .views-exposed-form .views-exposed-widget{
       padding: 0;
       padding-right:10px;
@@ -643,4 +640,14 @@ fieldset.date-combo .container-inline-date > .form-item {
 .location_dropdown_province,
 .location_auto_country {
   width: 48%;
+}
+.banr-head .login-sec input {
+  color: #FFF !important;
+}
+.listing.listing-1 .listing-ver-3 .listing-tabs ul li {
+  width: auto !important;
+}
+.checkbox label::before {
+  border: 0 none !important;
+  background: transparent !important;
 }

@@ -207,4 +207,44 @@ function mitds_menu_link__menu_admin_blog_management($variables){
 }
 
 
+
+function mitds_preprocess_button(&$vars) {
+  $vars['element']['#attributes']['class'][] = 'btn';
+  if (isset($vars['element']['#value'])) {
+    $classes = array(
+      //specifics
+      t('Add another item') => 'btn-info',
+      t('Add effect') => 'btn-primary',
+      t('Add and configure') => 'btn-primary',
+      t('Save') => 'btn-primary',
+      t('Upload') => 'btn-info',
+      t('Log in') => 'btn-primary btn-block',
+      t('Apply') => 'btn-primary',
+      t('Create') => 'btn-primary',
+      t('Confirm') => 'btn-primary',
+      t('Submit') => 'btn-success',
+      t('Restore') => 'btn-primary',
+      t('Rebuild') => 'btn-primary',
+      t('Search') => 'btn-primary',
+      t('Add') => 'btn-info',
+      t('Update') => 'btn-info',
+      t('E-mail new password') => 'btn-primary',
+      t('Delete') => 'btn-danger',
+      t('Cancel') => 'btn-danger',
+      t('Decline') => 'btn-danger',
+      t('Remove') => 'btn small btn-danger',
+    );
+    $theClasses = array_unique($classes);
+    foreach ($theClasses as $search => $class) {
+      if (strpos($vars['element']['#value'], $search) !== FALSE) {
+        $vars['element']['#attributes']['class'][] = $class;
+        break;
+      } else {
+        $vars['element']['#attributes']['class'] = 'btn btn-primary';
+      }
+    }
+  }
+}
+
+
 ?>
