@@ -60,6 +60,7 @@ function mitd_nid($uid, $op_nid) {
 			$form['#validate'] = array('light_misc_opportunity_validation');
 			break;
 			case 'user_register_form':
+			$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
 			$form['terms_of_use'] = array(
 				'#weight' => 50
 				);
