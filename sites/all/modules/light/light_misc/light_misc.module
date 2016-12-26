@@ -66,8 +66,8 @@ function mitd_nid($uid, $op_nid) {
 			$form['#validate'][] = 'light_misc_registersibmit';
 			break;
 			case 'user_profile_form':
-			$form['#validate'][] = 'light_misc_registersibmit';
-			break;
+				$form['#validate'][] = 'light_misc_registersibmit';
+				break;
 			case 'views_exposed_form':
 			$view = $form_state['view'];
 			if ($view->name == 'bulletin_board' && $view->current_display == 'page') {
