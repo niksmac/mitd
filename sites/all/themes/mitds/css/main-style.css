@@ -3067,26 +3067,26 @@ h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h4 small, .h4 sma
 	color: #595959;
 }
 h1, .h1 {
-	font-size: 36px;
+	font-size: 22px;
 }
 h2, .h2 {
-	font-size: 32px;
+	font-size: 18px;
 }
 h3, .h3 {
-	font-size: 28px;
+	font-size: 14px;
 }
 h4, .h4 {
-	font-size: 24px;
+	font-size: 12px;
 }
 h5, .h5 {
-	font-size: 20px;
+	font-size: 10px;
 }
 h6, .h6 {
-	font-size: 16px;
+	font-size: 9px;
 }
 /* Basic Typography Styles */
 p {
-	margin: 0 0 24px;
+	margin: 0 0 15px;
 	font-weight: 400;
 	line-height: 27px;
 }

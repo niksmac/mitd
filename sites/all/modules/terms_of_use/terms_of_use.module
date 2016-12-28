@@ -48,9 +48,8 @@ function terms_of_use_form_user_register_form_alter(&$form, $form_state) {
 
   // Adding the fieldset.
   $form['terms_of_use'] = array(
-    '#type' => 'fieldset',
     '#title' => $fieldset_name,
-    '#weight' => 10,
+    '#weight' => 50,
   );
 
   // Getting the nid of the the Terms of Use node.

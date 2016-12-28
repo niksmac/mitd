@@ -29,6 +29,35 @@ if (jQuery.fn.superfish) {
   console.warn('not loaded -> superfish.min.js and hoverIntent.js');
 }
 
+(function ($) {
+  console.log("E");
+
+    Drupal.behaviors.propMis = {
+
+        attach:function (context, settings) {
+            
+            
+             $(document.body).on('change','#select-1',function(){
+                if (!$('#label-2').length > 0) {
+                    $( "#select-2" ).before( '<div id="label-2">My label 2</div>')
+                }
+                if ($('#label-3').length > 0) {
+                    $('#label-3').remove();
+                    
+                }
+            });;
+            
+            $(document.body).on('change','#select-2',function(){
+                if (!$('#label-3').length > 0) {
+                    $( "#select-3" ).before('<div id="label-3">My label 3</div>')
+                }
+            });
+              
+        }
+    };
+
+});
+
 });
 
 

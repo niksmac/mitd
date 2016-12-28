@@ -23,11 +23,11 @@
 
       <div class="tag-cloud">
         <?php if($value['country']!='') { ?>
-        <span class="btn btn-primary"><?php print $value['country']; ?><?php } ?></span>
+        <span class="label label-default"><?php print $value['country']; ?><?php } ?></span>
         <?php if($value['field_organization_name']!='') { ?>
-        <span class="btn btn-primary"><?php print $value['field_organization_name']; ?><?php } ?></span>
+        <span class="label label-primary org-name"><?php print $value['field_organization_name']; ?><?php } ?></span>
         <?php if($value['field_organization_url']!='') { ?>
-        <span class="btn btn-primary"><?php print $value['field_organization_url']; ?><?php } ?></span>
+        <span class="label label-default"><?php print $value['field_organization_url']; ?><?php } ?></span>
       </div>
 
     </div>
@@ -43,15 +43,15 @@
 
   <?php elseif ($empty): ?>
  
-  <div class="row">  
+  <!-- <div class="row">  
     <div class="col-md-12">
-      <?php if ($exposed): ?>
+      <?php //if ($exposed): ?>
       <div class="view-filters">
-      <?php print $exposed; ?>
+      <?php //print $exposed; ?>
       </div>
-      <?php endif; ?>
+      <?php //endif; ?>
     </div>    
-  </div>
+  </div> -->
 
     <div class="col-md-10 air-card mar-bot10">
       <?php print $empty; ?>
