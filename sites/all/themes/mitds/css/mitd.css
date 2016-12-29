@@ -654,3 +654,15 @@ fieldset.date-combo .container-inline-date > .form-item {
 thead a {
   color: #FFF !important
 }
+.user-basic td.basic form button{
+ display: none;
+}
+.user-standard td.basic form button, 
+.user-standard td.standard form button{
+ display: none;
+}
+.user-premium td.basic form button, 
+.user-premium td.standard form button, 
+.user-premium td.premium form button{
+ display: none;
+}

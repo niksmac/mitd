@@ -152,3 +152,7 @@
 
   </div>
 </div>
+<?php 
+$res = paypal_roles_get_payments_by_uid(arg(1));
+print_r($res);
+?>
