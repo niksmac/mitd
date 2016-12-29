@@ -86,14 +86,8 @@
                           </div>
 
                           <?php print render($user_profile['field_designation']); ?>
-                            
-                            <div class="row"> 
-                              <h6 class="title">Subscription</h6>
-                              <span class="subtitle col-xs-12">
-                                
-                                <?php print views_embed_view('paypal_payment','block'); ?>
-                              </span>
-                            </div>                                     
+                           <?php print views_embed_view('paypal_payment','block'); ?>
+                                     
                         </div> 
                         
                     </div>
