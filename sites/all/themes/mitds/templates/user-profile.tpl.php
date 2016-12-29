@@ -86,21 +86,14 @@
                           </div>
 
                           <?php print render($user_profile['field_designation']); ?>
-
-
-                            <?php 
-                              $subscription_type = _display_subscription($user->uid); 
-                              if(isset($user->roles[6])) {
-                            ?>
+                            
                             <div class="row"> 
-                              <h6 class="title col-xs-6">Subscription Type</h6>
-                              <span class="subtitle col-xs-6">
-                                <?php echo $subscription_type;?>
+                              <h6 class="title">Subscription</h6>
+                              <span class="subtitle col-xs-12">
+                                
+                                <?php print views_embed_view('paypal_payment','block'); ?>
                               </span>
-                            </div>
-         
-                              <?php } ?>
-
+                            </div>                                     
                         </div> 
                         
                     </div>
