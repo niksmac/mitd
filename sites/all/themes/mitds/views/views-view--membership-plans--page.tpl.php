@@ -89,19 +89,19 @@
                     <td>
                         -
                     </td>
-                    <td>
+                    <td class="basic">
                     	<?php 
                     	$block = module_invoke('paypal_roles', 'block_view', 'basic');
 						print render($block['content']);
                     	?>
                     </td>
-                    <td>
+                    <td class="standard">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'standard');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="premium">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'premium');
                         print render($block['content']);
@@ -112,19 +112,19 @@
                     
                     <td class="area">3 Months</td>
                     <td>-</td>
-                    <td>
+                    <td class="basic">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'basic3');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="standard">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'standard3');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="premium">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'premium3');
                         print render($block['content']);
@@ -136,19 +136,19 @@
                     
                     <td class="area">6 Months</td>
                     <td>-</td>
-                    <td>
+                    <td class="basic">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'basic6');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="standard">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'standard6');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="premium">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'premium6');
                         print render($block['content']);
@@ -159,19 +159,19 @@
                     
                     <td class="area">12 Months</td>
                     <td>-</td>
-                    <td>
+                    <td class="basic">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'basic12');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="standard">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'standard12');
                         print render($block['content']);
                         ?>
                     </td>
-                    <td>
+                    <td class="premium">
                         <?php 
                         $block = module_invoke('paypal_roles', 'block_view', 'premium12');
                         print render($block['content']);

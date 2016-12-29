@@ -49,9 +49,13 @@ global $user;
  * Implements hook_preprocess_html().
  */
 function mitds_preprocess_html(&$variables) {
+  global $user;
   if (arg(0) == "node" && arg(2) == "invite") {
     $node = node_load(arg(1));
     $variables['classes_array'][] = "node-".$node->type;
+  }
+  if(user_is_logged_in()) {
+   $variables['classes_array'][] = _generate_subscription_class($user->uid);
   }
 }
 

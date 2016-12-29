@@ -335,19 +335,36 @@ function light_misc_opp_action($node){
 	function _display_subscription($uid) {
 		$output = "";
 		if (_check_subscription($uid,"0free") ){
-			$output .= "Free";
+			$output = "Free";
 		}
 		if (_check_subscription($uid,"1basic") ){
-			$output .= "Basic";
+			$output = "Basic";
 		}
 		if (_check_subscription($uid,"2standard") ){
-			$output .= "Standard";
+			$output = "Standard";
 		}
 		if (_check_subscription($uid,"3premium") ){
-			$output .= "Premium";
+			$output = "Premium";
 		}
 		return $output;
 	}
+	function _generate_subscription_class($uid) {
+		$output = "";
+		if (_check_subscription($uid,"0free") ){
+			$output .= "user-free";
+		}
+		if (_check_subscription($uid,"1basic") ){
+			$output .= "user-basic";
+		}
+		if (_check_subscription($uid,"2standard") ){
+			$output .= "user-standard";
+		}
+		if (_check_subscription($uid,"3premium") ){
+			$output .= "user-premium";
+		}
+		return $output;
+	}
+
 
 	function _subscription_settings_form($form, &$form_state) {
 
@@ -424,6 +441,7 @@ function light_misc_opp_action($node){
 		return $name;
 		
 	}
+
 
 	
     
