@@ -351,16 +351,16 @@ function light_misc_opp_action($node){
 	function _generate_subscription_class($uid) {
 		$output = "";
 		if (_check_subscription($uid,"0free") ){
-			$output .= "user-free";
+			$output = "user-free";
 		}
 		if (_check_subscription($uid,"1basic") ){
-			$output .= "user-basic";
+			$output = "user-basic";
 		}
 		if (_check_subscription($uid,"2standard") ){
-			$output .= "user-standard";
+			$output = "user-standard";
 		}
 		if (_check_subscription($uid,"3premium") ){
-			$output .= "user-premium";
+			$output = "user-premium";
 		}
 		return $output;
 	}
