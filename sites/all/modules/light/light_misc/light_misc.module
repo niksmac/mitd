@@ -140,6 +140,16 @@ function mitd_nid($uid, $op_nid) {
 		}
 	}
 
+
+function light_misc_permission() {
+  return array(
+    'admin management' => array(
+      'title' => t('Admin Management'),
+      'description' => t('Perform administration tasks for my module.'),
+    ),
+  );
+}
+
 /**
 * Implements hook_menu().
 */
@@ -160,13 +170,12 @@ function light_misc_menu() {
 		'access callback' => TRUE,
 		'type' => MENU_CALLBACK,
 		);
-	$items['admin/config/subscription'] = array(
+	$items['madmin/config/subscription'] = array(
 		'title' => 'Subscription Types',
 		'description' => 'Subscription Types',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('_subscription_settings_form'),
-		'access arguments' => array('administer subscription'),
-		'access arguments' => array('view pay invoices'),
+		'access arguments' => array('admin management'),
 		'type' => MENU_NORMAL_ITEM,
 		);
 	$items['testing'] = array(
