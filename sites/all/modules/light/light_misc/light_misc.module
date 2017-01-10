@@ -80,7 +80,7 @@ function mitd_nid($uid, $op_nid) {
 				$result = views_get_view_result('user_listing','block');
 				$result_1 = views_get_view_result('user_listing','block_1');
 
-				$options = array("" => "none");
+				$options = array("" => "All");
 
 				foreach($result as $key=> $val) {
 					$full_name = array();
@@ -93,7 +93,7 @@ function mitd_nid($uid, $op_nid) {
 				$form['uid_1']['#options'] = $options;
 
 
-				$options_1 = array("" => "none");
+				$options_1 = array("" => "All");
 				foreach($result_1 as $key=> $val) {
 					$options_1[$val->users_name] = $val->field_field_first_name['0']['raw']['value'].' '.$val->field_field_last_name['0']['raw']['value'];
 				}
