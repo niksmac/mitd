@@ -97,7 +97,7 @@
                           </div>
 
                           <?php print render($user_profile['field_designation']); ?>
-                           <?php print views_embed_view('paypal_payment','block'); ?>
+                           <?php print views_embed_view('paypal_payment','block',$user->uid); ?>
                                      
                         </div> 
                         
