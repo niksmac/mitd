@@ -12,7 +12,7 @@
         </ul>
         <ul class="authentication">
           <?php if (user_is_logged_in()) : ?>
-          <li><a href="<?php print url("user"); ?>"><span>My Account</span></a></li>
+          <li><a href="<?php print url("user"); ?>"><span>My Account(<?php echo $user_name;?>)</span></a></li>
           <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
           <?php else: ?>
           <li><a href="<?php print url("user/register"); ?>">Register</a></li>
