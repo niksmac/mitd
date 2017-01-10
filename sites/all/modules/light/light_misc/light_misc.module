@@ -455,6 +455,8 @@ function light_misc_opp_action($node){
 
 	function _subscription_count_remaining ($uid) {
 
+		$fixed_count = 0;
+
 		$user_details = user_load($uid);
 		if(isset($user_details->roles['16'])) {
 			$fixed_count = variable_get('bid_free', '0');
@@ -465,9 +467,14 @@ function light_misc_opp_action($node){
 		if(isset($user_details->roles['18'])) {
 			$fixed_count = variable_get('bid_standard', '10');
 		}
-        $count_remain = $fixed_count-$user_details->field_bids_month['und']['0']['value'];       
-        $count = $count_remain.' Bids are remaining out of '.$fixed_count;        
-        $result = isset($user_details->roles['19']) ? "Unlimited" : $count;
+
+		$count_remain = $fixed_count;
+		if ( isset($user_details->field_bids_month['und']) ) {
+    		$count_remain = $fixed_count-$user_details->field_bids_month['und']['0']['value'];     
+    	}  
+    	$count = $count_remain.' Bids are remaining out of '.$fixed_count;        
+    	$result = isset($user_details->roles['19']) ? "Unlimited" : $count;
+    	
         return $result;
 
 	}
