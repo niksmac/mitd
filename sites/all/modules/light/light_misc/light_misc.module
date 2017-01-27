@@ -185,6 +185,12 @@ function light_misc_menu() {
 		'type' => MENU_CALLBACK,
 		);
 
+	$items['payment'] = array(
+		'page callback' => 'light_misc_successful_payment',
+		'access callback' => TRUE,
+		'type' => MENU_CALLBACK,
+		);
+
 	return $items;
 }
 
@@ -480,6 +486,13 @@ function light_misc_opp_action($node){
 
 	}
 
+	function light_misc_successful_payment () {
+		//print_r("hee");
+		watchdog('light_misc', '<pre>'. print_r($_REQUEST, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
+
+		return "hai";
+	}
+ 
 
 	
     
