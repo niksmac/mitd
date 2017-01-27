@@ -34,12 +34,13 @@
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                     
                 </tr>
+
                 <tr>
                     <td>Bid for all opportunities</td>
-                    <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
-                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>
-                    <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                    
+                    <td><?php echo variable_get('bid_free', '0');?></td>
+                    <td><?php echo variable_get('bid_basic', '5'); ?></td>
+                    <td><?php echo variable_get('bid_standard', '10'); ?></td>
+                    <td>Unlimted</td>                    
                 </tr>
                 <tr>
                     <td>Verified by MITD Analyst” flag</td>
