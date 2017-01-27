@@ -108,14 +108,15 @@ function mitd_nid($uid, $op_nid) {
 
 	function light_misc_opportunity_validation(){
 		$errors = form_get_errors();
+        if(is_array($errors) && !empty($errors)) {
+			foreach ($errors as $key => $value) {
+				if (0 === strpos($value, 'There are errors in Question')) {
+					drupal_get_messages('error');
+					$value = str_replace('Date value #1','',$value);
+					$value = str_replace('greater than the Start date','greater than or equalto the Start date',$value);
 
-		foreach ($errors as $key => $value) {
-			if (0 === strpos($value, 'There are errors in Question')) {
-				drupal_get_messages('error');
-				$value = str_replace('Date value #1','',$value);
-				$value = str_replace('greater than the Start date','greater than or equalto the Start date',$value);
-
-				form_set_error('field_question_answer_date',$value);
+					form_set_error('field_question_answer_date',$value);
+				}
 			}
 		}
 	}
