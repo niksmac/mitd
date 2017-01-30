@@ -36,10 +36,15 @@ function light_message_proposals_node_form($form, &$form_state) {
  // print_r($form_state['node']->nid);exit;
 	$op_nid = $form_state['values']['field_opportunity']['und']['0']['nid'];
 	$uid = $form_state['values']['uid'];
-  $user_data = user_load($uid);  
+  $user_data = user_load($uid);
+ // print_r($user_data->uid);exit;  
   $user_data->field_bids_month['und']['0']['value'] = $user_data->field_bids_month['und']['0']['value']+1;
   user_save($user_data);
- 
+  $bid_count = _subscription_remaining_bid($user_data->uid);
+  if($bid_count == 0) {
+  $params = array('mail' => $user_data->mail);
+  drupal_mail('light_message', 'renewing_subscription_mail_notification', $user_data->mail, language_default(), $params);
+  }
 	$node = node_load($op_nid);
   if(empty($form_state['node']->nid)) {		
     $message = message_create('notify_author_when_proposal_submit', array('uid' => $node->uid));   
@@ -62,3 +67,16 @@ function light_message_og_ui_add_users($form, &$form_state) {
     $wrapper->field_collaboration_ref->set($node);
     $wrapper->save();   
 } 
+
+/**
+ * Implements hook_mail().
+ */
+function light_message_mail($key, &$message, $params) {
+
+  switch($key) {
+    case 'renewing_subscription_mail_notification':
+      $message['subject'] = "Subscription Renewing Notification";
+      $message['body'][] = "No more bids available, Please renew your subscription.";
+      break;
+  }
+}
