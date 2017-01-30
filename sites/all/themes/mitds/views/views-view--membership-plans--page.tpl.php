@@ -84,7 +84,7 @@
                     <td><span class="icon-no glyphicon glyphicon-remove-circle"></span></td>
                     <td><span class="icon-yes glyphicon glyphicon-ok-circle"></span></td>                   
                 </tr>                
-                <tr>
+                <tr class="action-row">
                     
                     <td class="area">Per Month</td>
                     <td>
@@ -109,7 +109,7 @@
                         ?>
                     </td>                                        
                 </tr>
-                <tr class="month-3-class">
+                <tr class="month-3-class action-row">
                     
                     <td class="area">3 Months</td>
                     <td>-</td>
@@ -133,7 +133,7 @@
                     </td> 
 
                 </tr>
-                <tr class="month-6-class">
+                <tr class="month-6-class action-row">
                     
                     <td class="area">6 Months</td>
                     <td>-</td>
@@ -156,7 +156,7 @@
                         ?>
                     </td>
                 </tr>
-                <tr class="month-12-class">
+                <tr class="month-12-class action-row">
                     
                     <td class="area">12 Months</td>
                     <td>-</td>
@@ -178,6 +178,16 @@
                         print render($block['content']);
                         ?>
                     </td>
+                </tr>
+
+                <?php
+                    global $user;
+                    $bid_count = _subscription_remaining_bid($user->uid);
+                ?>
+                <tr class="bid-info">
+                <?php if($bid_count != 0) { ?>
+                    <td colspan="5"><b><?php echo "You have $bid_count bids remaining.You can subscribe to a plan after complete your bid count.";?></b></td>
+                    <?php } ?>
                 </tr>
 
                 
