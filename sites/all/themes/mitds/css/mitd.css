@@ -654,6 +654,11 @@ fieldset.date-combo .container-inline-date > .form-item {
 thead a {
   color: #FFF !important
 }
+
+.bid-remaining tr.action-row{
+  display: none;
+}
+
 .user-basic td.basic form button{
  display: none;
 }
@@ -665,4 +670,10 @@ thead a {
 .user-premium td.standard form button, 
 .user-premium td.premium form button{
  display: none;
+}
+.bid-info {
+  display: none;
+}
+.bid-remaining tr.bid-info {
+  display: table-row;
 }
