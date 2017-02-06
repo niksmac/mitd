@@ -502,14 +502,12 @@ function light_misc_opp_action($node){
 				$usr_data = user_load($txn->uid);		
 				$usr_data->field_bids_month['und']['0']['value'] = 0;
   				user_save($usr_data);
-				watchdog('light_misc', '<pre>'. print_r($txn, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
-
+				//watchdog('light_misc', '<pre>'. print_r($txn, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
+				drupal_goto("http://makeitdeals.com/subscriptions", array('external' => TRUE));
 
     		}
-    	 // }
-		
+    	 // }		
 		//watchdog('light_misc', '<pre>'. print_r($myPost, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
-
 		return "success";
 	}
     
