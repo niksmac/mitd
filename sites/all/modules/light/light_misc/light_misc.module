@@ -499,8 +499,11 @@ function light_misc_opp_action($node){
 		//if (!isset($_POST['payment_status']) || strtoupper($_POST['payment_status']) != "COMPLETED") {
     		if (isset($_POST['txn_id'])) {
 				$txn = paypal_roles_payments_load($_POST['txn_id']);
-				$u = $txn->uid;
-				print_r($u);
+				
+				$usr_data = user_load($txn->uid);
+				print_r($usr_data);
+				//$usr_data->field_bids_month['und']['0']['value'] = $usr_data->field_bids_month['und']['0']['value']+1;
+  				//user_save($usr_data);
 				watchdog('light_misc', '<pre>'. print_r($txn, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 
 
@@ -509,7 +512,7 @@ function light_misc_opp_action($node){
 		
 		//watchdog('light_misc', '<pre>'. print_r($myPost, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 
-		return $u;
+		return $usr_data;
 	}
     
     function _subscription_remaining_bid ($uid) {
