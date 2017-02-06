@@ -504,7 +504,7 @@ function light_misc_opp_action($node){
 
     		}
     	  }
-		}
+		
 		//watchdog('light_misc', '<pre>'. print_r($myPost, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 
 		return "hai";
