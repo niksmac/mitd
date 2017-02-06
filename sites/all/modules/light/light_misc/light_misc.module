@@ -496,11 +496,12 @@ function light_misc_opp_action($node){
 
 	function light_misc_successful_payment () {
 	
-	if (!isset($_POST['payment_status']) || strtoupper($_POST['payment_status']) != "COMPLETED") {
-    if ((int) $log === 1) {
-      watchdog('light_misc', t('The response from IPN was: "payment_status" is not completed.'));
-      watchdog('light_misc', var_export($_POST, TRUE));
-    }
+		if (!isset($_POST['payment_status']) || strtoupper($_POST['payment_status']) != "COMPLETED") {
+    		if ((int) $log === 1) {
+      			watchdog('light_misc', t('The response from IPN was: "payment_status" is not completed.'));
+      			watchdog('light_misc', var_export($_POST, TRUE));
+    		}
+		}
 		//watchdog('light_misc', '<pre>'. print_r($myPost, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 
 		return "hai";
