@@ -374,14 +374,14 @@ function light_misc_opp_action($node){
 			$output = "user-free";
 		}
 		if (_check_subscription($uid,"1basic") ){
-			$output = "user-basic";
+			$output .= "user-basic";
 		}
 		if (_check_subscription($uid,"2standard") ){
 			print_r("Standard");
-			$output = "user-standard";
+			$output .= "user-standard";
 		}
 		if (_check_subscription($uid,"3premium") ){
-			$output = "user-premium";
+			$output .= "user-premium";
 		}
         if(isset($bids)) { 
 	        $output = $output.$bids;
@@ -511,10 +511,10 @@ function light_misc_opp_action($node){
 			$fixed_count = variable_get('bid_free', '0');
 		}				
 		if(isset($user_details->roles['17'])) {
-			$fixed_count .= variable_get('bid_basic', '5');
+			$fixed_count = variable_get('bid_basic', '5');
 		}
 		if(isset($user_details->roles['18'])) {
-			$fixed_count .= variable_get('bid_standard', '10');
+			$fixed_count = variable_get('bid_standard', '10');
 		}
 
 		$count_remain = $fixed_count;
