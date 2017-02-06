@@ -377,7 +377,7 @@ function light_misc_opp_action($node){
 			$output = "user-basic";
 		}
 		if (_check_subscription($uid,"2standard") ){
-			print_r("Standard")
+			print_r("Standard");
 			$output = "user-standard";
 		}
 		if (_check_subscription($uid,"3premium") ){
