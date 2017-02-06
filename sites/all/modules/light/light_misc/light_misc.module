@@ -513,6 +513,7 @@ function light_misc_opp_action($node){
 			$fixed_count = variable_get('bid_basic', '5');
 		}
 		if(isset($user_details->roles['18'])) {
+			print_r($user_details);exit;
 			$fixed_count = variable_get('bid_standard', '10');
 		}
 
