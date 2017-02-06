@@ -374,16 +374,17 @@ function light_misc_opp_action($node){
 			$output = "user-free";
 		}
 		if (_check_subscription($uid,"1basic") ){
-			$output. = "user-basic";
+			$output = "user-basic";
 		}
 		if (_check_subscription($uid,"2standard") ){
-			$output. = "user-standard";
+			print_r("Standard");
+			$output = "user-standard";
 		}
 		if (_check_subscription($uid,"3premium") ){
-			$output. = "user-premium";
+			$output = "user-premium";
 		}
         if(isset($bids)) { 
-	        $output = $output.$bids;
+	        $output .= $output.$bids;
     	}
 
 		return $output;
