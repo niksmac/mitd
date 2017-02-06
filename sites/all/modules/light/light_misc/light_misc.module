@@ -499,6 +499,8 @@ function light_misc_opp_action($node){
 		//if (!isset($_POST['payment_status']) || strtoupper($_POST['payment_status']) != "COMPLETED") {
     		if (isset($_POST['txn_id'])) {
 				$txn = paypal_roles_payments_load($_POST['txn_id']);
+				$u = $txn->uid;
+				print_r($u);
 				watchdog('light_misc', '<pre>'. print_r($txn, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 
 
@@ -507,7 +509,7 @@ function light_misc_opp_action($node){
 		
 		//watchdog('light_misc', '<pre>'. print_r($myPost, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 
-		return "hai";
+		return $u;
 	}
     
     function _subscription_remaining_bid ($uid) {
