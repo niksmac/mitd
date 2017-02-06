@@ -384,7 +384,7 @@ function light_misc_opp_action($node){
 			$output .= "user-premium";
 		}
         if(isset($bids)) { 
-	        $output = $output.$bids;
+	        $output .= $output.$bids;
     	}
 
 		return $output;
