@@ -495,8 +495,6 @@ function light_misc_opp_action($node){
 	}
 
 	function light_misc_successful_payment () {
-	
-		//if (!isset($_POST['payment_status']) || strtoupper($_POST['payment_status']) != "COMPLETED") {
     		if (isset($_POST['txn_id'])) {
 				$txn = paypal_roles_payments_load($_POST['txn_id']);				
 				$usr_data = user_load($txn->uid);		
@@ -504,10 +502,7 @@ function light_misc_opp_action($node){
   				user_save($usr_data);
 				//watchdog('light_misc', '<pre>'. print_r($txn, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 				drupal_goto("http://makeitdeals.com/subscriptions", array('external' => TRUE));
-
     		}
-    	 // }		
-		//watchdog('light_misc', '<pre>'. print_r($myPost, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 		return "success";
 	}
     
