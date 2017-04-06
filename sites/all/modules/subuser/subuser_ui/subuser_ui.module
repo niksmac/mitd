@@ -32,8 +32,6 @@ function subuser_ui_access_list_page_callback($account) {
   $acct_uid = is_object($account) ? $account->uid : $account;
 
   $parent = subuser_load_all($account, FALSE);
- // print_r($parent);exit;
-
 
   // Never allow access to view the anonymous user account.
   if ($acct_uid) {
@@ -63,8 +61,12 @@ function subuser_ui_list_page($account) {
 
   // Return empty message if no subusers found
   if (empty($suids)) {
-    return t("User doesn't have any subusers.");
+    
+    $msg = '<div>'.l(t('Add User'), "user/$account->uid/subuser/create",array('attributes' => array('class' => 'btn btn-primary'))).'<hr></div>';
+    $msg .= t("User doesn't have any subusers.");
+    return $msg;
   }
+ 
 
   foreach ($suids as $suid) {
     //Load subuser
@@ -177,10 +179,6 @@ function subuser_ui_list_page($account) {
   $table = theme('table', array('header' => $data['header'], 'rows' => $chunks[$current_page]));
 
   $output = '<div>'.l(t('Add User'), "user/$account->uid/subuser/create",array('attributes' => array('class' => 'btn btn-primary'))).'<hr></div>';
-
-  
-
-  
 
   // Output themed table
   $output .= theme('subuser_list_item', array('content' => $table, 'values' => $values));
