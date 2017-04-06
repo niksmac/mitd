@@ -31,11 +31,17 @@ function subuser_ui_access_list_page_callback($account) {
   global $user;
   $acct_uid = is_object($account) ? $account->uid : $account;
 
+  $parent = subuser_load_all($account, FALSE);
+ // print_r($parent);exit;
+
+
   // Never allow access to view the anonymous user account.
   if ($acct_uid) {
-    // Admins can view all, users can view own profiles at all times.
-    if ($user->uid == $acct_uid || user_access('administer users') || (user_access('view subusers', $user))) {
-      return TRUE;
+    if(empty($parent) || isset($parent[1])) {
+      // Admins can view all, users can view own profiles at all times.
+      if (user_access('administer users') || (user_access('view subusers', $user))) {
+        return TRUE;
+      }
     }
   }
   return FALSE;
@@ -170,8 +176,14 @@ function subuser_ui_list_page($account) {
   // Create table listing from data
   $table = theme('table', array('header' => $data['header'], 'rows' => $chunks[$current_page]));
 
+  $output = '<div>'.l(t('Add User'), "user/$account->uid/subuser/create",array('attributes' => array('class' => 'btn btn-primary'))).'<hr></div>';
+
+  
+
+  
+
   // Output themed table
-  $output = theme('subuser_list_item', array('content' => $table, 'values' => $values));
+  $output .= theme('subuser_list_item', array('content' => $table, 'values' => $values));
   // Output pager
   $output .= theme('pager', array('quantity',count($data['rows'])));
 
