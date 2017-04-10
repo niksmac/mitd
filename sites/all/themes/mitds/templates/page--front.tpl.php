@@ -1,4 +1,5 @@
-<?php global $base_url; $theme_path = $base_url.'/'.drupal_get_path('theme', 'mitds');?>
+<?php global $base_url;
+$theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
 <div id="main-wrapper">
 
   <!-- Top Toolbar -->
@@ -12,13 +13,13 @@
         </ul>
 
           <ul class="authentication">
-            <?php if (user_is_logged_in()) : ?>
-            <li><a href="<?php print url("user"); ?>"><span>My Account(<?php echo $user_name;?>)</span></a></li>
-            <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
+            <?php if (user_is_logged_in()): ?>
+            <li><a href="<?php print url("user");?>"><span>My Account(<?php echo $user_name; ?>)</span></a></li>
+            <li><a href="<?php print url("user/logout");?>">Logout</a></li>
             <?php else: ?>
-            <li><a href="<?php print url("user/register"); ?>">Register</a></li>
-            <li><a href="<?php print url("user/login"); ?>">Login</a></li>
-            <?php endif; ?>
+            <li><a href="<?php print url("user/register");?>">Register</a></li>
+            <li><a href="<?php print url("user/login");?>">Login</a></li>
+            <?php endif;?>
           </ul>
       </div>
     </div>
@@ -30,13 +31,13 @@
     <div class="uou-block-2b">
       <div class="container">
         <?php if ($logo): ?>
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
+        <a href="<?php print $front_page;?>" title="<?php print t('Home');?>" rel="home" id="logo">
+          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home');?>" />
         </a>
-        <?php endif; ?>
+        <?php endif;?>
         <!-- <a href="index.html#" class="logo"><img src="<?php //print $theme_path;?>/logo.png" alt=""></a> <a href="index.html#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a> -->
         <nav class="nav">
-        <?php print render($page['main_menu_reg']); ?>
+        <?php print render($page['main_menu_reg']);?>
         </nav>
       </div>
     </div>
@@ -63,13 +64,13 @@
 
           <!-- FORM SECTION -->
           <div class="col-sm-5">
-            <?php if (! user_is_logged_in()) : ?>
+            <?php if (!user_is_logged_in()): ?>
             <div class="login-sec">
 
               <!-- TABS -->
               <div class="uou-tabs">
                 <ul class="tabs">
-                  <li><a href="<?php print url("user/register"); ?>">Register Now</a></li>
+                  <li><a href="<?php print url("user/register");?>">Register Now</a></li>
                   <li class="active log-in">Member Login</li>
                 </ul>
 
@@ -77,12 +78,12 @@
                 <div class="content">
                   <!-- LOGIN -->
                   <div id="log-in" class="active">
-                   <div class="col-md-12"><?php print $messages; ?></div>
+                   <div class="col-md-12"><?php print $messages;?></div>
                    <?php
-                    $elements = drupal_get_form("user_login");
-                    $form = drupal_render($elements);
-                    echo $form;
-                    ?>
+$elements = drupal_get_form("user_login");
+$form = drupal_render($elements);
+echo $form;
+?>
                   </div>
                   <div id="forget">
                     <form>
@@ -95,7 +96,7 @@
             </div>
             <?php else: ?>
             <div class="login-sec"></div>
-            <?php endif; ?>
+            <?php endif;?>
           </div>
         </div>
       </div>
@@ -179,7 +180,7 @@
 
     </section>
     <!-- <section class="pro-mem">
-     <?php //print views_embed_view('featured_partners','block'); ?>   
+     <?php //print views_embed_view('featured_partners','block'); ?>
     </section> -->
     <!-- APP IMAGE -->
     <section class="app-images hidden">
@@ -197,7 +198,7 @@
             <a href="index.html#."><i class="fa fa-apple"></i> App Store</a> </div>
 
           <!-- APP IMAGE -->
-          <div class="col-md-6 text-right"><img src="<?php print $theme_path; ?>/images/app-img.png" alt="" > </div>
+          <div class="col-md-6 text-right"><img src="<?php print $theme_path;?>/images/app-img.png" alt="" > </div>
         </div>
       </div>
     </section>
@@ -277,15 +278,15 @@
 <div class="uou-block-4e">
   <div class="container">
     <div class="row">
-     <?php print render($page['footer']);  ?>
+     <?php print render($page['footer']);?>
     </div>
     <div class="row">
      <div class="col-md-3">
       <?php if ($logo): ?>
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
+        <a href="<?php print $front_page;?>" title="<?php print t('Home');?>" rel="home" id="logo">
+          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home');?>" />
         </a>
-        <?php endif; ?>
+        <?php endif;?>
      </div>
     </div>
   </div>
@@ -295,8 +296,8 @@
 <div class="uou-block-4a secondary dark">
   <div class="container">
     <ul class="links">
-      <li><a href="<?php echo url("node/358");?>">Privacy Policy</a></li>
-      <li><a href="<?php echo url("node/348");?>">Terms &amp; Conditions</a></li>
+      <li><a href="<?php echo url("node/358"); ?>">Privacy Policy</a></li>
+      <li><a href="<?php echo url("node/348"); ?>">Terms &amp; Conditions</a></li>
     </ul>
     <p>Copyright &copy; 2016 </p>
   </div>

@@ -531,6 +531,21 @@ function light_misc_opp_action($node){
         return $result;
 
 	}
-
-	
     
+    function light_misc_form_user_register_form_alter(&$form, &$form_state) {
+   
+    	$form['#submit'][] = 'light_misc_user_register_form_submit';
+    }
+
+    function light_misc_user_register_form_submit($form, &$form_state) {
+ 
+    	global $user;
+    
+    	if ( $user->uid > 1 && $user->uid != $form_state['user']->uid){
+    	//$form_state['user']->roles = '6';
+    		user_multiple_role_edit(array($form_state['user']->uid), 'add_role',   6);
+    		user_multiple_role_edit(array($form_state['user']->uid), 'add_role',   16);
+    	}
+
+       
+    }

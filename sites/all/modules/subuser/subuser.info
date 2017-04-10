@@ -1,0 +1,9 @@
+name = Subuser
+description = Allows users to create other users based on permissions and optionally store a parent-child relationship.
+package = User
+core = 7.x
+dependencies[] = relation
+dependencies[] = ctools
+recommends[] = subuser_switch
+recommends[] = subuser_ui
+
