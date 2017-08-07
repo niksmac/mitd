@@ -108,6 +108,7 @@ function mitd_nid($uid, $op_nid) {
 	function light_misc_opportunity_validation(&$form, &$form_state){
 
 		$values = $form_state['values'];
+		//print_r($values);exit;
 		$errors = form_get_errors();
         if(is_array($errors) && !empty($errors)) {
 			foreach ($errors as $key => $value) {
@@ -123,6 +124,10 @@ function mitd_nid($uid, $op_nid) {
 		if (is_numeric($values['title'])) 
    		{
      		form_set_error('name', t('Title field should not be numeric only'));
+   		}
+   		if (is_numeric($values['field_general_requirements']['und'][0]['value'])) 
+   		{
+     		form_set_error('name', t('General requirements field should not be numeric only'));
    		}
 	}
 
