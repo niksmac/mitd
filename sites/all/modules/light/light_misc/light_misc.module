@@ -63,6 +63,7 @@ function mitd_nid($uid, $op_nid) {
 			$form['#validate'] = array('light_misc_opportunity_validation');
 			break;
 			case 'user_register_form':
+			//print_r("expression");exit;
 			$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
 			$form['terms_of_use'] = array(
 				'#weight' => 50
@@ -122,8 +123,7 @@ function mitd_nid($uid, $op_nid) {
 	function light_misc_registersibmit(&$form, &$form_state) {
 
 		$values = $form_state['values'];
-  //print_r($values);exit;
-
+  //print_r($values['field_first_name']['und'][0]['value']);exit;
 		if( isset($values['field_mobile']) ){
 			$mobno = $values['field_mobile']['und'][0]['value'];
 
@@ -136,6 +136,15 @@ function mitd_nid($uid, $op_nid) {
 			if (strlen($mobno) != "10") {
 				form_set_error('field_mobile', t('Invalid phone number'));
 			}
+
+			if (!preg_match('/^[A-Za-z]+$/', $values['field_first_name']['und'][0]['value'])) 
+   			{
+     			form_set_error('name', t('Please enter alphabets only for First Name.'));
+   			}
+   			if (!preg_match('/^[A-Za-z]+$/', $values['field_last_name']['und'][0]['value'])) 
+   			{
+     			form_set_error('name', t('Please enter alphabets only for Last Name.'));
+   			}
 		}
 	}
 
