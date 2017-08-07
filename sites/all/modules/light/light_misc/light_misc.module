@@ -60,6 +60,7 @@ function mitd_nid($uid, $op_nid) {
 			break;
 
 			case 'opportunity_node_form':
+			//print_r("expression");exit;
 			$form['#validate'] = array('light_misc_opportunity_validation');
 			break;
 			case 'user_register_form':
@@ -104,7 +105,9 @@ function mitd_nid($uid, $op_nid) {
 		}
 	}
 
-	function light_misc_opportunity_validation(){
+	function light_misc_opportunity_validation(&$form, &$form_state){
+
+		$values = $form_state['values'];
 		$errors = form_get_errors();
         if(is_array($errors) && !empty($errors)) {
 			foreach ($errors as $key => $value) {
@@ -117,6 +120,10 @@ function mitd_nid($uid, $op_nid) {
 				}
 			}
 		}
+		if (is_numeric($values['title'])) 
+   		{
+     		form_set_error('name', t('Title field should not be numeric only'));
+   		}
 	}
 
 	function light_misc_registersibmit(&$form, &$form_state) {
