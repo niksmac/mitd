@@ -162,7 +162,7 @@ function mitd_nid($uid, $op_nid) {
    			{
      			form_set_error('name', t('Please enter alphabets only for Last Name.'));
    			}
-   			if (!is_numeric($values['locations'][0]['postal_code'])) {
+   			if ($values['locations'][0]['postal_code'] != '' && !is_numeric($values['locations'][0]['postal_code'])) {
       			form_set_error('title', t('Postal code must be numeric only'));
     		}
     		if($values['locations'][0]['province'] == '') {
