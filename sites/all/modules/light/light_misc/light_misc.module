@@ -120,12 +120,22 @@ function mitd_nid($uid, $op_nid) {
 		}
 		if (is_numeric($values['title'])) 
    		{
-     		form_set_error('name', t('Title field should not be numeric only'));
+     		form_set_error('name', t('Opportunity title should not be numeric only'));
    		}
    		if (is_numeric($values['field_general_requirements']['und'][0]['value'])) 
    		{
-     		form_set_error('name', t('General requirements field should not be numeric only'));
+     		form_set_error('name', t('General Requirements field should not be numeric only'));
    		}
+
+		$title = preg_replace('/[^A-Za-z0-9-]/',"",$values['title']);
+		if( strlen($title) == 0) {
+			form_set_error('name', t('Opportunity title field should not be special character only'));
+		}
+
+		$gene_req = preg_replace('/[^A-Za-z0-9-]/',"",$values['field_general_requirements']['und'][0]['value']);
+		if( strlen($gene_req) == 0) {
+			form_set_error('name', t('General Requirements field should not be special character only'));
+		}
 	}
 
 	function light_misc_registersibmit(&$form, &$form_state) {
