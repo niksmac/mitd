@@ -105,7 +105,6 @@ function mitd_nid($uid, $op_nid) {
 	function light_misc_opportunity_validation(&$form, &$form_state){
 
 		$values = $form_state['values'];
-		//print_r($values);exit;
 		$errors = form_get_errors();
         if(is_array($errors) && !empty($errors)) {
 			foreach ($errors as $key => $value) {
