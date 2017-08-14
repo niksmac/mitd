@@ -45,6 +45,7 @@ function mitd_nid($uid, $op_nid) {
 	}
 
 	function light_misc_form_alter(&$form, &$form_state, $form_id) {
+					//print_r($form_id);exit;
 		global $user;
 		switch ($form_id) {
 			case "contact_site_form":
@@ -138,7 +139,7 @@ function mitd_nid($uid, $op_nid) {
 	}
 
 	function light_misc_registersibmit(&$form, &$form_state) {
-
+	
 		$values = $form_state['values'];
 		if( isset($values['field_mobile']) ){
 			$mobno = $values['field_mobile']['und'][0]['value'];
@@ -161,12 +162,14 @@ function mitd_nid($uid, $op_nid) {
    			{
      			form_set_error('name', t('Please enter alphabets only for Last Name.'));
    			}
-   			if ($values['locations'][0]['postal_code'] != '' && !is_numeric($values['locations'][0]['postal_code'])) {
-      			form_set_error('title', t('Postal code must be numeric only'));
-    		}
-    		if($values['locations'][0]['province'] == '') {
-    			form_set_error('title', t('State/Province should be selected'));
-    		}
+   			if($form['form_id']['#value'] == 'user_register_form') { 
+	   			if ($values['locations'][0]['postal_code'] != '' && !is_numeric($values['locations'][0]['postal_code'])) {
+	      			form_set_error('title', t('Postal code must be numeric only'));
+	    		}
+	    		if($values['locations'][0]['province'] == '') {
+	    			form_set_error('title', t('State/Province should be selected'));
+	    		}
+    	    }
 		}
 	}
 
