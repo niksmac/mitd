@@ -170,6 +170,9 @@ function mitd_nid($uid, $op_nid) {
 	    			form_set_error('title', t('State/Province should be selected'));
 	    		}
     	    }
+    	    if($form['form_id']['#value'] == 'user_profile_form') {
+    	    	$form_state['redirect'] = 'user';
+    	    }
 		}
 	}
 
