@@ -187,6 +187,7 @@ function light_invite_opportunity_inviting() {
     $message = message_create('notify_user_when_invited', array('uid' => $uid));
     $wrapper = entity_metadata_wrapper('message', $message);
     $wrapper->field_opportunity_ref->set($node);
+    drupal_set_message("Invitation sent successfully.");
   }
   if($node->type == "collaboration") {
     $message = message_create('notify_user_when_invited_collaboration', array('uid' => $uid));
