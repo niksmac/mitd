@@ -61,6 +61,7 @@ function mitd_nid($uid, $op_nid) {
 			case 'opportunity_node_form':
 			$form['#validate'] = array('light_misc_opportunity_validation');
 			break;
+			case 'user_login':
 			case 'user_register_form':
 			$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
 			$form['terms_of_use'] = array(
@@ -102,6 +103,7 @@ function mitd_nid($uid, $op_nid) {
 
 		}
 	}
+
 
 	function light_misc_opportunity_validation(&$form, &$form_state){
 
@@ -537,8 +539,10 @@ function light_misc_opp_action($node){
   				user_save($usr_data);
 				//watchdog('light_misc', '<pre>'. print_r($txn, TRUE) .'</pre>', array(), WATCHDOG_INFO, NULL);
 				drupal_goto("http://makeitdeals.com/subscriptions", array('external' => TRUE));
+				print_r($usr_data);
     		}
-		return "success";
+    		
+		return "<h1>Payment Success</h1><br><p>Your transaction has been successfully completed.<br>An email notification has been sent to your mail account by the administrator.</p>";
 	}
     
     function _subscription_remaining_bid ($uid) {
