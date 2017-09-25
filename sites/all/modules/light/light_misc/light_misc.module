@@ -109,13 +109,8 @@ function mitd_nid($uid, $op_nid) {
 	}
     
     function light_misc_login_form_submit($form, &$form_state) {
-    	//print_r($form_state);exit;
-    	//print_r("expression");exit;
-    	//print_r($form_state['input']['name']);exit;
-    	//$name = $form_state['input']['name'];
-        //$form_state['redirect'] = $_GET[''];
         $_GET['destination'] = 'user';
-}
+    }
 
 
 	function light_misc_opportunity_validation(&$form, &$form_state){
