@@ -662,12 +662,12 @@ thead a {
 .user-basic td.basic form button{
  display: none;
 }
-.user-standard td.basic form button, 
+.user-standard td.basic form button,
 .user-standard td.standard form button{
  display: none;
 }
-.user-premium td.basic form button, 
-.user-premium td.standard form button, 
+.user-premium td.basic form button,
+.user-premium td.standard form button,
 .user-premium td.premium form button{
  display: none;
 }
@@ -676,4 +676,7 @@ thead a {
 }
 .bid-remaining tr.bid-info {
   display: table-row;
+}
+.front #user-login-form ul{
+	display: none;
 }
