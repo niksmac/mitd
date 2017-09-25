@@ -53,6 +53,11 @@ function mitd_nid($uid, $op_nid) {
 				$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
 
 				$form['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
+				
+			case "user_login_block";
+				$form['#submit'][] = 'light_misc_login_form_submit';
+			break;
+
 			case "user_login":		
 			$options = array('attributes' => array('class' => 'on-right'));
 			$form['link'] = array('#markup' => l(t('Forgot password?'),'user/password'),'#class' => $options,'#type' => 'item');
@@ -61,7 +66,6 @@ function mitd_nid($uid, $op_nid) {
 			case 'opportunity_node_form':
 			$form['#validate'] = array('light_misc_opportunity_validation');
 			break;
-			case 'user_login':
 			case 'user_register_form':
 			$form['actions']['submit']['#attributes'] = array('class' => array('btn', 'btn-primary'));
 			$form['terms_of_use'] = array(
@@ -103,6 +107,15 @@ function mitd_nid($uid, $op_nid) {
 
 		}
 	}
+    
+    function light_misc_login_form_submit($form, &$form_state) {
+    	//print_r($form_state);exit;
+    	//print_r("expression");exit;
+    	//print_r($form_state['input']['name']);exit;
+    	//$name = $form_state['input']['name'];
+        //$form_state['redirect'] = $_GET[''];
+        $_GET['destination'] = 'user';
+}
 
 
 	function light_misc_opportunity_validation(&$form, &$form_state){
