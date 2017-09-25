@@ -44,6 +44,7 @@ $theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
     <!-- end .uou-block-2b -->
   </div>
 
+
   <!-- HOME PRO-->
   <div class="home-pro">
 
@@ -80,7 +81,7 @@ $theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
                   <div id="log-in" class="active">
                    <div class="col-md-12">
                      <?php print $messages;?></div>
-                      <?php print render($page['login']); ?>
+                      <?php print render($page['login']);?>
                   </div>
                   <div id="forget">
                     <form>
