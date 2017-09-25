@@ -79,9 +79,18 @@ $theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
                 <div class="content">
                   <!-- LOGIN -->
                   <div id="log-in" class="active">
+                   <div class="col-md-12"><?php //print $messages;?></div>
+                   <?php
+$elements = drupal_get_form("user_login");
+$form = drupal_render($elements);
+//echo $form;
+?>
+
                    <div class="col-md-12">
                      <?php print $messages;?></div>
+
                       <?php print render($page['login']);?>
+
                   </div>
                   <div id="forget">
                     <form>
