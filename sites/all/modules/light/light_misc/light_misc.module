@@ -121,8 +121,8 @@ function light_misc_mail($key, &$message, $params){
   }
   switch ($key) {
   	case 'domainnotification':
-      $message['subject'] = $params['subject'];
-      $message['body'] = $params['body'];
+      //$message['subject'] = $params['subject'];
+      //$message['body'] = $params['body'];
     break;
   }
 
