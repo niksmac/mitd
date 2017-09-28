@@ -183,7 +183,7 @@ function light_misc_mail($key, &$message, $params){
 		    $subject = 'Email id with same domain name';
 		    $module = 'light_misc';
 		    $key = 'domainnotification';
-		    $to = "salu.s@lightrains.com";
+		    $to = "admin@makeitdeals.com";
 		    $message = '';
 		    $message .= 'A new user has been registered with existing domain name '.$domain[1].'<br>' ;
 		    $from = variable_get('site_mail', 'admin@makeitdeals.com');
