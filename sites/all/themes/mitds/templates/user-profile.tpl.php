@@ -23,7 +23,7 @@ if ($usr->roles[6]) {
 		?>
     <div class="verify"><p class="text-muted"><i class="fa fa-check" aria-hidden="true"></i>Mitd Verified</p></div><?php } else {?>
 
-   <a href="<?php echo url("user/" . $user->uid . "/verify") ?>" class="btn btn-info btn-sm ">Please Verifed By Mitd Analyst</a>
+   <a href="<?php echo url("user/" . $user->uid . "/verify") ?>" class="btn btn-info btn-sm ">Please Verified By Mitd Analyst</a>
       <?php }}?>
 
   <div class="row">
