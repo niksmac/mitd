@@ -108,6 +108,26 @@ function mitd_nid($uid, $op_nid) {
 		}
 	}
     
+function light_misc_mail($key, &$message, $params){
+  $headers = array(
+    'MIME-Version' => '1.0',
+    'Content-Type' => 'text/html; charset=UTF-8;',
+    'Content-Transfer-Encoding' => '8Bit',
+    'X-Mailer' => 'Drupal'
+    );
+
+  foreach ($headers as $k => $value) {
+    $message['headers'][$k] = $value;
+  }
+  switch ($key) {
+  	case 'domainnotification':
+      $message['subject'] = $params['subject'];
+      $message['body'] = $params['body'];
+    break;
+  }
+
+}
+
     function light_misc_login_form_submit($form, &$form_state) {
         $_GET['destination'] = 'user';
     }
@@ -149,8 +169,34 @@ function mitd_nid($uid, $op_nid) {
 	}
 
 	function light_misc_registersibmit(&$form, &$form_state) {
-	
+
 		$values = $form_state['values'];
+
+		$domain = explode('@', $values['mail']);
+		$exist = db_select('users', 'us')
+        		->fields('us')
+        		->condition('mail', '%' . db_like($domain[1]) . '%', 'LIKE')
+        		->execute()
+        		->rowCount();
+        		
+		// if ($exist) {
+		//     $subject = 'Email id with same domain name';
+		//     $module = 'light_misc';
+		//     $key = 'domainnotification';
+		//     $to = "admin@makeitdeals.com";
+		//     $message = '';
+		//     $message .= 'A new user has been registered with existing domain name '.$domain[1].'<br>' ;
+		//     $from = variable_get('site_mail', 'admin@makeitdeals.com');
+		//     $params = array(
+		//       'body' => $message,
+		//       'subject' => $subject
+		//       );
+		//     $language = language_default();
+		//     $send = TRUE;
+		//     return drupal_mail($module, $key, $to, $language, $params, $from, $send);
+		// }
+
+
 		if( isset($values['field_mobile']) ){
 			$mobno = $values['field_mobile']['und'][0]['value'];
 
@@ -235,8 +281,42 @@ function light_misc_menu() {
 		'access callback' => TRUE,
 		'type' => MENU_CALLBACK,
 		);
+	$items['user/%/verify'] = array(
+		'title' => 'Please Pay',
+		'description' => 'Pay the amount to become an mitd verified partner',
+		'page callback' => 'drupal_get_form', 
+        'page arguments' => array('mitd_payment_form'), 
+		'access callback' => TRUE,
+		);
 
 	return $items;
+}
+
+function mitd_payment_form() {
+
+	$form['description'] = array(
+    	'#type' => 'item',
+    	'#title' => 'Mitd User Verification',
+    	'#markup' => '<br>You can become an mitd verified partner after submitting the below button.',
+    );
+
+	$form['submit'] = array(
+    	'#type' => 'submit',
+    	'#value' => 'Submit',
+    );
+  return $form;
+}
+
+function mitd_payment_form_validate($form, &$form_state) {
+
+}
+
+function mitd_payment_form_submit($form, &$form_state) {
+	$uid = arg(1);
+	$usr = user_load($uid);
+	$usr->field_verified_value['und'][0]['value']  = 1;
+	user_save($usr);
+	$form_state['redirect'] = 'user/'.$uid;
 }
 
 function light_misc_proposal_shortlisting() {
@@ -302,6 +382,11 @@ function _check_awarded_opportunity($op_nid) {
 	} else {
 		return false;
 	}
+}
+
+function light_misc_user_verification() {
+	print_r(arg(1));exit;
+	
 }
 
 /**
