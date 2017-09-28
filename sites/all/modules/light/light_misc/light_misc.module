@@ -178,24 +178,23 @@ function light_misc_mail($key, &$message, $params){
         		->condition('mail', '%' . db_like($domain[1]) . '%', 'LIKE')
         		->execute()
         		->rowCount();
-        		
-		// if ($exist) {
-		//     $subject = 'Email id with same domain name';
-		//     $module = 'light_misc';
-		//     $key = 'domainnotification';
-		//     $to = "admin@makeitdeals.com";
-		//     $message = '';
-		//     $message .= 'A new user has been registered with existing domain name '.$domain[1].'<br>' ;
-		//     $from = variable_get('site_mail', 'admin@makeitdeals.com');
-		//     $params = array(
-		//       'body' => $message,
-		//       'subject' => $subject
-		//       );
-		//     $language = language_default();
-		//     $send = TRUE;
-		//     return drupal_mail($module, $key, $to, $language, $params, $from, $send);
-		// }
 
+		if ($exist) {
+		    $subject = 'Email id with same domain name';
+		    $module = 'light_misc';
+		    $key = 'domainnotification';
+		    $to = "admin@makeitdeals.com";
+		    $message = '';
+		    $message .= 'A new user has been registered with existing domain name '.$domain[1].'<br>' ;
+		    $from = variable_get('site_mail', 'admin@makeitdeals.com');
+		    $params = array(
+		      'body' => $message,
+		      'subject' => $subject
+		      );
+		    $language = language_default();
+		    $send = TRUE;
+		    return drupal_mail($module, $key, $to, $language, $params, $from, $send);
+		}
 
 		if( isset($values['field_mobile']) ){
 			$mobno = $values['field_mobile']['und'][0]['value'];
