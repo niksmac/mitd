@@ -319,29 +319,32 @@ function mitd_payment_form_validate($form, &$form_state) {
 function mitd_payment_form_submit($form, &$form_state) {
 
 	global $base_url, $base_path, $user;
+
 	$usr = user_load($user->uid);
 	$params = array();
-
+$params['cmd'] = '_xclick-subscriptions';
+$params['item_name'] = "Premium";
+$params['item_number'] = "3premium";
 	$params['currency_code'] = "USD";
 	$params['amount'] = 49;
 	 if (user_is_logged_in()) {
     $params['custom'] = $user->mail;
     $params['uid'] = $user->uid;
     }
- //print_r($base_url);
- // print_r($base_path);
+
 
   $return = $base_url .'/verified/success/'.$params['uid'];
-  //print_r($return);exit;
- // $return_cancel = $base_url . $base_path;
+$return_cancel = $base_url . $base_path;
 
   if (variable_get('paypal_roles_sandbox', 1) == "1") {
     $url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
     $params['business'] = variable_get('paypal_roles_s_email', '');
 
     $params['return'] = $return;
+    //print_r($params['return']);exit;
+    //print_r($params['return']);exit;
     
-   // $params['cancel_return'] = variable_get('paypal_roles_s_return_cancel', $return_cancel);
+    $params['cancel_return'] = variable_get('paypal_roles_s_return_cancel', $return_cancel);
 
   }
   else {
@@ -349,7 +352,7 @@ function mitd_payment_form_submit($form, &$form_state) {
     $params['business'] = variable_get('paypal_roles_l_email', '');
 
     $params['return'] = variable_get('paypal_roles_l_return', $return);
-    //$params['cancel_return'] = variable_get('paypal_roles_l_return_cancel', $return_cancel);
+    $params['cancel_return'] = variable_get('paypal_roles_l_return_cancel', $return_cancel);
  
   }
   // Default IPN path.
@@ -361,12 +364,13 @@ function mitd_payment_form_submit($form, &$form_state) {
   }
 
   $query = drupal_http_build_query($params);
+// print_r($query);exit;
   drupal_goto($url . '?' . $query);
+ // print_r($url);exit;
   drupal_exit();
 }
 
 function light_misc_verified_success() {
-
     $uid = arg(2);
 	$usr = user_load($uid);
 	$usr->field_verified_value['und'][0]['value']  = 1;
