@@ -2,7 +2,6 @@
 <div class="profile"<?php print $attributes;?>>
  <div class="row about-me mar-top20">
   <div class="col-md-2">
-
     <?php print render($user_profile['field_company_logo']);?>
     <?php if (arg(1) == $user->uid) {?>
       <a href="<?php echo url("user/" . $user->uid . "/edit"); ?>" class="btn btn-info btn-sm btn-block edit-btn">Edit</a>
@@ -13,18 +12,24 @@
   <div class="col-md-10">
     <?php print render($user_profile['field_overview']);?>
   </div>
-
 </div>
 <?php
-global $user;
-$usr = user_load($user->uid);
-if ($usr->roles[6]) {
-	if ($usr->field_verified_value['und'][0]['value'] == 1) {
-		?>
-    <div class="verify"><p class="text-muted"><i class="fa fa-check" aria-hidden="true"></i>Mitd Verified</p></div><?php } else {?>
+$usr = user_load(arg(1));
+if ($usr->field_verified_value['und'][0]['value'] == 1) {
+	?>
+    <div class="verify">
+    <p class="label label-info">
+    <i class="fa fa-check" aria-hidden="true"></i>Mitd Verified</p>
+    </div>
+    <?php }?>
 
-   <a href="<?php echo url("user/" . $user->uid . "/verify") ?>" class="btn btn-info btn-sm ">Please Verified By Mitd Analyst</a>
+<?php
+if (isset($usr->roles[6])) {
+	if ($usr->field_verified_value['und'][0]['value'] == 0) {
+		?>
+   <a href="<?php echo url("user/" . $user->uid . "/verify") ?>" class="btn btn-info btn-sm">Please Verified By Mitd Analyst</a>
       <?php }}?>
+
 
   <div class="row">
   	<div class="col-md-8">
