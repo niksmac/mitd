@@ -322,9 +322,8 @@ function mitd_payment_form_submit($form, &$form_state) {
 
 	$usr = user_load($user->uid);
 	$params = array();
- $params['cmd'] = '_xclick';
-$params['item_name'] = "Free";
-$params['item_number'] = "0free";
+ 	$params['cmd'] = '_xclick';
+
 	$params['currency_code'] = "USD";
 	$params['amount'] = 49;
 	 if (user_is_logged_in()) {
@@ -334,16 +333,13 @@ $params['item_number'] = "0free";
 
 
   $return = $base_url .'/verified/success/'.$params['uid'];
-$return_cancel = $base_url . $base_path;
+  $return_cancel = $base_url . $base_path;
 
   if (variable_get('paypal_roles_sandbox', 1) == "1") {
     $url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
     $params['business'] = variable_get('paypal_roles_s_email', '');
 
-    $params['return'] = $return;
-    //print_r($params['return']);exit;
-    //print_r($params['return']);exit;
-    
+    $params['return'] = $return;    
     $params['cancel_return'] = variable_get('paypal_roles_s_return_cancel', $return_cancel);
 
   }
@@ -364,9 +360,7 @@ $return_cancel = $base_url . $base_path;
   }
 
   $query = drupal_http_build_query($params);
-// print_r($query);exit;
   drupal_goto($url . '?' . $query);
- // print_r($url);exit;
   drupal_exit();
 }
 
