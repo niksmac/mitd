@@ -1,4 +1,5 @@
-<?php global $base_url; $theme_path = $base_url.'/'.drupal_get_path('theme', 'mitds');?>
+<?php global $base_url;
+$theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
 <div id="main-wrapper">
 
   <!-- Top Toolbar -->
@@ -11,13 +12,13 @@
           <li><a href="//plus.google.com" class="fa fa-google-plus"></a></li>
         </ul>
         <ul class="authentication">
-          <?php if (user_is_logged_in()) : ?>
-          <li><a href="<?php print url("user"); ?>"><span>My Account(<?php echo $user_name;?>)</span></a></li>
-          <li><a href="<?php print url("user/logout"); ?>">Logout</a></li>
+          <?php if (user_is_logged_in()): ?>
+          <li><a href="<?php print url("user");?>"><span>My Account(<?php echo $user_name; ?>)</span></a></li>
+          <li><a href="<?php print url("user/logout");?>">Logout</a></li>
           <?php else: ?>
-          <li><a href="<?php print url("user/register"); ?>">Register</a></li>
-          <li><a href="<?php print url("user/login"); ?>">Login</a></li>
-          <?php endif; ?>
+          <li><a href="<?php print url("user/register");?>">Register</a></li>
+          <li><a href="<?php print url("user/login");?>">Login</a></li>
+          <?php endif;?>
         </ul>
       </div>
     </div>
@@ -29,13 +30,13 @@
     <div class="uou-block-2b">
       <div class="container">
         <?php if ($logo): ?>
-          <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
+          <a href="<?php print $front_page;?>" title="<?php print t('Home');?>" rel="home" id="logo">
+          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home');?>" />
           </a>
-        <?php endif; ?>
+        <?php endif;?>
         <!-- <a href="index.html#" class="logo"><img src="<?php //print $theme_path;?>/logo.png" alt=""></a> <a href="index.html#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a> -->
         <nav class="nav">
-          <?php print render($page['main_menu_reg']); ?>
+          <?php print render($page['main_menu_reg']);?>
         </nav>
       </div>
     </div>
@@ -47,9 +48,9 @@
      <div class="row">
       <div class="col-md-12">
         <div class="pull-left">
-          <?php print render($title_prefix); ?>
-            <?php if ($title): ?><h2 class="title" id="page-title"><?php print $title; ?></h2><?php endif; ?>
-          <?php print render($title_suffix); ?>
+          <?php print render($title_prefix);?>
+            <?php if ($title): ?><h2 class="title" id="page-title"><?php print $title;?></h2><?php endif;?>
+          <?php print render($title_suffix);?>
         </div>
         <div class="right-top-bnr">
         </div>
@@ -57,7 +58,7 @@
      </div>
      <div class="row">
        <div class="col-md-12 tab-wrapper">
-          <?php if ($tabs): ?><?php print render($tabs); ?><?php endif ?>
+          <?php if ($tabs): ?><?php print render($tabs);?><?php endif?>
       </div>
     </div>
     </div>
@@ -67,25 +68,25 @@
   <div class="row">
     <?php if ($breadcrumb): ?>
       <div class="col-md-12">
-        <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+        <div id="breadcrumb"><?php print $breadcrumb;?></div>
       </div>
-    <?php endif; ?>
+    <?php endif;?>
     <?php if ($page['sidebar_first']): ?>
       <div id="sidebar-first" class="col-md-3">
-        <?php print render($page['sidebar_first']); ?>
+        <?php print render($page['sidebar_first']);?>
       </div>
-    <?php endif; ?>
+    <?php endif;?>
 
     <div class="pages <?php echo $page_class; ?>">
-      <?php print $messages; ?>
-      <?php print render($page['content']); ?>
+      <?php print $messages;?>
+      <?php print render($page['content']);?>
     </div>
 
     <?php if ($page['sidebar_second']): ?>
       <div id="sidebar-second" class="col-md-3">
-        <?php print render($page['sidebar_second']); ?>
+        <?php print render($page['sidebar_second']);?>
       </div>
-    <?php endif; ?>
+    <?php endif;?>
   </div>
 
   </div>
@@ -97,15 +98,15 @@
 <div class="uou-block-4e">
   <div class="container">
     <div class="row">
-     <?php print render($page['footer']);  ?>
+     <?php print render($page['footer']);?>
     </div>
     <div class="row">
    <div class="col-md-3">
       <?php if ($logo): ?>
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home'); ?>" />
+        <a href="<?php print $front_page;?>" title="<?php print t('Home');?>" rel="home" id="logo">
+          <img src="<?php print $theme_path;?>/logo.png" alt="<?php print t('Home');?>" />
         </a>
-        <?php endif; ?>
+        <?php endif;?>
      </div>
     </div>
   </div>
@@ -114,8 +115,8 @@
 <div class="uou-block-4a secondary dark">
   <div class="container">
     <ul class="links">
-      <li><a href="<?php echo url("node/358");?>">Privacy Policy</a></li>
-      <li><a href="<?php echo url("node/348");?>">Terms &amp; Conditions</a></li>
+      <li><a href="<?php echo url("node/358"); ?>">Privacy Policy</a></li>
+      <li><a href="<?php echo url("node/348"); ?>">Terms &amp; Conditions</a></li>
     </ul>
     <p>Copyright &copy; 2016 </p>
   </div>

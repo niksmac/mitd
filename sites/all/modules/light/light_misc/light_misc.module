@@ -328,17 +328,20 @@ function mitd_payment_form_submit($form, &$form_state) {
     $params['custom'] = $user->mail;
     $params['uid'] = $user->uid;
     }
+ //print_r($base_url);
+ // print_r($base_path);
 
-  $return = $base_url . $base_path;
-  $return_cancel = $base_url . $base_path;
+  $return = $base_url .'/verified/success/'.$params['uid'];
+  //print_r($return);exit;
+ // $return_cancel = $base_url . $base_path;
 
   if (variable_get('paypal_roles_sandbox', 1) == "1") {
     $url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
     $params['business'] = variable_get('paypal_roles_s_email', '');
 
-    $params['return'] = drupal_goto('verified/success/'.$params['uid']);
+    $params['return'] = $return;
     
-    $params['cancel_return'] = variable_get('paypal_roles_s_return_cancel', $return_cancel);
+   // $params['cancel_return'] = variable_get('paypal_roles_s_return_cancel', $return_cancel);
 
   }
   else {
@@ -346,7 +349,7 @@ function mitd_payment_form_submit($form, &$form_state) {
     $params['business'] = variable_get('paypal_roles_l_email', '');
 
     $params['return'] = variable_get('paypal_roles_l_return', $return);
-    $params['cancel_return'] = variable_get('paypal_roles_l_return_cancel', $return_cancel);
+    //$params['cancel_return'] = variable_get('paypal_roles_l_return_cancel', $return_cancel);
  
   }
   // Default IPN path.
@@ -357,9 +360,7 @@ function mitd_payment_form_submit($form, &$form_state) {
     $params['lc'] = $ml->language;
   }
 
-
   $query = drupal_http_build_query($params);
-
   drupal_goto($url . '?' . $query);
   drupal_exit();
 }
