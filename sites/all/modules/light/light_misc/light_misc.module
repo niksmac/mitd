@@ -287,6 +287,12 @@ function light_misc_menu() {
         'page arguments' => array('mitd_payment_form'), 
 		'access callback' => TRUE,
 		);
+    
+    $items['verified/success/%'] = array(
+		'page callback' => 'light_misc_verified_success',
+		'access callback' => TRUE,
+		'type' => MENU_CALLBACK,
+		);
 
 	return $items;
 }
@@ -311,11 +317,61 @@ function mitd_payment_form_validate($form, &$form_state) {
 }
 
 function mitd_payment_form_submit($form, &$form_state) {
-	$uid = arg(1);
+
+	global $base_url, $base_path, $user;
+	$usr = user_load($user->uid);
+	$params = array();
+
+	$params['currency_code'] = "USD";
+	$params['amount'] = 49;
+	 if (user_is_logged_in()) {
+    $params['custom'] = $user->mail;
+    $params['uid'] = $user->uid;
+    }
+
+  $return = $base_url . $base_path;
+  $return_cancel = $base_url . $base_path;
+
+  if (variable_get('paypal_roles_sandbox', 1) == "1") {
+    $url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+    $params['business'] = variable_get('paypal_roles_s_email', '');
+
+    $params['return'] = drupal_goto('verified/success/'.$params['uid']);
+    
+    $params['cancel_return'] = variable_get('paypal_roles_s_return_cancel', $return_cancel);
+
+  }
+  else {
+    $url = 'https://www.paypal.com/cgi-bin/webscr';
+    $params['business'] = variable_get('paypal_roles_l_email', '');
+
+    $params['return'] = variable_get('paypal_roles_l_return', $return);
+    $params['cancel_return'] = variable_get('paypal_roles_l_return_cancel', $return_cancel);
+ 
+  }
+  // Default IPN path.
+  $params['notify_url'] = url('paypal-roles/ipn-listener', array('absolute' => TRUE));
+
+  // The locale of the login or sign-up page.
+  if (isset($ml->language) && $ml->language != 'N/A') {
+    $params['lc'] = $ml->language;
+  }
+
+
+  $query = drupal_http_build_query($params);
+
+  drupal_goto($url . '?' . $query);
+  drupal_exit();
+}
+
+function light_misc_verified_success() {
+
+    $uid = arg(2);
 	$usr = user_load($uid);
 	$usr->field_verified_value['und'][0]['value']  = 1;
 	user_save($usr);
-	$form_state['redirect'] = 'user/'.$uid;
+	drupal_goto('user/'.$uid);
+
 }
 
 function light_misc_proposal_shortlisting() {
@@ -578,7 +634,7 @@ function light_misc_opp_action($node){
 	}
 
 	function light_misc_subscription_cron() {
-
+        //print_r(date('d'));exit;
 		if(date('d') == 1)
 			db_update('field_data_field_bids_month')
 		->fields(array(
