@@ -24,7 +24,7 @@ if ($usr->field_verified_value['und'][0]['value'] == 1) {
     <?php }?>
 
 <?php
-if (isset($usr->roles[6])) {
+if (isset($usr->roles[6]) && arg(1) == $user->uid) {
 	if ($usr->field_verified_value['und'][0]['value'] == 0) {
 		?>
    <a href="<?php echo url("user/" . $user->uid . "/verify") ?>" class="btn btn-info btn-sm">Please Verified By Mitd Analyst</a>
