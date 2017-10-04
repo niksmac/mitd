@@ -302,7 +302,7 @@ function mitd_payment_form() {
 	$form['description'] = array(
     	'#type' => 'item',
     	'#title' => 'Mitd User Verification',
-    	'#markup' => '<br>You can become an mitd verified partner by paying $49 on submitting the below button.',
+    	'#markup' => '<br>You can become an mitd verified partner by paying  <b>$49</b> on submitting the below button.',
     );
 
 	$form['submit'] = array(
