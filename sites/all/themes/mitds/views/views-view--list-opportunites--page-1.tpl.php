@@ -22,7 +22,7 @@
       <div class="listing-ver-3">
 
         <div class="listing-heading">
-          <h5><?php echo $value['title']; ?></h5>
+          <h2><?php echo $value['title']; ?></h2>
         </div>
 
       <div class="listing-inner">
