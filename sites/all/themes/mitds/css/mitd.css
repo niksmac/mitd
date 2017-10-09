@@ -680,3 +680,14 @@ thead a {
 .front #user-login-form ul{
 	display: none;
 }
+.checkbox input[type="checkbox"], .checkbox input[type="radio"] {
+      display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 15px;
+    font-size: 13px;
+    margin-bottom: 10px;
+    margin-left: -7px;
+
+}
