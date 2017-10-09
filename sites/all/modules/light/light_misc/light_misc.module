@@ -368,11 +368,11 @@ function mitd_discount_form_validate($form, &$form_state) {
 function mitd_discount_form_submit($form, &$form_state) {
 
 
-	$x = variable_get('paypal_roles_payment_grace_period', 86400);
-	print_r($x);
-	print_r($form_state['values']['field_partners']);
-	$partners_id = $form_state['values']['field_partners'];
-	exit;
+	// //$x = variable_get('paypal_roles_payment_grace_period', 86400);
+	// print_r($x);
+	// print_r($form_state['values']['field_partners']);
+	// $partners_id = $form_state['values']['field_partners'];
+	// exit;
  }
 
 function mitd_payment_form() {

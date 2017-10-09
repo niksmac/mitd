@@ -1003,7 +1003,6 @@ function paypal_roles_cron() {
 function paypal_roles_manage_roles_by_users($uid = 'all') {
   if ((int) $uid > 0) {
     $payments = paypal_roles_get_payments_by_uid($uid);
-    print_r($payments);exit;
     $custom_payments = paypal_roles_get_custom_payments_by_uid($uid);
     paypal_roles_manage_roles_by_payments($payments, $custom_payments, $uid);
   }
