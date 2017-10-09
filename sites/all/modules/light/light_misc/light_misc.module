@@ -311,7 +311,7 @@ function mitd_discount_form() {
 	$result = views_get_view_result('manage_partners_list_by_analyst','block');  
 
 
-	//$default_value = array();
+	$ids = array();
 
 	 $form['select_all'] = array(
       '#type' =>'checkbox',
@@ -332,9 +332,10 @@ function mitd_discount_form() {
         $name = $value->_field_data['uid']['entity']->field_first_name['und']['0']['value'].' '.$value->_field_data['uid']['entity']->field_last_name['und']['0']['value'];
 
  		$id = $value->_field_data['uid']['entity']->uid;
+ 		$ids[] = $id;
  		$vals[$id] = $name;
 	}
-
+//print_r($ids);
 
 
 	$form['fieldset_partners']['field_partners'] = array(
@@ -344,7 +345,7 @@ function mitd_discount_form() {
    		//'#default_value' => NULL,
 		);
 
-	$form['uid_hidden'] = array('#type' => 'hidden', '#value' => $id);
+	$form['uid_hidden'] = array('#type' => 'hidden', '#value' => $ids);
 
 	$form['month_count'] = array(
   		'#type' => 'textfield',
@@ -365,7 +366,13 @@ function mitd_discount_form_validate($form, &$form_state) {
 }
 
 function mitd_discount_form_submit($form, &$form_state) {
-	print_r($form_state);exit;
+
+
+	$x = variable_get('paypal_roles_payment_grace_period', 86400);
+	print_r($x);
+	print_r($form_state['values']['field_partners']);
+	$partners_id = $form_state['values']['field_partners'];
+	exit;
  }
 
 function mitd_payment_form() {
