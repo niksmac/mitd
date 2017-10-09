@@ -58,6 +58,11 @@ if (jQuery.fn.superfish) {
 
 });
 
+jQuery("#edit-select-all").click(function(){
+  console.log("hh")
+    jQuery('input:checkbox').not(this).prop('checked', this.checked);
+});
+
 });
 
 
