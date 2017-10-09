@@ -294,8 +294,80 @@ function light_misc_menu() {
 		'type' => MENU_CALLBACK,
 		);
 
+     $items['madmin/manage/discounts'] = array(
+		'title' => 'Apply Discounts',
+		'description' => 'Apply discounts to a certain period of time.',
+		'page callback' => 'drupal_get_form', 
+        'page arguments' => array('mitd_discount_form'), 
+		'access callback' => TRUE,
+		);
+
 	return $items;
 }
+
+// function mitd_discount_form() {
+
+
+// 	$result = views_get_view_result('manage_partners_list_by_analyst','block');  
+
+
+// 	//$default_value = array();
+
+// 	 $form['select_all'] = array(
+//       '#type' =>'checkbox',
+//       '#default_value' =>FALSE, // for default checked and false is not checked
+//       '#attributes' => array('class' => array('my-checkbox')),
+//   );
+
+// 	$vals = array();
+//  		$form['fieldset_partners'] = array(
+//   			'#type' => 'fieldset',
+//   			'#title' => t('Partners'),
+//   			'#collapsible' => FALSE,
+//   			'#collapsed' => FALSE,  
+// 		);
+ 	
+// 	foreach ($result as $value) {
+		
+//         $name = $value->_field_data['uid']['entity']->field_first_name['und']['0']['value'].' '.$value->_field_data['uid']['entity']->field_last_name['und']['0']['value'];
+
+//  		$id = $value->_field_data['uid']['entity']->uid;
+//  		$vals[$id] = $name;
+// 	}
+
+
+
+// 	$form['fieldset_partners']['field_partners'] = array(
+//   		'#type' => 'checkboxes',
+//   		'#title' => t('Apply Discounts'),
+//   		'#options' => $vals, 
+//    		//'#default_value' => NULL,
+// 		);
+
+// 	$form['uid_hidden'] = array('#type' => 'hidden', '#value' => $id);
+
+// 	$form['month_count'] = array(
+//   		'#type' => 'textfield',
+//   		'#title' => t('Month'),
+// 	);
+
+// 	$form['submit_button'] = array(
+//     	'#type' => 'submit',
+//     	'#value' => t('Submit'),
+//   	);
+
+// 	return $form;
+
+// }
+
+// function mitd_discount_form_validate($form, &$form_state) {
+
+// }
+
+// function mitd_discount_form_submit($form, &$form_state) {
+// 	print_r($form_state);exit;
+
+// }
 
 function mitd_payment_form() {
 
