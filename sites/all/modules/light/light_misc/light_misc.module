@@ -307,19 +307,22 @@ function light_misc_menu() {
 
 function mitd_discount_form() {
 
+	$memberships = array();
+	$memberships = views_get_view_result('memberships', 'default');
 
 	$result = views_get_view_result('manage_partners_list_by_analyst','block');  
-
-
 	$ids = array();
-
-	 $form['select_all'] = array(
+	$mem_options = array();
+	$selectlist_default_value = array();
+  
+	$form['select_all'] = array(
       '#type' =>'checkbox',
       '#default_value' =>FALSE, // for default checked and false is not checked
       '#attributes' => array('class' => array('my-checkbox')),
-  );
+    );
 
 	$vals = array();
+ 	
  		$form['fieldset_partners'] = array(
   			'#type' => 'fieldset',
   			'#title' => t('Partners'),
@@ -335,7 +338,6 @@ function mitd_discount_form() {
  		$ids[] = $id;
  		$vals[$id] = $name;
 	}
-//print_r($ids);
 
 
 	$form['fieldset_partners']['field_partners'] = array(
@@ -347,10 +349,16 @@ function mitd_discount_form() {
 
 	$form['uid_hidden'] = array('#type' => 'hidden', '#value' => $ids);
 
-	$form['month_count'] = array(
-  		'#type' => 'textfield',
-  		'#title' => t('Month'),
-	);
+	foreach ($memberships as $membership) {
+		$mem_options[$membership->machine_name] = $membership->paypal_roles_memberships_name;
+	
+	}
+	  
+	$form['memberships'] = array(     
+	        '#type' => 'select',
+	        '#default_value' => $selectlist_default_value,        
+	        '#options' => $mem_options,
+	); 
 
 	$form['submit_button'] = array(
     	'#type' => 'submit',
@@ -368,12 +376,68 @@ function mitd_discount_form_validate($form, &$form_state) {
 function mitd_discount_form_submit($form, &$form_state) {
 
 
-	// //$x = variable_get('paypal_roles_payment_grace_period', 86400);
-	// print_r($x);
-	// print_r($form_state['values']['field_partners']);
-	// $partners_id = $form_state['values']['field_partners'];
-	// exit;
+	$partner_ids = array();
+	
+	$selected_membership = $form_state['input']['memberships'];
+
+	$partner_ids = $form_state['values']['field_partners'];
+
+
+	foreach ($partner_ids as $id) {
+
+	$payments = paypal_roles_get_payments_by_uid($id);
+
+
+	foreach ($payments as $key => $value) {
+
+     $role_pay =light_misc_manage_roles_by_payments($value, $id,$selected_membership);
+
+	}
+
+}
+
+
  }
+
+function light_misc_manage_roles_by_payments($payments = array(), $uid = 0,$selected_membership) {
+
+	$grace_period = variable_get('paypal_roles_payment_grace_period', 86400);
+    $payment_created = $payments->created + (int) $grace_period;
+	$payment_date = date("Y-m-d H:i:s", $payment_created);
+	$roles = array();
+  	$active_roles = array();
+	$membership = light_misc_membership_load($selected_membership);
+
+	 if ((int) $membership['0']->length === 0 && (bool) $payment->cancelled === FALSE) {
+      if (!in_array($membership['0']->role, $active_roles)) {
+        $active_roles[] = $membership['0']->role;
+
+      }
+    }
+
+		$type = paypal_roles_convert_length($membership['0']->length_type, $membership['0']->length);
+
+	if ($type) {
+	    $expiration = 1521676800;
+	    if ($expiration >= time() && (bool) $payments->cancelled === FALSE) {
+          if (!in_array($membership['0']->role, $active_roles)) {
+            $active_roles[] = $membership['0']->role;
+
+          }
+        }
+	  //print_r($expiration);exit;
+	}
+
+}
+	      
+
+function light_misc_membership_load($item_id) {
+
+return  db_query('SELECT * FROM {paypal_roles_memberships}  WHERE machine_name = :machine_name', array(':machine_name' => $item_id))
+ ->fetchAll();
+
+}
+
 
 function mitd_payment_form() {
 
