@@ -313,8 +313,10 @@ function mitd_discount_form() {
 	$result = views_get_view_result('manage_partners_list_by_analyst','block');  
 	$ids = array();
 	$mem_options = array();
-	$selectlist_default_value = array();
-  
+
+	$default_value = array();
+$default_value[] = '';
+	
 	$form['select_all'] = array(
       '#type' =>'checkbox',
       '#default_value' =>FALSE, // for default checked and false is not checked
@@ -339,12 +341,11 @@ function mitd_discount_form() {
  		$vals[$id] = $name;
 	}
 
-
 	$form['fieldset_partners']['field_partners'] = array(
   		'#type' => 'checkboxes',
   		'#title' => t('Apply Discounts'),
   		'#options' => $vals, 
-   		//'#default_value' => NULL,
+   		//'#default_value' => $ids,
 		);
 
 	$form['uid_hidden'] = array('#type' => 'hidden', '#value' => $ids);
@@ -356,7 +357,7 @@ function mitd_discount_form() {
 	  
 	$form['memberships'] = array(     
 	        '#type' => 'select',
-	        '#default_value' => $selectlist_default_value,        
+	        //'#default_value' => $selectlist_default_value,        
 	        '#options' => $mem_options,
 	); 
 
@@ -381,7 +382,6 @@ function mitd_discount_form_submit($form, &$form_state) {
 	$selected_membership = $form_state['input']['memberships'];
 
 	$partner_ids = $form_state['values']['field_partners'];
-
 
 	foreach ($partner_ids as $id) {
 
@@ -418,22 +418,51 @@ function light_misc_manage_roles_by_payments($payments = array(), $uid = 0,$sele
 		$type = paypal_roles_convert_length($membership['0']->length_type, $membership['0']->length);
 
 	if ($type) {
-	    $expiration = 1521676800;
+	    $expiration = strtotime($payment_date . " +" . $membership['0']->length . " " . $type);
+	    $data = views_get_view_result('payments','default');
+
 	    if ($expiration >= time() && (bool) $payments->cancelled === FALSE) {
           if (!in_array($membership['0']->role, $active_roles)) {
             $active_roles[] = $membership['0']->role;
 
           }
         }
-	  //print_r($expiration);exit;
-	}
 
+  		$inactives = array_diff($roles, $active_roles);
+  		paypal_roles_remove_roles_from_account($inactives, $uid);	
+  		// Add active roles.
+  		paypal_roles_add_roles_to_account($active_roles, $uid);
+  
+  		$usr_data = light_misc_user_payments($uid);
+
+   		$record = array (
+     		'txn_id'=> $usr_data[0]->txn_id,
+     		'uid'=> $usr_data[0]->uid,
+     		'item_id'=> $membership[0]->machine_name,
+     		'item_name'=> $membership[0]->name,
+     		'created'=> $usr_data[0]->created,
+     		'amount'=> $usr_data[0]->amount,
+     		'currency'=> $usr_data[0]->currency,
+     		'post'=> $usr_data[0]->post,
+     		'cancelled'=> $usr_data[0]->cancelled,
+      	);
+		drupal_write_record("paypal_roles_payments",$record,'txn_id');			
+	}
+	drupal_get_messages('status');
+    drupal_set_message("Your changes have been saved..");
 }
-	      
+
 
 function light_misc_membership_load($item_id) {
 
 return  db_query('SELECT * FROM {paypal_roles_memberships}  WHERE machine_name = :machine_name', array(':machine_name' => $item_id))
+ ->fetchAll();
+
+}
+
+function light_misc_user_payments($uid) {
+
+return  db_query('SELECT * FROM {paypal_roles_payments}  WHERE uid = :uid', array(':uid' => $uid))
  ->fetchAll();
 
 }
