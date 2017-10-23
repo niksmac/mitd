@@ -20,25 +20,25 @@
  *   The raw IPN data posted by PayPal.
  */
 function hook_paypal_roles_user_data_alter(&$account_data, $rawipn) {
-  // Example to replace value of "name" with email address, and add
-  // extra field ("field_name") with full name of PayPal user.
-  $user_data = array(
-    'name' => $account_data['mail'],
-    'pass' => $account_data['pass'],
-    'mail' => $account_data['mail'],
-    'status' => $account_data['status'],
-    'init' => $account_data['mail'],
-    'field_name' => array(
-      LANGUAGE_NONE => array(
-        0 => array(
-          'value' => $rawipn['first_name'] . ' ' . $rawipn['last_name'],
-        ),
-      ),
-    ),
-  );
+	// Example to replace value of "name" with email address, and add
+	// extra field ("field_name") with full name of PayPal user.
+	$user_data = array(
+		'name' => $account_data['mail'],
+		'pass' => $account_data['pass'],
+		'mail' => $account_data['mail'],
+		'status' => $account_data['status'],
+		'init' => $account_data['mail'],
+		'field_name' => array(
+			LANGUAGE_NONE => array(
+				0 => array(
+					'value' => $rawipn['first_name'] . ' ' . $rawipn['last_name'],
+				),
+			),
+		),
+	);
 
-  // Override user data array.
-  $account_data = $user_data;
+	// Override user data array.
+	$account_data = $user_data;
 }
 
 /**
@@ -60,7 +60,7 @@ function hook_paypal_roles_memberships_alter($ml) {
  *   The membership that is being inserted or updated.
  */
 function hook_paypal_roles_memberships_presave($ml) {
-  
+
 }
 
 /**
@@ -72,7 +72,7 @@ function hook_paypal_roles_memberships_presave($ml) {
  *   The membership that is being updated.
  */
 function hook_paypal_roles_memberships_update($ml) {
-  
+
 }
 
 /**
@@ -84,7 +84,7 @@ function hook_paypal_roles_memberships_update($ml) {
  *   The membership that is being inserted.
  */
 function hook_paypal_roles_memberships_insert($ml) {
-  
+
 }
 
 /**
@@ -95,7 +95,7 @@ function hook_paypal_roles_memberships_insert($ml) {
  *   The payment that is being inserted or updated.
  */
 function hook_paypal_roles_payments_presave($pmt) {
-  
+
 }
 
 /**
@@ -107,7 +107,7 @@ function hook_paypal_roles_payments_presave($pmt) {
  *   The payment that is being updated.
  */
 function hook_paypal_roles_payments_update($pmt) {
-  
+
 }
 
 /**
@@ -119,7 +119,7 @@ function hook_paypal_roles_payments_update($pmt) {
  *   The payment that is being inserted.
  */
 function hook_paypal_roles_payments_insert($pmt) {
-  
+
 }
 
 /**
@@ -130,7 +130,7 @@ function hook_paypal_roles_payments_insert($pmt) {
  *   The payment that is being inserted or updated.
  */
 function hook_paypal_roles_custom_payments_presave($pmt) {
-  
+
 }
 
 /**
@@ -142,7 +142,7 @@ function hook_paypal_roles_custom_payments_presave($pmt) {
  *   The payment that is being updated.
  */
 function hook_paypal_roles_custom_payments_update($pmt) {
-  
+
 }
 
 /**
@@ -154,7 +154,7 @@ function hook_paypal_roles_custom_payments_update($pmt) {
  *   The payment that is being inserted.
  */
 function hook_paypal_roles_custom_payments_insert($pmt) {
-  
+
 }
 
 /**
@@ -165,8 +165,7 @@ function hook_paypal_roles_custom_payments_insert($pmt) {
  *   The roles that that are added to the user
  */
 
-function hook_paypal_roles_add_roles_to_account_alter($roles, $uid, $account){
-
+function hook_paypal_roles_add_roles_to_account_alter($roles, $uid, $account) {
 }
 
 /**
@@ -177,7 +176,7 @@ function hook_paypal_roles_add_roles_to_account_alter($roles, $uid, $account){
  *   The roles that that are removed from the user
  */
 
-function hook_paypal_roles_remove_roles_from_account_alter($roles, $uid, $account){
+function hook_paypal_roles_remove_roles_from_account_alter($roles, $uid, $account) {
 
 }
 
