@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * File feedback_collect.install.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function feedback_collect_install() {
+  variable_set('node_preview_feedback_collect', 0);
+  variable_set('comment_feedback_collect', 0);
+  variable_set('comment_preview_feedback_collect', 0);
+
+  $t = get_t();
+  drupal_set_message($t('Module settings are available under !link',
+    array('!link' => l($t('Administration > Configuration and modules > User interface > Feedback Collect'), 'admin/config/user-interface/feedback-collect'))
+  ));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function feedback_collect_uninstall() {
+  variable_del('node_preview_feedback_collect');
+  variable_del('comment_feedback_collect');
+  variable_del('comment_preview_feedback_collect');
+
+  variable_del('feedback_collect_settings_email');
+  variable_del('feedback_collect_settings_exclude');
+  variable_del('feedback_collect_settings_button_text');
+  variable_del('feedback_collect_settings_bootstrap_support');
+  variable_del('feedback_collect_settings_custom_css');
+  variable_del('feedback_collect_settings_placement');
+  variable_del('feedback_collect_settings_margin');
+  variable_del('feedback_collect_settings_icon_support');
+  variable_del('feedback_collect_settings_icon_classes');
+  variable_del('feedback_collect_settings_hide_text');
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function feedback_collect_requirements($phase) {
+  $t = get_t();
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+    // The ua_parser library is recommended.
+    $requirements['ua_parser'] = array(
+      'title' => $t('ua_parser library'),
+    );
+    $ua_parser = libraries_detect('ua_parser');
+    if (!$ua_parser['installed']) {
+      $requirements['ua_parser']['description'] = $t('ua_parser library is not installed. Some "Feedback Collect" module features cannot be supported.');
+      $requirements['ua_parser']['severity'] = REQUIREMENT_WARNING;
+      $requirements['ua_parser']['value'] = $t('Library not found');
+    }
+    else {
+      $requirements['ua_parser']['description'] = '';
+      $requirements['ua_parser']['severity'] = REQUIREMENT_OK;
+      $requirements['ua_parser']['value'] = $t('Version: !version', array('!version' => $ua_parser['version']));
+    }
+  }
+
+  return $requirements;
+}

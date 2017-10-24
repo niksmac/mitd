@@ -1,0 +1,913 @@
+<?php
+
+/**
+ * @file
+ * File feedback_collect.module.
+ */
+
+include_once 'feedback_collect.features.inc';
+
+/**
+ * Grant ID for accessing content of type 'feedback_collect'.
+ */
+define('FEEDBACK_COLLECT_ACCESS_REALM_SID', 1234);
+
+/**
+ * Implements hook_menu().
+ */
+function feedback_collect_menu() {
+  $items['feedback-collect'] = array(
+    'title' => 'Submitted feedback',
+    'page callback' => 'feedback_collect_page',
+    'access arguments' => array('view feedback_collect'),
+    'file' => 'pages/view.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['feedback-collect/submit'] = array(
+    'title' => 'Submit Feedback',
+    'page callback' => 'feedback_collect_ajax_callback',
+    'access arguments' => array('create feedback_collect content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['feedback-collect/save-feedback'] = array(
+    'title' => 'Save Feedback',
+    'page callback' => 'feedback_collect_session_callback',
+    'access arguments' => array('create feedback_collect content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/user-interface/feedback-collect'] = array(
+    'title'            => 'Feedback Collect',
+    'description'      => 'Feedback form settings',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('feedback_collect_variables_form'),
+    'access arguments' => array('administer site configuration'),
+    'file'             => 'forms/variables.inc',
+    'weight'           => -50,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_help().
+ */
+function feedback_collect_help($path) {
+  switch ($path) {
+    case 'admin/config/user-interface/feedback-collect':
+      return '<p>' . t('Displays form for visitors to leave a feedback on place
+      of your choice.') . '</p>';
+
+      break;
+    case 'admin/help#feedback_collect':
+      $output = '';
+      $output .= '<p>' . t('Configure user permissions in <a href="@permissions">Administration » People » Permissions</a>. Permissions used are "Feedback: Create new content" and "View submitted feedback"', array('@permissions' => url('admin/people/permissions'))) . '</p>';
+      $output .= '<p>' . t('Customize the settings in <a href="@config">Administration » Configuration and modules » User interface » Feedback Collect</a>.', array('@config' => url('admin/config/user-interface/feedback-collect'))) . '</p>';
+      $output .= '<p>' . t('Go to <a href="@feedback">this page</a> to view submitted content. To add a menu link to this page, enter the link path: "feedback-collect".', array('@feedback' => url('feedback-collect'))) . '</p>';
+      return $output;
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_page_alter().
+ *
+ * Renders "Add Feedback" button on allowed pages.
+ */
+function feedback_collect_page_alter(&$vars) {
+  if (user_access('create feedback_collect content')) {
+    $default_exclude_list = array(
+      'feedback-collect/submit',
+      'feedback-collect/submit/nojs',
+      'node/add/feedback-collect',
+    );
+
+    $settings = feedback_collect_get_default_settings();
+
+    // Merge user defined excludes with required excludes.
+    $excludes = (!empty($settings['exclude']) ? explode("\r\n", $settings['exclude']) : array());
+    $excludes = array_merge($excludes, $default_exclude_list);
+
+    $show = TRUE;
+    foreach ($excludes as $exclude) {
+      $test = drupal_match_path($_GET['q'], $exclude);
+      if ($test) {
+        $show = FALSE;
+        break;
+      }
+    }
+
+    if ($show) {
+      // Include jQuery cookie library even though it's in drupal core.
+      // @see {@link http://drupal.stackexchange.com/questions/90910/jquery-cookie-js-is-loaded-only-for-authenticated-users-by-jquery-update-module|Drupal Answers}
+      drupal_add_library('system', 'jquery.cookie');
+      drupal_add_library('system', 'drupal.ajax');
+
+      $module_path = drupal_get_path('module', 'feedback_collect');
+      drupal_add_js($module_path . '/scripts/feedback-collect.js');
+
+      if (!$settings['custom_css']) {
+        drupal_add_css($module_path . '/styles/feedback-collect-style.css');
+      }
+
+      $vars['content']['feedback_collect_form'] = array(
+        '#markup' => theme('feedback_collect_link', $settings),
+      );
+    }
+  }
+}
+
+/**
+ * Page callback: Fetches feedback_collect node form.
+ *
+ * Path q = feedback-collect/submit.
+ *
+ * @param string $response_type
+ *    Value 'ajax' indicates that form will be delivered using AJAX.
+ *    Value 'nojs' indicates regular page callback.
+ *
+ * @return array
+ *   A render array for a page containing a feedback_collect node form.
+ *
+ * @see feedback_collect_menu()
+ *
+ * @ingroup callbacks
+ */
+function feedback_collect_ajax_callback($response_type = 'nojs') {
+  $node_type = 'feedback_collect';
+  module_load_include('inc', 'node', 'node.pages');
+
+  global $user;
+  if ($user->uid) {
+    $name = $user->name;
+  }
+  else {
+    $name = '';
+  }
+
+  $node_form = new stdClass();
+  $node_form->uid = $user->uid;
+  $node_form->name = $name;
+  $node_form->type = $node_type;
+  $node_form->language = LANGUAGE_NONE;
+
+  $form = drupal_get_form($node_type . '_node_form', $node_form, $response_type);
+
+  if ($response_type !== 'nojs') {
+    $form = drupal_render($form);
+    $commands = feedback_collect_get_callback_commands($form);
+    ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
+  }
+  else {
+    return $form;
+  }
+}
+
+/**
+ * Page callback: Save unset feedback to server session.
+ *
+ * Path q = feedback-collect/save-feedback.
+ *
+ * @see feedback_collect_menu()
+ *
+ * @ingroup callbacks
+ */
+function feedback_collect_session_callback() {
+  $result = FALSE;
+  if (user_is_logged_in()) {
+    if (isset($_REQUEST)
+      && isset($_REQUEST['field_fc_description'])
+      && strlen($_REQUEST['field_fc_description']) > 3) {
+      // Proceed saving server cookie.
+      $_SESSION['fc_form'] = array(
+        'field_fc_feedback_origin' => $_REQUEST['field_fc_feedback_origin'],
+        'field_fc_description' => $_REQUEST['field_fc_description'],
+        'field_fc_email' => $_REQUEST['field_fc_email'],
+        'field_fc_anonymous' => filter_var($_REQUEST['field_fc_anonymous'], FILTER_VALIDATE_BOOLEAN),
+      );
+
+      $result = TRUE;
+    }
+  }
+
+  drupal_json_output($result);
+  drupal_exit();
+}
+
+/**
+ * Returns HTML for a link that retrieves feedback_collect form.
+ *
+ * @param array $variables
+ *   Contains settings from feedback collect variable:
+ *   - button_text: Label on 'Collect Feedback' button,
+ *   - bootstrap_support: Use bootstrap features if library/theme exists,
+ *   - custom_css: Use custom CSS instead of module's CSS,
+ *   - placement: 'Collect Feedback' button placement,
+ *   - margin: 'Collect Feedback' button margin,
+ *   - icon_support: Use icons in 'Collect Feedback' button,
+ *   - icon_classes: Classes required to show icon,
+ *   - hide_text: Hide 'Collect Feedback' button label and use icon only.
+ *
+ * @ingroup themeable
+ */
+function theme_feedback_collect_link(array $variables) {
+  $content = array();
+
+  $button_text = t($variables['button_text']);
+
+  $content['container'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'id' => 'feedbackCollect-container',
+      'class' => array(
+        'feedbackCollect-container',
+      ),
+    ),
+  );
+
+  $content['form-container'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'id' => 'feedbackCollect-form-container',
+      'class' => array(
+        'feedbackCollect-form-container',
+      ),
+    ),
+  );
+
+  $link_options = array(
+    'attributes' => array(
+      'id' => 'feedbackCollect-open-form',
+      'class' => array(
+        'btn--feedback-collect',
+        'use-ajax',
+      ),
+    ),
+    'query' => array(
+      'fc_origin' => $_GET['q'],
+    ),
+  );
+
+  if ($variables['icon_support']) {
+    $classes = array();
+    if ($variables['icon_classes'] != '') {
+      $button_text = '<span class="' . $variables['icon_classes'] . '"></span>';
+      $link_options['html'] = TRUE;
+    }
+    if ($variables['hide_text']) {
+      $classes[] = 'fc-hide-text';
+    }
+    foreach ($classes as $class) {
+      if ($class != '') {
+        $link_options['attributes']['class'][] = $class;
+      }
+    }
+  }
+
+  if (!$variables['custom_css']) {
+    $placement = feedback_collect_get_placement_option($variables['placement']);
+    $normalize_css = explode(' ', $variables['margin']);
+
+    if (count($normalize_css) == 1) {
+      $normalize_css[1] = $normalize_css[0];
+    }
+
+    $css_prop = explode(' ', $placement);
+    $css = 'position: fixed; ';
+    foreach ($css_prop as $key => $prop) {
+      $css .= "{$prop}: {$normalize_css[$key]};";
+    }
+
+    $content['container']['#attributes']['style'] = $css;
+  }
+
+  if ($variables['bootstrap_support']) {
+    $link_options['attributes']['class'][] = 'btn';
+    $link_options['attributes']['class'][] = 'btn-primary';
+  }
+  else {
+    $link_options['attributes']['class'][] = 'button';
+  }
+
+  $content['container']['button'] = array(
+    '#markup' => l($button_text, 'feedback-collect/submit/nojs', $link_options),
+  );
+
+  $content['container']['button']['#attached']['js'][] = array(
+    'data' => array('feedbackCollect' => array('elements' => feedback_collect_get_elements())),
+    'type' => 'setting',
+  );
+
+  // Define all IDs for the elements used in the plugin.
+  drupal_add_js(array(
+    'feedbackCollect' => array(
+      'elements' => feedback_collect_get_elements(),
+    ),
+  ), 'setting');
+
+  return drupal_render($content);
+}
+
+/**
+ * Implements hook_node_validate().
+ *
+ * Checks email format.
+ */
+function feedback_collect_node_validate($node, $form, &$form_state) {
+  if ($node->type == 'feedback_collect') {
+    $lang = $form['language']['#value'];
+    $email = $form_state['values']['field_fc_email'][$lang][0]['value'];
+    if ($email != '' && filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE) {
+      $error_text = t('@email is not a valid email address', array('@email' => $email));
+      form_set_error('field_fc_email', $error_text);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_submit().
+ *
+ * If user checks anonymous checkbox, node->uid and email field are unset.
+ */
+function feedback_collect_node_submit($node, $form, &$form_state) {
+  if ($node->type == 'feedback_collect' && !$node->nid) {
+    global $user;
+    // We are removing field_fc_email only for logged in users, when they choose to be anonymous.
+    if ($user->uid && isset($form_state['values']['field_fc_anonymous']) && $form_state['values']['field_fc_anonymous']) {
+      $node->uid = 0;
+      if (isset($node->field_fc_email)) {
+        unset($node->field_fc_email);
+      }
+    }
+
+    feedback_collect_destroy_form_session();
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Sends email notifications to users.
+ */
+function feedback_collect_node_insert($node) {
+  if ($node->type == 'feedback_collect') {
+    $params = array(
+      '@link' => url('node/' . $node->nid, array('absolute' => TRUE)),
+      '@feedback' => $node->field_fc_description[$node->language][0]['value'],
+      '@email' => (empty($node->field_fc_email[$node->language]) ? 'anonymous' : $node->field_fc_email[$node->language][0]['value']),
+    );
+
+    $emails = variable_get('feedback_collect_settings_email', '');
+    if ($emails != '') {
+      $email_array = explode(',', $emails);
+      foreach ($email_array as $email) {
+        $email = trim($email);
+        if ($email != '') {
+          drupal_mail('feedback_collect', 'feedback_submitted', $email, $node->language, $params);
+        }
+      }
+    }
+    drupal_get_messages();
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for node_form().
+ *
+ * For node type feedback_collect it hides additional options,
+ * renders anonymous checkbox
+ * and submits form using ajax.
+ */
+function feedback_collect_form_node_form_alter(&$form, &$form_state) {
+  if ($form['#node']->type == 'feedback_collect') {
+    $existing_node_edit = isset($form_state['node']) && isset($form_state['node']->nid);
+    if (!$existing_node_edit) {
+      libraries_load('ua_parser');
+
+      $form['revision_information']['#access'] = FALSE;
+      $form['#after_build'][] = 'feedback_collect_after_build';
+      $form['comment_settings']['#access'] = FALSE;
+      $form['author']['#access'] = FALSE;
+      $form['translations']['#access'] = FALSE;
+      $form['options']['#access'] = FALSE;
+
+      // Field field_fc_browser_info should not be writable from user side.
+      $form['field_fc_browser_info']['#attributes']['style'] = 'display:none';
+      $form['field_fc_feedback_origin']['#attributes']['style'] = 'display:none';
+
+      feedback_collect_set_form_default_values($form, $form_state);
+
+      // Arguments are not defined properly on node/add/feedback-collect path.
+      // The reason is that it's not called with ajax callback.
+      // Prevent adding ajax-related actions to the form.
+      if (!in_array('nojs', $form_state['build_info']['args']) &&
+        !drupal_match_path($_GET['q'], 'node/add/feedback-collect')
+      ) {
+        $form['actions']['submit']['#ajax'] = array(
+          'callback' => 'feedback_collect_ajax_form_submit_callback',
+        );
+
+        $form['actions']['cancel'] = array(
+          '#type' => 'submit',
+          '#value' => t('Cancel'),
+          '#weight' => 200,
+          '#limit_validation_errors' => array(),
+          '#submit' => array('feedback_collect_form_cancel'),
+          '#ajax' => array(
+            'callback' => 'feedback_collect_ajax_form_cancel_callback',
+          ),
+        );
+      }
+
+      // This line is required for node forms.
+      form_load_include($form_state, 'inc', 'node', 'node.pages');
+    }
+  }
+}
+
+/**
+ * Submit callback for cancel button.
+ *
+ * @return string
+ *   Drupal requirement so we don't break ajax script
+ *
+ * @ingroup callbacks
+ */
+function feedback_collect_form_cancel($form, &$form_state) {
+  feedback_collect_destroy_form_session();
+  return '';
+}
+
+/**
+ * Implements hook_after_build().
+ *
+ * Hides additional settings in node form,
+ * without getting the content unpublished.
+ */
+function feedback_collect_after_build($form, &$form_state) {
+  $form['path']['#access'] = FALSE;
+  $form['menu']['#access'] = FALSE;
+  return ($form);
+}
+
+/**
+ * Ajax callback after form submit.
+ *
+ * @return array
+ *   An associative array containing:
+ *   - #type: with string value 'ajax'
+ *   - #commands: array of Drupal ajax commands
+ *
+ * @ingroup callbacks
+ */
+function feedback_collect_ajax_form_submit_callback($form, &$form_state) {
+  $content = theme('status_messages');
+
+  if (empty($form_state['node']->nid)) {
+    $content .= drupal_render($form);
+  }
+
+  $commands = feedback_collect_get_callback_commands($content);
+
+  // On successfully added feedback, add command for delayed closing of form.
+  if (!empty($form_state['node']->nid)) {
+    $commands[] = array(
+      'command' => 'feedbackCollectDelayClose',
+    );
+  }
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Ajax callback after canceling.
+ *
+ * @return array
+ *   An associative array with with element '#type' with value ajax and
+ *   element '#commands' giving array of Drupal ajax commands
+ *
+ * @ingroup callbacks
+ */
+function feedback_collect_ajax_form_cancel_callback($form, &$form_state) {
+  $commands = array();
+  $commands[] = array(
+    'command' => 'feedbackCollectCloseForm',
+    'deleteCookie' => TRUE,
+  );
+
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Sets the title of the feedback_collect node.
+ */
+function feedback_collect_node_presave($node) {
+  if ($node->type == 'feedback_collect') {
+    $description = $node->field_fc_description[$node->language][0]['value'];
+    if ($description_stripped = check_plain($description)) {
+      // If description contains more than 60 chars,
+      // strip it at 50 and add dots.
+      if (strlen($description_stripped) > 60) {
+        $node->title = substr($description_stripped, 0, 50) . '...';
+      }
+      else {
+        $node->title = $description_stripped;
+      }
+    }
+    else {
+      watchdog('feedback_collect', 'Wrong description provided', $description, WATCHDOG_ERROR);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_access_records().
+ *
+ * Sets grant ID for content of type 'feedback_collect'.
+ */
+function feedback_collect_node_access_records($node) {
+  if ($node->type == 'feedback_collect') {
+    $grants = array();
+    $grants[] = array(
+      'realm' => 'feedback_collect_access_realm',
+      'gid' => FEEDBACK_COLLECT_ACCESS_REALM_SID,
+      'grant_view' => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority' => 0,
+    );
+    return $grants;
+  }
+}
+
+/**
+ * Implements hook_node_grants().
+ */
+function feedback_collect_node_grants($account, $op) {
+  if ($op == 'view' && $account && user_access('view feedback_collect', $account)) {
+    $grants['feedback_collect_access_realm'] = array(FEEDBACK_COLLECT_ACCESS_REALM_SID);
+  }
+  return (empty($grants) ? array() : $grants);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function feedback_collect_theme() {
+  return array(
+    'feedback_collect_link' => array(
+      'variables' => array(
+        'button_text' => 'Add feedback',
+        'bootstrap_support' => FALSE,
+        'custom_css' => FALSE,
+        'placement' => 2,
+        'margin' => '50px',
+        'icon_support' => FALSE,
+        'icon_classes' => '',
+        'hide_text' => FALSE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Returns readable placement option.
+ *
+ * @param int $key
+ *   Index key of placement option.
+ *
+ * @return string
+ *   Selected string, depending on index key param.
+ */
+function feedback_collect_get_placement_option($key) {
+  $options = array(
+    0 => 'top left',
+    1 => 'top right',
+    2 => 'bottom right',
+    3 => 'bottom left',
+  );
+
+  return $options[$key];
+}
+
+/**
+ * Implements hook_permission().
+ */
+function feedback_collect_permission() {
+  return array(
+    'view feedback_collect' => array(
+      'title' => t('View submitted feedback'),
+    ),
+  );
+}
+
+/**
+ * Returns default options for feedback_collect variable.
+ *
+ * @return array
+ *   Array containing default settings of variables used for feedback_collect.
+ */
+function feedback_collect_get_default_settings() {
+  return array(
+    'anonymous' => variable_get('feedback_collect_settings_anonymous', TRUE),
+    'email' => variable_get('feedback_collect_settings_email', ''),
+    'exclude' => variable_get('feedback_collect_settings_exclude', 'admin/*'),
+    'button_text' => variable_get('feedback_collect_settings_button_text', 'Add feedback'),
+    'bootstrap_support' => variable_get('feedback_collect_settings_bootstrap_support', FALSE),
+    'custom_css' => variable_get('feedback_collect_settings_custom_css', FALSE),
+    'placement' => variable_get('feedback_collect_settings_placement', 2),
+    'margin' => variable_get('feedback_collect_settings_margin', '50px'),
+    'icon_support' => variable_get('feedback_collect_settings_icon_support', FALSE),
+    'icon_classes' => variable_get('feedback_collect_settings_icon_classes', ''),
+    'hide_text' => variable_get('feedback_collect_settings_hide_text', FALSE),
+    'reply_to' => variable_get('feedback_collect_settings_reply_to', FALSE),
+  );
+}
+
+/**
+ * Returns ajax commands to be executed on new form content.
+ *
+ * @param array|mixed $content
+ *   Content to be rendered for the callback.
+ *
+ * @return array
+ *   Array of Drupal Ajax commands.
+ */
+function feedback_collect_get_callback_commands($content) {
+  $bootstrap_support = variable_get('feedback_collect_settings_bootstrap_support', FALSE);
+  $commands = array();
+  $elements = feedback_collect_get_elements();
+  $commands[] = array(
+    'command' => 'feedbackCollectOpenForm',
+    'bootstrapSupport' => $bootstrap_support,
+    'content' => $content,
+  );
+
+  // Focus on first input in form.
+  $commands[] = ajax_command_invoke($elements['wrapper'] . ' :input:visible:first', 'focus', array());
+
+  return $commands;
+}
+
+/**
+ * Prepares variables for field templates.
+ *
+ * Default template: field.tpl.php.
+ *
+ * @see theme_field()
+ */
+function feedback_collect_preprocess_field(&$variables) {
+  // Theme settings for field_fc_feedback_origin.
+  if ($variables['element']['#field_name'] == 'field_fc_feedback_origin' && !empty($variables['items'])) {
+    $variables['items'][0]['#markup'] = feedback_collect_generate_url($variables['items'][0]['#markup']);
+  }
+  // Theme settings for field_fc_browser_info.
+  if ($variables['element']['#field_name'] == 'field_fc_browser_info' && !empty($variables['items'])) {
+    $elements = drupal_json_decode($variables['element']['#items'][0]['value']);
+    if ($elements && is_array($elements)) {
+      $variables['items'][0]['#markup'] = feedback_collect_style_array_value($elements);
+    }
+  }
+}
+
+/**
+ * Returns HTML of an associative array.
+ *
+ * @param array|mixed $array
+ *   Array to be parsed to a readable output.
+ * @param int $level
+ *   Level integer used for classes.
+ *
+ * @return string
+ *   HTML Markup string.
+ */
+function feedback_collect_style_array_value($array, $level = 0) {
+  $return_value = '';
+  foreach ($array as $key => $value) {
+    if (!empty($value)) {
+      $span_value = '<span class="fc-element-label fc-element-level-' . $level . '">';
+
+      if (!is_array($value)) {
+        $return_value .= ('<div class="fc-single-info">' . $span_value . $key . ': </span>' . $value . '</div>');
+      }
+      else {
+        $return_value .= ('<div class="fc-multiple-info">' . $span_value . $key . ': </span>' . feedback_collect_style_array_value($value, $level + 1) . '</div>');
+      }
+    }
+  }
+  return $return_value;
+}
+
+/**
+ * Generates absolute url from given path.
+ *
+ * @param string $page
+ *   Possible page url or path alias.
+ *
+ * @return string
+ *   Returns either link processed with l function or a string that's passed
+ *   to the function.
+ */
+function feedback_collect_generate_url($page) {
+  if ($page != '' && drupal_valid_path($page)) {
+    $page_url = url($page, array('absolute' => TRUE));
+    return l($page_url, $page_url);
+  }
+  return $page;
+}
+
+/**
+ * Set default form values for feedback_collect node form.
+ */
+function feedback_collect_set_form_default_values(&$form, &$form_state) {
+  global $user;
+  $session_data = isset($_SESSION['fc_form']) ? $_SESSION['fc_form'] : FALSE;
+
+  // Define variables to make sure they're set.
+  $description = '';
+  $email = $user->uid ? $user->mail : '';
+  $anonymous = $user->uid ? FALSE : TRUE;
+  $language = $form['field_fc_feedback_origin']['#language'];
+
+  $get_origin = isset($_GET['fc_origin']) ? $_GET['fc_origin'] : '';
+  if (!isset($form_state['values']['field_fc_feedback_origin'])) {
+    $origin = $get_origin;
+    $form_state['values']['field_fc_feedback_origin'][$language][0]['value'] = $origin;
+    $form_state['input']['field_fc_feedback_origin'][$language][0]['value'] = $origin;
+  }
+  else {
+    $origin = $form_state['values']['field_fc_feedback_origin'][$language][0]['value'];
+  }
+
+  $form['field_fc_feedback_origin'][$language][0]['value']['#default_value'] = $origin;
+
+  // Set field_fc_anonymous as a value or as a checkbox field depending on
+  // whether user is logged in or not.
+  $allow_anonymous = variable_get('feedback_collect_settings_anonymous', TRUE);
+
+  if ($session_data) {
+    // Rewrite data from session.
+    // @todo check formats.
+    $s = array();
+    if (isset($session_data['field_fc_feedback_origin'])) {
+      $s['origin'] = $session_data['field_fc_feedback_origin'];
+    }
+
+    if (isset($session_data['field_fc_description']) && !empty($session_data['field_fc_description'])) {
+      $s['description'] = $session_data['field_fc_description'];
+    }
+
+    if (isset($session_data['field_fc_email']) && !empty($session_data['field_fc_email'])) {
+      $s['email'] = $session_data['field_fc_email'];
+    }
+
+    if (isset($session_data['field_fc_anonymous'])) {
+      $s['anonymous'] = $session_data['field_fc_anonymous'];
+    }
+
+    if (!empty($s['description'])) {
+      $form_data = array(
+        'field_fc_feedback_origin' => isset($s['origin']) ? $s['origin'] : $origin,
+        'field_fc_description' => $s['description'],
+        'field_fc_email' => isset($s['email']) ? $s['email'] : $email,
+        'field_fc_anonymous' => isset($s['anonymous']) ? $s['anonymous'] : ($anonymous && $allow_anonymous),
+      );
+
+      drupal_add_js(array('feedbackCollect' => array('formData' => $form_data)), 'setting');
+    }
+  }
+  else {
+    drupal_add_js(array('feedbackCollect' => array('formData' => FALSE)), 'setting');
+  }
+
+  $form['field_fc_description'][$language][0]['value']['#default_value'] = $description;
+
+
+  if ($user->uid) {
+    if ($allow_anonymous) {
+      $form['field_fc_anonymous'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Send feedback entry as anonymous'),
+        '#weight' => $form['field_fc_email']['#weight'] + 1,
+        '#default_value' => $anonymous,
+      );
+    }
+    else {
+      $form['field_fc_email'][LANGUAGE_NONE]['0']['value']['#disabled'] = TRUE;
+      $form['field_fc_email']['#attributes']['style'] = 'display:none';
+    }
+
+    // Hide email input if user checks anonymous submit.
+    $form['field_fc_email']['#states'] = array(
+      'visible' => array(
+        ':input[name=field_fc_anonymous]' => array('checked' => FALSE),
+      ),
+    );
+
+    // Set default value for email if user is logged in.
+    $form['field_fc_email'][$language][0]['value']['#default_value'] = $email;
+  }
+  else {
+    $form['field_fc_anonymous'] = array(
+      '#type' => 'value',
+      '#value' => ($anonymous && $allow_anonymous),
+    );
+    if (!$allow_anonymous) {
+      $form['field_fc_email'][LANGUAGE_NONE]['0']['value']['#required'] = TRUE;
+    }
+  }
+
+  // Allow other modules to alter feedback_collect_set_form_default_values, 
+  // by implementing hook_feedback_collect_set_form_default_values_alter.
+  drupal_alter('feedback_collect_set_form_default_values', $form, $form_state);
+}
+
+/**
+ * Removes session on node submit and on button cancel.
+ */
+function feedback_collect_destroy_form_session() {
+  if (isset($_SESSION['fc_form'])) {
+    unset($_SESSION['fc_form']);
+  }
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function feedback_collect_libraries_info() {
+  $libraries['ua_parser'] = array(
+    'name' => 'ua_parser',
+    'vendor url' => 'https://github.com/faisalman/ua-parser-js',
+    'download url' => 'https://github.com/faisalman/ua-parser-js/archive/master.zip',
+    'files' => array(
+      'js' => array(
+        'src/ua-parser.js',
+      ),
+    ),
+    'version arguments' => array(
+      'file' => 'src/ua-parser.js',
+      // Version v0.7.8.
+      'pattern' => '/v(\d+\.\d+\.\d+)/',
+      'lines' => 2,
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Implements hook_mail().
+ *
+ * Variable $params is an associative array that contains:
+ *   - feedback: Feedback text,
+ *   - email: email of user who has submitted the feedback,
+ *   - link: link to feedback page.
+ */
+function feedback_collect_mail($key, &$message, $params) {
+  if ($key == 'feedback_submitted') {
+    $message['subject'] = 'New feedback submitted';
+    $message['body'] = array();
+    $message['body'][] = t("Feedback text: @feedback", $params);
+    $message['body'][] = t("Reporter's email: @email", $params);
+    $message['body'][] = t("View feedback: @link", $params);
+  }
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function feedback_collect_mail_alter(&$message) {
+  if ($message['id'] == 'feedback_collect_feedback_submitted') {
+    $settings = feedback_collect_get_default_settings();
+    if ($settings['reply_to'] == TRUE && $message['params']['@email'] != 'anonymous') {
+      // Reply-To header is filled with the reporter's email.
+      $message['headers']['Reply-To'] = $message['params']['@email'];
+    }
+  }
+}
+
+/**
+ * Helper function for retrieving used element IDs in module.
+ *
+ * @return array
+ *   An associative array containing:
+ *   - wrapper: Wrapper element ID containing feedback collect form
+ *   - button: Button element ID that triggers form events
+ */
+function feedback_collect_get_elements() {
+  return array(
+    'wrapper' => '#feedbackCollect-form-container',
+    'button' => '#feedbackCollect-open-form',
+  );
+}
+
+/**
+ * Implements hook_init().
+ */
+function feedback_collect_init() {
+
+}

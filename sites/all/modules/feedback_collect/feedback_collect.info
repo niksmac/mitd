@@ -1,0 +1,33 @@
+name = Feedback Collect
+description = Allows users to provide quick feedback
+core = 7.x
+
+configure = admin/config/user-interface/feedback-collect
+
+dependencies[] = features
+dependencies[] = file
+dependencies[] = libraries
+dependencies[] = text
+
+features[features_api][] = api:2
+
+features[field_base][] = field_fc_attachment
+features[field_base][] = field_fc_browser_info
+features[field_base][] = field_fc_description
+features[field_base][] = field_fc_email
+features[field_base][] = field_fc_feedback_origin
+
+features[field_instance][] = node-feedback_collect-field_fc_attachment
+features[field_instance][] = node-feedback_collect-field_fc_browser_info
+features[field_instance][] = node-feedback_collect-field_fc_description
+features[field_instance][] = node-feedback_collect-field_fc_email
+features[field_instance][] = node-feedback_collect-field_fc_feedback_origin
+
+features[node][] = feedback_collect
+
+; Information added by Drupal.org packaging script on 2017-06-15
+version = "7.x-1.5"
+core = "7.x"
+project = "feedback_collect"
+datestamp = "1497537849"
+
