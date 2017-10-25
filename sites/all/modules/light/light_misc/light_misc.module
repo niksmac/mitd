@@ -46,6 +46,7 @@ function mitd_nid($uid, $op_nid) {
 
 	function light_misc_form_alter(&$form, &$form_state, $form_id) {
 					//print_r($form_id);exit;
+		//print_r($form);exit;
 		global $user;
 		switch ($form_id) {
 			case "contact_site_form":
@@ -77,6 +78,12 @@ function mitd_nid($uid, $op_nid) {
 				$form['#validate'][] = 'light_misc_registersibmit';
 				break;
 			case 'feedback_collect_node_form':
+			//sprint_r($form);exit;
+			$form['from'] = array(
+			  '#type' => 'item',
+			  '#weight' => -10,
+			  '#markup' => '<h2>Feedback</h2>',
+			);
 				$form['#submit'][] = 'light_misc_feedbackform_submit';
 				break;	
 			case 'views_exposed_form':
