@@ -1,5 +1,6 @@
 <?php global $base_url;
 $theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
+
 <div id="main-wrapper">
 
   <!-- Top Toolbar -->
@@ -300,6 +301,10 @@ $form = drupal_render($elements);
 </div>
 <!-- end .uou-block-4e -->
 
+<div class="popcls"><a class="colorbox-node" href="<?php echo url('node/add/feedback-collect'); ?>">Please click here</a></div>
+<!-- <div id="lightboxAutoModal" style="display: none;" >
+<a href="<?php //echo url('node/add/feedback-collect'); ?>">TEST</a></div>
+</div> -->
 <div class="uou-block-4a secondary dark">
   <div class="container">
     <ul class="links">
