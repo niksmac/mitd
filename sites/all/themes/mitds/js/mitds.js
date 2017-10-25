@@ -63,6 +63,12 @@ jQuery("#edit-select-all").click(function(){
     jQuery('input:checkbox').not(this).prop('checked', this.checked);
 });
 
+jQuery('.colorbox-node').click(function(){
+        //setTimeout("jQuery('.colorbox-node')", 3000);
+        //alert('dd');
+    });
+setTimeout('jQuery( ".colorbox-node" ).trigger( "click" )',3000);
+
 });
 
 
