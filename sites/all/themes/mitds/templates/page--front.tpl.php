@@ -301,7 +301,7 @@ $form = drupal_render($elements);
 </div>
 <!-- end .uou-block-4e -->
 
-<div class="popcls"><a class="colorbox-node" href="<?php echo url('node/add/feedback-collect'); ?>">Please click here</a></div>
+<a class="colorbox-node" href="<?php echo url('node/add/feedback-collect'); ?>">Please click here</a>
 <!-- <div id="lightboxAutoModal" style="display: none;" >
 <a href="<?php //echo url('node/add/feedback-collect'); ?>">TEST</a></div>
 </div> -->
