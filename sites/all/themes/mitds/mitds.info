@@ -30,11 +30,8 @@ stylesheets[all][] = css/main-style.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/mitd.css
 
-
-
 scripts[] = js/plugins/superfish.min.js
-scripts[] = js/plugins/rangeslider.min.js
-scripts[] = js/plugins/jquery.flexslider-min.js
+scripts[] = js/jquery.idle.min.js
 scripts[] = js/uou-accordions.js
 scripts[] = js/plugins/select2.min.js
 scripts[] = js/owl.carousel.min.js
