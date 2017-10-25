@@ -76,6 +76,9 @@ function mitd_nid($uid, $op_nid) {
 			case 'user_profile_form':
 				$form['#validate'][] = 'light_misc_registersibmit';
 				break;
+			case 'feedback_collect_node_form':
+				$form['#submit'][] = 'light_misc_feedbackform_submit';
+				break;	
 			case 'views_exposed_form':
 			$view = $form_state['view'];
 			if ($view->name == 'bulletin_board' && $view->current_display == 'page') {
@@ -108,30 +111,33 @@ function mitd_nid($uid, $op_nid) {
 		}
 	}
     
-function light_misc_mail($key, &$message, $params){
-  $headers = array(
-    'MIME-Version' => '1.0',
-    'Content-Type' => 'text/html; charset=UTF-8;',
-    'Content-Transfer-Encoding' => '8Bit',
-    'X-Mailer' => 'Drupal'
-    );
+	function light_misc_mail($key, &$message, $params){
+	  $headers = array(
+	    'MIME-Version' => '1.0',
+	    'Content-Type' => 'text/html; charset=UTF-8;',
+	    'Content-Transfer-Encoding' => '8Bit',
+	    'X-Mailer' => 'Drupal'
+	    );
 
-  foreach ($headers as $k => $value) {
-    $message['headers'][$k] = $value;
-  }
-  switch ($key) {
-  	case 'domainnotification':
-      $message['subject'] = $params['subject'];
-      $message['body'] = $params['body'];
-    break;
-  }
+	  foreach ($headers as $k => $value) {
+	    $message['headers'][$k] = $value;
+	  }
+	  switch ($key) {
+	  	case 'domainnotification':
+	      $message['subject'] = $params['subject'];
+	      $message['body'] = $params['body'];
+	    break;
+	  }
 
-}
+	}
 
     function light_misc_login_form_submit($form, &$form_state) {
         $_GET['destination'] = 'user';
     }
 
+    function light_misc_feedbackform_submit($form, &$form_state) {
+    	$_GET['destination'] = 'http://192.168.27.100/makeitdeals/';
+    }
 
 	function light_misc_opportunity_validation(&$form, &$form_state){
 
