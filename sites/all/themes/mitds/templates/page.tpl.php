@@ -1,5 +1,6 @@
 <?php global $base_url;
 $theme_path = $base_url . '/' . drupal_get_path('theme', 'mitds');?>
+
 <div id="main-wrapper">
 
   <!-- Top Toolbar -->
