@@ -693,3 +693,6 @@ thead a {
 .colorbox-node{
   display: none;
 }
+.feedbackCollect-container {
+  display: none;
+}
