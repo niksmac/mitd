@@ -1,3 +1,8 @@
+<?php if ($header): ?>
+        <div class="view-header">
+          <?php print $header;?>
+        </div>
+      <?php endif;?>
 <?php if ($rows): ?>
 <div class="profile"<?php print $attributes;?>>
   <div class="row">
@@ -6,11 +11,6 @@
       <div class="view-filters">
       <?php print $exposed;?>
       </div>
-      <?php endif;?>
-      <?php if ($header): ?>
-        <div class="view-header">
-          <?php print $header;?>
-        </div>
       <?php endif;?>
     </div>
   </div>
