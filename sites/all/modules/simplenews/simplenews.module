@@ -768,20 +768,20 @@ function _simplenews_node_form(&$form, $form_state) {
     }
   }
 
-  if (module_exists('token')) {
-    $form['simplenews_token_help'] = array(
-      '#title' => t('Replacement patterns'),
-      '#type' => 'fieldset',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-      '#description' => t('These tokens can be used in all text fields except subject and will be replaced on-screen and in the email.'),
-    );
+  // if (module_exists('token')) {
+  //   $form['simplenews_token_help'] = array(
+  //     '#title' => t('Replacement patterns'),
+  //     '#type' => 'fieldset',
+  //     '#collapsible' => TRUE,
+  //     '#collapsed' => TRUE,
+  //     '#description' => t('These tokens can be used in all text fields except subject and will be replaced on-screen and in the email.'),
+  //   );
 
-    $form['simplenews_token_help']['browser'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => array('simplenews-category', 'simplenews-subscriber', 'node'),
-    );
-  }
+  //   $form['simplenews_token_help']['browser'] = array(
+  //     '#theme' => 'token_tree',
+  //     '#token_types' => array('simplenews-category', 'simplenews-subscriber', 'node'),
+  //   );
+  // }
 }
 
 /**
