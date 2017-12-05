@@ -548,10 +548,10 @@ function simplenews_admin_category_form($form, &$form_state, $edit = array()) {
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
-    $form['simplenews_subject']['token_help']['browser'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => array('simplenews-category', 'node', 'simplenews-subscriber'),
-    );
+    // $form['simplenews_subject']['token_help']['browser'] = array(
+    //   '#theme' => 'token_tree',
+    //   '#token_types' => array('simplenews-category', 'node', 'simplenews-subscriber'),
+    // );
   }
 
   $form['simplenews_subject']['email_subject'] = array(
@@ -1439,10 +1439,10 @@ function simplenews_admin_settings_subscription($form, &$form_state) {
       '#collapsed' => TRUE,
     );
 
-    $form['subscription_mail']['token_help']['browser'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => array('simplenews-category', 'simplenews-subscriber'),
-    );
+    // $form['subscription_mail']['token_help']['browser'] = array(
+    //   '#theme' => 'token_tree',
+    //   '#token_types' => array('simplenews-category', 'simplenews-subscriber'),
+    // );
   }
 
   $form['subscription_mail']['single'] = array(
