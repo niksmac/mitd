@@ -696,3 +696,6 @@ thead a {
 .feedbackCollect-container {
   display: none;
 }
+.listing-heading h5{
+  font-size: 16px;
+}
