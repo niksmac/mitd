@@ -188,13 +188,20 @@ function mitd_nid($uid, $op_nid) {
 
 		$values = $form_state['values'];
 
+        if(preg_match('/[^-]+$/', $values['field_mobile']['und'][0]['value'], $match)){
+
+        }
+		    
+		if($match[0] == '' || !is_numeric($match[0])){
+		  form_set_error('field_mobile', t('Enter a valid mobile number.'));
+        }
+
 		$domain = explode('@', $values['mail']);
 		$exist = db_select('users', 'us')
         		->fields('us')
         		->condition('mail', '%' . db_like($domain[1]) . '%', 'LIKE')
         		->execute()
         		->rowCount();
-
 		if ($exist) {
 		    $subject = 'Email id with same domain name';
 		    $module = 'light_misc';
@@ -214,7 +221,6 @@ function mitd_nid($uid, $op_nid) {
 
 		if( isset($values['field_mobile']) ){
 			$mobno = $values['field_mobile']['und'][0]['value'];
-
 			if (strpos($mobno, "-") <= 0){
 				form_set_error('field_mobile', t('Invalid phone number. hyphen(-) needed after country code'));
 			}
@@ -233,6 +239,7 @@ function mitd_nid($uid, $op_nid) {
    			{
      			form_set_error('name', t('Please enter alphabets only for Last Name.'));
    			}
+
    			if($form['form_id']['#value'] == 'user_register_form') { 
 	   			if ($values['locations'][0]['postal_code'] != '' && !is_numeric($values['locations'][0]['postal_code'])) {
 	      			form_set_error('title', t('Postal code must be numeric only'));
