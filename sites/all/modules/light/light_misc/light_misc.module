@@ -146,7 +146,7 @@ function mitd_nid($uid, $op_nid) {
     }
 
     function light_misc_feedbackform_submit($form, &$form_state) {
-    	$_GET['destination'] = 'http://makeitdeals.com';
+    	$_GET['destination'] = 'http://staging.makeitdeals.com';
     }
 
 	function light_misc_opportunity_validation(&$form, &$form_state){
