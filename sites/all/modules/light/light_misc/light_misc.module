@@ -46,7 +46,7 @@ function mitd_nid($uid, $op_nid) {
 
 	function light_misc_form_alter(&$form, &$form_state, $form_id) {
 					//print_r($form_id);exit;
-		//print_r($form);exit;
+		//int_r($form_state);exit;
 		global $user;
 		switch ($form_id) {
 			case "contact_site_form":
@@ -74,14 +74,13 @@ function mitd_nid($uid, $op_nid) {
 				);
 			$form['#validate'][] = 'light_misc_registersibmit';
 			break;
-			case 'user_profile_form':
+			case 'user_profile_form':            		
 				$form['#validate'][] = 'light_misc_registersibmit';
 				break;
 			case 'project_node_form':
 				unset($form['actions']['preview']);
 				break;
 			case 'feedback_collect_node_form':
-			//sprint_r($form);exit;
 			$form['from'] = array(
 			  '#type' => 'item',
 			  '#weight' => -10,
@@ -90,6 +89,7 @@ function mitd_nid($uid, $op_nid) {
 				$form['#submit'][] = 'light_misc_feedbackform_submit';
 				break;	
 			case 'views_exposed_form':
+			//print_r($form);exit;
 			$view = $form_state['view'];
 			if ($view->name == 'bulletin_board' && $view->current_display == 'page') {
 				$result = views_get_view_result('user_listing','block');
@@ -116,6 +116,11 @@ function mitd_nid($uid, $op_nid) {
 				$form['uid']['#description'] = "Select partner name from the list";
 				$form['uid']['#options'] = $options_1;
 			}
+			if($form['#id'] == 'views-exposed-form-tenders-list-page') {
+				$form['field_start_date_value']['value']['#date_format'] = 'm/d/Y';
+				$form['field_closing_date_value']['value']['#date_format'] = 'm/d/Y';
+			}
+
 			break;
 
 		}
