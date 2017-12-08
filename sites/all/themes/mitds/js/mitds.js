@@ -1,3 +1,4 @@
+// jshint ignore: start
 jQuery( document ).ready(function() {
 
   if (jQuery.fn.superfish) {
@@ -39,6 +40,12 @@ jQuery( document ).ready(function() {
 jQuery("#edit-select-all").click(function(){
   console.log("hh")
     jQuery('input:checkbox').not(this).prop('checked', this.checked);
+});
+
+jQuery( document ).ready(function() {
+  jQuery(".panel-body .form-checkboxes input[class='form-checkbox']").click(function(){ 
+    jQuery("#edit-submit").css("background-color","#808080");
+  });
 });
 
 jQuery(document).idle({
