@@ -43,9 +43,12 @@ jQuery("#edit-select-all").click(function(){
 });
 
 jQuery( document ).ready(function() {
-  jQuery(".panel-body .form-checkboxes input[class='form-checkbox']").click(function(){ 
+  //jQuery(".panel-body .form-checkboxes input[class='form-checkbox']").click(function(){ 
+    if(jQuery('.panel-body .form-checkboxes [type="checkbox"]').is(":checked")){
+      console.log("sd")
     jQuery("#edit-submit").css("background-color","#808080");
-  });
+  //});
+}
 });
 
 jQuery(document).idle({
