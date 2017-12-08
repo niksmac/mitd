@@ -699,3 +699,6 @@ thead a {
 .listing-heading h5{
   font-size: 16px;
 }
+#edit-field-closing-date-value-value{
+  margin-left: -44px;
+}
