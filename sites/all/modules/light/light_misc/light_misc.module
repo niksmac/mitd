@@ -74,8 +74,8 @@ function mitd_nid($uid, $op_nid) {
 				);
 			$form['#validate'][] = 'light_misc_registersibmit';
 			break;
-			case 'user_profile_form':            		
-				$form['#validate'][] = 'light_misc_registersibmit';
+			case 'user_profile_form': 			            		
+				$form['#validate'][] = 'light_misc_profile_submit';
 				break;
 			case 'project_node_form':
 				unset($form['actions']['preview']);
@@ -154,6 +154,10 @@ function mitd_nid($uid, $op_nid) {
     	$_GET['destination'] = 'http://staging.makeitdeals.com';
     }
 
+    function light_misc_profile_submit($form, &$form_state) {
+      
+    }
+
 	function light_misc_opportunity_validation(&$form, &$form_state){
 
 		$values = $form_state['values'];
@@ -192,6 +196,7 @@ function mitd_nid($uid, $op_nid) {
 	function light_misc_registersibmit(&$form, &$form_state) {
 
 		$values = $form_state['values'];
+
 
         if(preg_match('/[^-]+$/', $values['field_mobile']['und'][0]['value'], $match)){
 
@@ -257,6 +262,7 @@ function mitd_nid($uid, $op_nid) {
     	    	$form_state['redirect'] = 'user';
     	    }
 		}
+
 	}
 
 
