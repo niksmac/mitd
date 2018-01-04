@@ -14,6 +14,7 @@ function location_uninstall() {
   variable_del('location_display_location');
   variable_del('location_usegmap');
   variable_del('location_locpick_macro');
+  variable_del('location_enabled_countries');
 
   // Delete geocoder settings.
   db_delete('variable')
