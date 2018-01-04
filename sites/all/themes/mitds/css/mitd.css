@@ -702,3 +702,7 @@ thead a {
 #edit-field-closing-date-value-value{
   margin-left: -44px;
 }
+
+.form-item .form-item-field-closing-date-value-value-date{
+  margin-left: 45px;
+}
