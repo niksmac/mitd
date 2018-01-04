@@ -937,6 +937,8 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
               ),
               location_get_iso3166_list()
             );
+            $options = array_merge(array('' => t('Please select')), location_get_enabled_countries_list());
+
             if (!empty($settings['#parents'])) {
               $wrapper_suffix = '-' . implode('-', $settings['#parents']);
             }
@@ -2257,4 +2259,22 @@ function location_google_geocode_accuracy_codes() {
     8 => t('Address level accuracy'),
     9 => t('Premise (building name, property name, shopping center, etc.) level accuracy'),
   );
+}
+
+function location_get_enabled_countries_list() {
+  $list = location_get_iso3166_list();
+  $enabled_countries = variable_get('location_enabled_countries', '');
+  if (!empty($enabled_countries)) {
+    $enabled = array_flip(explode(' ', $enabled_countries));
+    foreach ($list as $code => $name) {
+      if (!isset($enabled[$code])) {
+        unset($list[$code]);
+     }
+    }
+    // Add special option: xx - NOT LISTED
+    if (isset($enabled['xx'])) {
+      $list = array_merge(array('xx' => t('NOT LISTED')), $list);
+    }
+  }
+  return $list;
 }
