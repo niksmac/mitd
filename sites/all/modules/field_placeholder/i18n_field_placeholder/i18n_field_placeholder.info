@@ -8,10 +8,9 @@ dependencies[] = i18n_field
 
 files[] = i18n_field_placeholder.test
 
-
-; Information added by drupal.org packaging script on 2013-05-30
-version = "7.x-1.0"
+; Information added by Drupal.org packaging script on 2017-03-07
+version = "7.x-1.1"
 core = "7.x"
 project = "field_placeholder"
-datestamp = "1369930262"
+datestamp = "1488882193"
 

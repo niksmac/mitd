@@ -1,20 +1,29 @@
 <?php
+
 /**
  * @file
- * Test case for multilingual fields.
+ * File that holds multilingual tests for Field placeholder module.
  */
 
+class I18nFieldPlaceholderTestCase extends Drupali18nTestCase {
 
-class i18nFieldPlaceholderTestCase extends Drupali18nTestCase {
-
+  /**
+   * The getInfo() method provides information about the test.
+   *
+   * In order for the test to be run, the getInfo() method needs
+   * to be implemented.
+   */
   public static function getInfo() {
     return array(
       'name' => t('Field placeholder translation'),
       'group' => 'Field placeholder',
-      'description' => t('Field placeholder translation functions')
+      'description' => t('Field placeholder translation functions'),
     );
   }
 
+  /**
+   * Prepares the testing environment.
+   */
   function setUp() {
     parent::setUp('i18n_field', 'i18n_field_placeholder');
     parent::setUpLanguages();
@@ -31,19 +40,19 @@ class i18nFieldPlaceholderTestCase extends Drupali18nTestCase {
   /**
    * Creates a new field through the Field UI.
    *
-   * @param $bundle_path
+   * @param string $bundle_path
    *   Admin path of the bundle that the new field is to be attached to.
-   * @param $initial_edit
+   * @param string $initial_edit
    *   $edit parameter for drupalPost() on the first step ('Manage fields'
    *   screen).
-   * @param $field_edit
+   * @param array $field_edit
    *   $edit parameter for drupalPost() on the second step ('Field settings'
    *   form).
-   * @param $instance_edit
+   * @param array $instance_edit
    *   $edit parameter for drupalPost() on the third step ('Instance settings'
    *   form).
    */
-  function fieldUIAddNewField($bundle_path, $initial_edit, $field_edit = array(), $instance_edit = array()) {
+  protected function fieldUIAddNewField($bundle_path, $initial_edit, $field_edit = array(), $instance_edit = array()) {
     // Use 'test_field' field type by default.
     $initial_edit += array(
       'fields[_add_new_field][type]' => 'test_field',
@@ -53,7 +62,7 @@ class i18nFieldPlaceholderTestCase extends Drupali18nTestCase {
     $field_name = $initial_edit['fields[_add_new_field][field_name]'];
 
     // First step : 'Add new field' on the 'Manage fields' page.
-    $this->drupalPost("$bundle_path/fields",  $initial_edit, t('Save'));
+    $this->drupalPost("$bundle_path/fields", $initial_edit, t('Save'));
     $this->assertRaw(t('These settings apply to the %label field everywhere it is used.', array('%label' => $label)), t('Field settings page was displayed.'));
 
     // Second step : 'Field settings' form.
@@ -72,14 +81,14 @@ class i18nFieldPlaceholderTestCase extends Drupali18nTestCase {
   /**
    * Test the translation of text fields.
    */
-  function testFieldPlaceholderTranslation() {
+  public function testFieldPlaceholderTranslation() {
     $field_name = drupal_strtolower($this->randomName());
     $label = $this->randomName();
     $placeholder = $this->randomName();
 
     $bundle_path1 = 'admin/structure/types/manage/' . $this->hyphen_type;
 
-    //Create a basic text field
+    // Create a basic text field.
     $edit = array(
       'fields[_add_new_field][type]' => 'text',
       'fields[_add_new_field][widget_type]' => 'text_textfield',
@@ -101,11 +110,11 @@ class i18nFieldPlaceholderTestCase extends Drupali18nTestCase {
     // Test untranslated values in default language.
     $this->drupalGet('node/add/' . $this->hyphen_type);
     $this->assertText($label, 'Field label is not translated');
-    $this->assertRaw('placeholder="'. $placeholder, 'Field description is not translated');
+    $this->assertRaw('placeholder="' . $placeholder, 'Field description is not translated');
 
     // Test translated values in secondary language.
     $this->drupalGet($this->secondary_language . '/node/add/' . $this->hyphen_type);
     $this->assertText($label_translation[$this->secondary_language], 'Field label is translated');
-    $this->assertRaw('placeholder="'. $placeholder_translation[$this->secondary_language], 'Field description is translated');
+    $this->assertRaw('placeholder="' . $placeholder_translation[$this->secondary_language], 'Field description is translated');
   }
 }

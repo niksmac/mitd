@@ -25,9 +25,9 @@ features[field_instance][] = node-feedback_collect-field_fc_feedback_origin
 
 features[node][] = feedback_collect
 
-; Information added by Drupal.org packaging script on 2017-06-15
-version = "7.x-1.5"
+; Information added by Drupal.org packaging script on 2017-12-05
+version = "7.x-1.6"
 core = "7.x"
 project = "feedback_collect"
-datestamp = "1497537849"
+datestamp = "1512505391"
 

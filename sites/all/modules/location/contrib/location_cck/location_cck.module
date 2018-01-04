@@ -155,28 +155,29 @@ function location_cck_field_schema($field) {
  * Implement hook_field_insert().
  */
 function location_cck_field_insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if (empty($items)) {
-    return;
-  }
   $criteria = array();
-  // @todo refactoring, code of this function is duplicated in other places in
-  // this module, and could be used in one place, instead of different places.
   if ($entity_type == 'node') {
-    // Store instances of locations by field name and vid.
-    $criteria = array(
-      'genid' => 'cck:' . $field['field_name'] . ':' . $entity->vid,
-      'vid' => $entity->vid,
-      'nid' => $entity->nid,
-    );
+    if (!empty($items)) {
+      // Store instances of locations by field name and vid.
+      $criteria = array(
+        'genid' => 'cck:' . $field['field_name'] . ':' . $entity->vid,
+        'vid' => $entity->vid,
+        'nid' => $entity->nid,
+      );
+      location_save_locations($items, $criteria);
+    }
   }
   elseif ($entity_type == 'user') {
-    // Store instances of locations by field name and vid.
-    $criteria = array(
-      'genid' => 'cck:' . $field['field_name'] . ':' . $entity->uid,
-      'uid' => $entity->uid,
-    );
+    if (!empty($items)) {
+      // Store instances of locations by field name and vid.
+      $criteria = array(
+        'genid' => 'cck:' . $field['field_name'] . ':' . $entity->uid,
+        'uid' => $entity->uid,
+      );
+      location_save_locations($items, $criteria);
+    }
   }
-  else {
+  elseif (!empty($items)) {
     list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
     // Store instances of locations by field name and vid.
     $criteria = array(
@@ -184,8 +185,6 @@ function location_cck_field_insert($entity_type, $entity, $field, $instance, $la
       'vid' => $vid ? $vid : $id,
       'nid' => $id,
     );
-  }
-  if (!empty($criteria)) {
     location_save_locations($items, $criteria);
   }
 }
@@ -428,13 +427,10 @@ function location_cck_field_widget_info() {
 function location_cck_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   if ($field['type'] == 'location') {
     $settings = isset($field['settings']['location_settings']) ? $field['settings']['location_settings'] : array();
-    if (isset($form_state['values'])) {
-      $form_state_field_values = drupal_array_get_nested_value($form_state['values'], $element['#field_parents']);
-    }
 
     // Load location data for existing locations.
-    if ($form_state['rebuild'] && !empty($form_state_field_values[$field['field_name']][$langcode][$delta])) {
-      $location = $form_state_field_values[$field['field_name']][$langcode][$delta];
+    if ($form_state['rebuild'] && !empty($form_state['values'][$field['field_name']][$langcode][$delta])) {
+      $location = $form_state['values'][$field['field_name']][$langcode][$delta];
     }
     elseif (isset($items[$delta]['lid']) && $items[$delta]['lid']) {
       $location = location_load_location($items[$delta]['lid']);
@@ -600,11 +596,7 @@ function location_cck_token_info() {
   $info = array();
 
   // Load all available fields.
-  // In Drupal 7.22 the field_info_field_map() function was added, which is more
-  // memory-efficient in certain cases than field_info_fields().
-  // @see https://drupal.org/node/1915646
-  $field_map_available = version_compare(VERSION, '7.22', '>=');
-  $entities = $field_map_available ? field_info_field_map() : field_info_fields();
+  $entities = field_info_field_map();
 
   // Loop through our fields and remove all but location types.
   foreach ($entities as $key => $value) {
@@ -614,12 +606,13 @@ function location_cck_token_info() {
   }
 
   // If we have location fields available, setup our tokens.
-  if (sizeof($entities)) {
+  if (count($entities)) {
     // Get the available location field names.
     $fields = location_field_names(TRUE);
 
     // Loop through the location fields and setup tokens.
     foreach ($entities as $key => $value) {
+
       $info['tokens']['node'][$key] = array(
         'name' => t('Location field: !field', array('!field' => $key)),
         'description' => t(
@@ -644,6 +637,7 @@ function location_cck_token_info() {
           'description' => t($field_value)
         );
       }
+
     }
   }
 

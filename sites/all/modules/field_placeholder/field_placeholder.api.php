@@ -8,7 +8,7 @@
 /**
  * Define field placeholder supported widgets.
  *
- * @return
+ * @return array
  *   An array whose keys are the widget names and whose value are the widget
  *   item where the placeholder will be attached.
  */
@@ -19,4 +19,3 @@ function hook_field_placeholder_info() {
     'email_textfield' => 'email',
   );
 }
-

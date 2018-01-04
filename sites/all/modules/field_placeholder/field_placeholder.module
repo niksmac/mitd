@@ -14,11 +14,12 @@
 function field_placeholder_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
   if (in_array($form['#instance']['widget']['type'], field_placeholder_get_widget_types())) {
     $form['instance']['placeholder'] = array(
-     '#type' => 'textfield',
-     '#title' => t('Placeholder'),
-     '#description' => t('Placeholder value for this field instance'),
-     '#weight' => -4,
-     '#default_value' => isset($form['#instance']['placeholder']) ? $form['#instance']['placeholder'] : '',
+      '#type' => 'textfield',
+      '#title' => t('Placeholder'),
+      '#maxlength' => 512,
+      '#description' => t('Placeholder value for this field instance'),
+      '#weight' => -4,
+      '#default_value' => isset($form['#instance']['placeholder']) ? $form['#instance']['placeholder'] : '',
     );
   }
 }
@@ -29,36 +30,55 @@ function field_placeholder_form_field_ui_field_edit_form_alter(&$form, &$form_st
 function field_placeholder_field_widget_form_alter(&$element, &$form_state, $context) {
   if (in_array($context['instance']['widget']['type'], field_placeholder_get_widget_types()) &&
       isset($context['instance']['placeholder'])) {
-    $placeholder = field_placeholder_get_widgets($context['instance']['widget']['type']);
+    $placeholder = field_placeholder_get_widget($context['instance']['widget']['type']);
     $instance = module_exists('i18n_field_placeholder') ? i18n_string_object_translate('field_instance', $context['instance']) : $context['instance'];
-    $element[$placeholder]['#attributes']['placeholder'] = check_plain($instance['placeholder']);
+    if ($placeholder) {
+      $element[$placeholder]['#attributes']['placeholder'] = check_plain($instance['placeholder']);
+    } else {
+      $element['#attributes']['placeholder'] = check_plain($instance['placeholder']);
+    }
+
   }
 }
 
 /**
  * Returns information about field widgets from hook_field_placeholder_info().
  *
- * @param $widget_type
- *   (optional) A widget type name. If omitted, all widget types will be
- *   returned.
+ * @return array
+ *   An array containing all the Field placeholder available widgets
+ *   information.
  */
-function field_placeholder_get_widgets($widget_type = NULL) {
-  static $widgets = array();
+function field_placeholder_get_widgets() {
+  $widgets = &drupal_static(__FUNCTION__);
 
-  if (empty($widgets)) {
+  if (!$widgets) {
     $widgets = module_invoke_all('field_placeholder_info');
-  }
-
-  if (isset($widget_type)) {
-    return isset($widgets[$widget_type]) ? $widgets[$widget_type] : FALSE;
+    $widgets = (is_array($widgets)) ? $widgets : array();
   }
 
   return $widgets;
 }
 
 /**
- * Returns an array containing the names of all the
- * placeholder available widgets.
+ * Returns information about a widget_type from hook_field_placeholder_info().
+ *
+ * @param string $widget_type
+ *   (optional) A widget type name. If omitted, all widget types will be
+ *   returned.
+ *
+ * @return string|bool
+ *   Columns name for the required widget if if exists, otherwise returns FALSE.
+ */
+function field_placeholder_get_widget($widget_type) {
+  $widgets = module_invoke_all('field_placeholder_info');
+  return isset($widgets[$widget_type]) ? $widgets[$widget_type] : FALSE;
+}
+
+/**
+ * Returns an array with names of all the placeholder available widgets.
+ *
+ * @return array
+ *   Array containing all the Field placeholder available widgets name.
  */
 function field_placeholder_get_widget_types() {
   $widgets = field_placeholder_get_widgets();
@@ -75,6 +95,7 @@ function field_placeholder_field_placeholder_info() {
     'text_textarea_with_summary' => 'summary',
     'number' => 'value',
     'email_textfield' => 'email',
+    'phone_textfield' => 'value',
+    'taxonomy_autocomplete' => NULL,
   );
 }
-

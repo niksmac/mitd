@@ -32,11 +32,7 @@ function location_menu() {
     'page callback' => '_location_autocomplete',
     'type' => MENU_CALLBACK,
   );
-  $items['location/city/autocomplete'] = array(
-    'access arguments' => array('access content'),
-    'page callback' => '_location_city_autocomplete',
-    'type' => MENU_CALLBACK,
-  );
+
   $items['admin/config/content/location'] = array(
     'title' => 'Location',
     'description' => 'Settings for Location module',
@@ -380,7 +376,7 @@ function _location_process_location($element, $form_state) {
   if (user_access('submit latitude/longitude') && $fsettings['locpick']['collect']) {
     $element['locpick'] = array('#weight' => $fsettings['locpick']['weight']);
 
-    if (location_has_coordinates($fdefaults, FALSE)) {
+    if (location_has_coordinates($defaults, FALSE)) {
       $element['locpick']['current'] = array(
         '#type' => 'fieldset',
         '#title' => t('Current coordinates'),
@@ -389,15 +385,15 @@ function _location_process_location($element, $form_state) {
       $element['locpick']['current']['current_latitude'] = array(
         '#type' => 'item',
         '#title' => t('Latitude'),
-        '#markup' => $fdefaults['latitude'],
+        '#markup' => $defaults['latitude'],
       );
       $element['locpick']['current']['current_longitude'] = array(
         '#type' => 'item',
         '#title' => t('Longitude'),
-        '#markup' => $fdefaults['longitude'],
+        '#markup' => $defaults['longitude'],
       );
       $source = t('Unknown');
-      switch ($fdefaults['source']) {
+      switch ($defaults['source']) {
         case LOCATION_LATLON_USER_SUBMITTED:
           $source = t('User-submitted');
           break;
@@ -845,20 +841,9 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
 
         // @codingStandardsIgnoreStart
         case 'city':
-          drupal_add_js(drupal_get_path('module', 'location') . '/location_autocomplete.js');
-          if (isset($a5['country']) && is_string($a5['country'])) {
-            $country = $a5['country'];
-          }
-          elseif (isset($a5['country']['default']) && is_string($a5['country']['default'])) {
-            $country = $a5['country']['default'];
-          }
-          else {
-            $country = variable_get('site_default_country', 'us');
-          }
           return array(
             '#type' => 'textfield',
             '#title' => t('City'),
-            '#autocomplete_path' => 'location/city/autocomplete/' . $country,
             '#default_value' => $obj,
             '#size' => 64,
             '#maxlength' => 255,
@@ -912,7 +897,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
                 '#type' => 'textfield',
                 '#title' => t('State/Province'),
                 '#autocomplete_path' => 'location/autocomplete/' . $country,
-                '#default_value' => variable_get('location_use_province_abbreviation', 1) ? $obj : location_province_name($country, $obj),
+                '#default_value' => $obj,
                 '#size' => 64,
                 '#maxlength' => 64,
                 '#description' => NULL,
@@ -956,6 +941,7 @@ function location_locationapi(&$obj, $op, $a3 = NULL, $a4 = NULL, $a5 = NULL) {
               '#attributes' => array('class' => array('location_auto_country')),
               '#ajax' => array(
                 'callback' => '_location_country_ajax_callback',
+                'path' => 'system/ajax/' . implode('/', $settings['#parents']),
                 'wrapper' => 'location-dropdown-province-wrapper' . $wrapper_suffix,
                 'effect' => 'fade',
               ),
@@ -1090,61 +1076,6 @@ function location_load_locations($id, $key = 'vid') {
   return $locations;
 }
 
-/**
- * Create a list of City from a given country.
- *
- * Outputs a javascript array in json format.
- * List of cities to return in json format.
- *
- * @param string $country
- *   String. The country code
- * @param string $string
- *   String (optional). The city name typed by user
- */
-function _location_city_autocomplete($country, $string = '') {
-  $string  = strtolower($string);
-  $matches = array();
-
-  if (strpos($country, ',') !== FALSE) {
-    // Multiple countries specified.
-    $country = explode(',', $country);
-    foreach ($country as $c) {
-      $matches = array_merge($matches, location_get_cities($c, $string));
-    }
-  }
-  else {
-    $matches = location_get_cities($country, $string);
-  }
-  drupal_json_output($matches);
-}
-
-/**
- * @param string $country
- *   Two letter ISO country code.
- * @param string $city
- *   City.
- *
- * @return array
- *   Returns an array of matches.
- */
-function location_get_cities($country, $city) {
-  $matches = array();
-  $query = db_select('zipcodes', 'z');
-
-  $result = $query->fields('z', array('city'))
-  ->condition(db_and()
-    ->condition('z.city', "%$city%", 'LIKE')
-    ->condition('country', $country, '='))
-  ->range(0, 20)
-  ->execute();
-
-  foreach ($result as $obj) {
-    $matches[$obj->city] = check_plain($obj->city);
-  }
-  return $matches;
-}
-
-/**
 /**
  * Save associated locations.
  *
@@ -1330,22 +1261,31 @@ function _location_autocomplete($country, $string = '') {
  * All we do here is select the element of the form that will be rebuilt.
  */
 function _location_country_ajax_callback($form, $form_state) {
-  // Country select is the triggering element. Find the province field in the
-  // same location fieldset.
-  $country_field = $form_state['triggering_element'];
-  $location_path = $form_state['triggering_element']['#array_parents'];
-  array_pop($location_path);
-  $location_field = drupal_array_get_nested_value($form, $location_path);
-  if (isset($location_field['province'])) {
-    $province = $location_field['province'];
-
-    // Set new options from triggering element value.
-    $province['#options'] = array('' => t('Select'), 'xx' => t('NOT LISTED')) + location_get_provinces($country_field['#value']);
-
-    return $province;
+  // The isset() checks, ideally, wouldn't ever have to happen because, ideally,
+  // this code would never get called, because, ideally, we wouldn't add an
+  // ajax call to the country field.  Unfortunately, however, there's no easy
+  // way to check whether or not the province is being collected when putting
+  // together the country form element in location_locationapi() when that
+  // function is called with $op == 'field_expand'
+  if (arg(2) == 'locations' && isset($form['locations'][arg(3)]['province'])) {
+    return $form['locations'][arg(3)]['province'];
   }
+  elseif (isset($form[arg(2)][arg(3)][arg(4)])) {
+    if (isset($form[arg(2)][arg(3)][arg(4)]['#entity_type']) && $form[arg(2)][arg(3)][arg(
+        4
+      )]['#entity_type'] == 'field_collection_item'
+    ) {
+      $selected_country_value = $form[arg(2)][arg(3)][arg(4)][arg(5)][arg(6)][arg(7)]['country']['#value'];
+      $form[arg(2)][arg(3)][arg(4)][arg(5)][arg(6)][arg(7)]['province']['#options'] = array(
+          '' => t('Select'),
+          'xx' => t('NOT LISTED')
+        ) + location_get_provinces($selected_country_value);
 
-  return array();
+      return $form[arg(2)][arg(3)][arg(4)][arg(5)][arg(6)][arg(7)]['province'];
+    }
+
+    return $form[arg(2)][arg(3)][arg(4)]['province'];
+  }
 }
 
 /**
@@ -1524,6 +1464,8 @@ function location_save(&$location, $cow = TRUE, $criteria = array()) {
   if (location_is_empty($location, $filled)) {
     // This location was empty, we don't need to continue.
     $location['lid'] = FALSE;
+
+    return FALSE;
   }
 
   $changed = array();
@@ -1535,6 +1477,8 @@ function location_save(&$location, $cow = TRUE, $criteria = array()) {
     else {
       // Unfilled location (@@@ Then how did we get here?)
       $location['lid'] = FALSE;
+
+      return FALSE;
     }
   }
 

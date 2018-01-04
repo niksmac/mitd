@@ -692,10 +692,10 @@ function feedback_collect_style_array_value($array, $level = 0) {
       $span_value = '<span class="fc-element-label fc-element-level-' . $level . '">';
 
       if (!is_array($value)) {
-        $return_value .= ('<div class="fc-single-info">' . $span_value . $key . ': </span>' . $value . '</div>');
+        $return_value .= ('<div class="fc-single-info">' . $span_value . filter_xss($key) . ': </span>' . filter_xss($value) . '</div>');
       }
       else {
-        $return_value .= ('<div class="fc-multiple-info">' . $span_value . $key . ': </span>' . feedback_collect_style_array_value($value, $level + 1) . '</div>');
+        $return_value .= ('<div class="fc-multiple-info">' . $span_value . filter_xss($key) . ': </span>' . feedback_collect_style_array_value($value, $level + 1) . '</div>');
       }
     }
   }
