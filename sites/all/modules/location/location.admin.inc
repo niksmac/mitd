@@ -29,6 +29,16 @@ function location_admin_settings($form, &$form_state) {
       'This will be the country that is automatically selected when a location form is served for a new location.'
     )
   );
+
+   $form['location_enabled_countries'] = array(
+    '#type'           => 'textfield',
+    '#title'          => t('Enabled countries'),
+    '#size'           => 50,
+    '#maxlength'      => 800,
+    '#default_value'  => variable_get('location_enabled_countries', ''),
+   '#description'    => t('Space delimited list of countries codes, which should be included in countries list. Special code: <b>xx</b> means NOT LISTED. Leave field empty if all countries (and xx - NOT LISTED) should be included. Example: <b>xx us ca mx</b>')
+ );
+
   $form['location_display_location'] = array(
     '#type' => 'radios',
     '#title' => t('Toggle location display'),
@@ -439,3 +449,4 @@ function location_util_form_clear_supported_countries_submit() {
   drupal_set_message(t('Location supported country list cleared.'));
   cache_clear_all('location:supported-countries', 'cache_location');
 }
+
